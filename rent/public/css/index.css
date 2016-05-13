@@ -1,0 +1,73 @@
+header {
+    margin: 0;	
+    padding: 0;
+    background-color: #2b7dad;
+    height: 80px;
+    line-height: 80px;
+    width: 100%;
+    color: #fff;
+}
+
+header h1 {
+    margin: 0;
+    padding: 0;
+    float: left;
+    margin-left: 30px;
+}
+
+h1 {
+    display: block;
+    font-size: 2em;
+    -webkit-margin-before: 0.67em;
+    -webkit-margin-after: 0.67em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    font-weight: bold;
+}
+
+.navbar{
+    width: 13%;
+    height: -moz-calc(100% - 80px);
+    height: -webkit-calc(100% - 80px);
+    height: calc(100% - 80px);
+    min-width: 140px;
+    position: absolute;
+    float: left;
+}
+
+.content{
+	margin-left: 13%;
+    width: 87%;
+}
+
+.tipcontent{
+    padding-top: 30px;
+    /* margin-left: 65px; */
+    height: 95px;
+}
+
+.tipcenter{
+    text-align: center;
+}
+
+.tipcenter p {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 35px;
+}
+
+.layui-layer-title{
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #3B95C8;
+}
+
+.layui-layer-btn a {
+    background: #3B95C8;
+    color: #fff;
+}
+
+.layui-layer-dialog .layui-layer-content {
+    text-align: center;
+}
