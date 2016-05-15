@@ -1294,7 +1294,7 @@ h2 {
     border-radius: 1px;
     behavior: url(js/pie.htc);
     display: none;
-    z-index: 111111;
+    z-index: 111;
 }
 
 #addAreaTop {
@@ -1373,6 +1373,434 @@ h2 {
     background: url(../images/inputbg.gif) repeat-x;
     text-indent: 10px;
 }
+
+/*editArea*/
+#editAreaTip {
+    width: 400px;
+    height: 260px;
+    position: absolute;
+    top: 28%;
+    left: 35%;
+    background: #fcfdfd;
+    box-shadow: 1px 8px 10px 1px #9b9b9b;
+    border-radius: 1px;
+    behavior: url(js/pie.htc);
+    display: none;
+    z-index: 111;
+}
+
+#editAreaTop {
+    height: 40px;
+    line-height: 40px;
+    background: url(../images/tcbg.gif) repeat-x;
+    cursor: pointer;
+}
+
+#editAreaTop span {
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    float: left;
+    text-indent: 20px;
+}
+
+#editAreaTop a {
+    display: block;
+    background: url(../images/close.png) no-repeat;
+    width: 22px;
+    height: 22px;
+    float: right;
+    margin-right: 7px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+#editAreaTop a:hover {
+    background: url(../images/close1.png) no-repeat;
+}
+
+#editAreaInfo {
+    padding-top: 30px;
+    margin-left: 65px;
+    height: 95px;
+}
+
+#editAreaInfo p {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 37px;
+}
+
+#editAreaBtn {
+    margin-top: 25px;
+    margin-left: 26%;
+}
+
+#editAreaSure, #editAreaCancel {
+    width: 96px;
+    height: 35px;
+    line-height: 35px;
+    color: #fff;
+    background: url(../images/btnbg1.png) repeat-x;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+#editAreaCancel {
+    background: url(../images/btnbg2.png) repeat-x;
+    color: #000;
+    font-weight: normal;
+}
+
+#editAreaNameInput {
+    width: 270px;
+    height: 32px;
+    line-height: 32px;
+    border-top: solid 1px #a7b5bc;
+    border-left: solid 1px #a7b5bc;
+    border-right: solid 1px #ced9df;
+    border-bottom: solid 1px #ced9df;
+    background: url(../images/inputbg.gif) repeat-x;
+    text-indent: 10px;
+}
+
+/*sureDelete*/
+#sureDeleteTip {
+    width: 400px;
+    height: 260px;
+    position: absolute;
+    top: 28%;
+    left: 35%;
+    background: #fcfdfd;
+    box-shadow: 1px 8px 10px 1px #9b9b9b;
+    border-radius: 1px;
+    behavior: url(js/pie.htc);
+    display: none;
+    z-index: 111;
+}
+
+#sureDeleteTop {
+    height: 40px;
+    line-height: 40px;
+    background: url(../images/tcbg.gif) repeat-x;
+    cursor: pointer;
+}
+
+#sureDeleteTop span {
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    float: left;
+    text-indent: 20px;
+}
+
+#sureDeleteTop a {
+    display: block;
+    background: url(../images/close.png) no-repeat;
+    width: 22px;
+    height: 22px;
+    float: right;
+    margin-right: 7px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+#sureDeleteTop a:hover {
+    background: url(../images/close1.png) no-repeat;
+}
+
+#sureDeleteInfo {
+    padding-top: 55px;
+    /* margin-left: 65px; */
+    height: 95px;
+    text-align: center;
+}
+
+#sureDeleteInfo p {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 37px;
+}
+
+#sureDeleteBtn {
+    /*margin-top: 25px;*/
+    margin-left: 26%;
+}
+
+#sureDeleteSure, #sureDeleteCancel {
+    width: 96px;
+    height: 35px;
+    line-height: 35px;
+    color: #fff;
+    background: url(../images/btnbg1.png) repeat-x;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+#sureDeleteCancel {
+    background: url(../images/btnbg2.png) repeat-x;
+    color: #000;
+    font-weight: normal;
+}
+
+#sureDeleteNameInput {
+    width: 270px;
+    height: 32px;
+    line-height: 32px;
+    border-top: solid 1px #a7b5bc;
+    border-left: solid 1px #a7b5bc;
+    border-right: solid 1px #ced9df;
+    border-bottom: solid 1px #ced9df;
+    background: url(../images/inputbg.gif) repeat-x;
+    text-indent: 10px;
+}
+
+/*addAddress*/
+#addAddressTip {
+    width: 400px;
+    height: 375px;
+    position: absolute;
+    top: 17%;
+    left: 35%;
+    background: #fcfdfd;
+    box-shadow: 1px 8px 10px 1px #9b9b9b;
+    border-radius: 1px;
+    behavior: url(js/pie.htc);
+    display: none;
+    z-index: 111;
+}
+
+#addAddressTop {
+    height: 40px;
+    line-height: 40px;
+    background: url(../images/tcbg.gif) repeat-x;
+    cursor: pointer;
+}
+
+#addAddressTop span {
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    float: left;
+    text-indent: 20px;
+}
+
+#addAddressTop a {
+    display: block;
+    background: url(../images/close.png) no-repeat;
+    width: 22px;
+    height: 22px;
+    float: right;
+    margin-right: 7px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+#addAddressTop a:hover {
+    background: url(../images/close1.png) no-repeat;
+}
+
+#addAddressBtn {
+    margin-top: 25px;
+    margin-left: 26%;
+}
+
+#addAddressSure, #addAddressCancel {
+    width: 96px;
+    height: 35px;
+    line-height: 35px;
+    color: #fff;
+    background: url(../images/btnbg1.png) repeat-x;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+#addAddressCancel {
+    background: url(../images/btnbg2.png) repeat-x;
+    color: #000;
+    font-weight: normal;
+}
+
+#addAddressNameInput {
+    width: 180px;
+    height: 32px;
+    line-height: 32px;
+    border-top: solid 1px #a7b5bc;
+    border-left: solid 1px #a7b5bc;
+    border-right: solid 1px #ced9df;
+    border-bottom: solid 1px #ced9df;
+    background: url(../images/inputbg.gif) repeat-x;
+    text-indent: 10px;
+}
+
+#addAreaOption {
+    width: 182px;
+    height: 32px;
+    line-height: 32px;
+    border-top: solid 1px #a7b5bc;
+    border-left: solid 1px #a7b5bc;
+    border-right: solid 1px #ced9df;
+    border-bottom: solid 1px #ced9df;
+    background: url(../images/inputbg.gif) repeat-x;
+    text-indent: 10px;
+}
+
+#addTurnoverRentInput, #addDiscountRentInput, #addMarketRentInput {
+    width: 180px;
+    height: 32px;
+    line-height: 32px;
+    border-top: solid 1px #a7b5bc;
+    border-left: solid 1px #a7b5bc;
+    border-right: solid 1px #ced9df;
+    border-bottom: solid 1px #ced9df;
+    background: url(../images/inputbg.gif) repeat-x;
+    text-indent: 10px;
+}
+
+.addAddressTable {
+    margin-left: 53px;
+    margin-top: 24px;
+}
+
+.addAddressTable tr {
+    line-height: 46px;
+}
+
+.addAddressTable tr td label {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.lb-area {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/*editAddress*/
+#editAddressTip {
+    width: 400px;
+    height: 375px;
+    position: absolute;
+    top: 17%;
+    left: 35%;
+    background: #fcfdfd;
+    box-shadow: 1px 8px 10px 1px #9b9b9b;
+    border-radius: 1px;
+    behavior: url(js/pie.htc);
+    display: none;
+    z-index: 111;
+}
+
+#editAddressTop {
+    height: 40px;
+    line-height: 40px;
+    background: url(../images/tcbg.gif) repeat-x;
+    cursor: pointer;
+}
+
+#editAddressTop span {
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    float: left;
+    text-indent: 20px;
+}
+
+#editAddressTop a {
+    display: block;
+    background: url(../images/close.png) no-repeat;
+    width: 22px;
+    height: 22px;
+    float: right;
+    margin-right: 7px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+#editAddressTop a:hover {
+    background: url(../images/close1.png) no-repeat;
+}
+
+#editAddressBtn {
+    margin-top: 25px;
+    margin-left: 26%;
+}
+
+#editAddressSure, #editAddressCancel {
+    width: 96px;
+    height: 35px;
+    line-height: 35px;
+    color: #fff;
+    background: url(../images/btnbg1.png) repeat-x;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+#editAddressCancel {
+    background: url(../images/btnbg2.png) repeat-x;
+    color: #000;
+    font-weight: normal;
+}
+
+#editAddressNameInput {
+    width: 180px;
+    height: 32px;
+    line-height: 32px;
+    border-top: solid 1px #a7b5bc;
+    border-left: solid 1px #a7b5bc;
+    border-right: solid 1px #ced9df;
+    border-bottom: solid 1px #ced9df;
+    background: url(../images/inputbg.gif) repeat-x;
+    text-indent: 10px;
+}
+
+#editAreaOption {
+    width: 182px;
+    height: 32px;
+    line-height: 32px;
+    border-top: solid 1px #a7b5bc;
+    border-left: solid 1px #a7b5bc;
+    border-right: solid 1px #ced9df;
+    border-bottom: solid 1px #ced9df;
+    background: url(../images/inputbg.gif) repeat-x;
+    text-indent: 10px;
+}
+
+#editTurnoverRentInput, #editDiscountRentInput, #editMarketRentInput {
+    width: 180px;
+    height: 32px;
+    line-height: 32px;
+    border-top: solid 1px #a7b5bc;
+    border-left: solid 1px #a7b5bc;
+    border-right: solid 1px #ced9df;
+    border-bottom: solid 1px #ced9df;
+    background: url(../images/inputbg.gif) repeat-x;
+    text-indent: 10px;
+}
+
+.editAddressTable {
+    margin-left: 53px;
+    margin-top: 24px;
+}
+
+.editAddressTable tr {
+    line-height: 46px;
+}
+
+.editAddressTable tr td label {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+
 
 /*tools*/
 .toolsli {
@@ -2182,9 +2610,93 @@ h2 {
     text-align: center;
     box-shadow: 0 0 10px #676767;
     display: none;
+    z-index: 222;
 }
 
 #st-content {
     font-size: 1.5em;
     padding: 9%;
+}
+
+/*errorTip*/
+#et-container {
+    width: 150px;
+    height: 50px;
+    position: absolute;
+    top: 49%;
+    left: 46%;
+    background-color: #FF9800;
+    color: white;
+    text-align: center;
+    box-shadow: 0 0 10px #676767;
+    display: none;
+    z-index: 333;
+}
+
+#et-content {
+    font-size: 1.5em;
+    padding: 9%;
+}
+
+/*item*/
+.item {
+    width: 45%;
+    border: 1px solid #cbcbcb;
+    display: inline-block;
+    margin-bottom: 2%;
+    margin-right: 3%;
+}
+
+.item-title {
+    height: 33px;
+    background-color: #3D96C9;
+    color: white;
+}
+
+.item-area {
+    float: left;
+    margin-top: 7px;
+    margin-left: 10px;
+}
+
+.item-top-operation {
+    float: right;
+    margin-top: 7px;
+}
+
+.item-top-operation a {
+    color: white;
+    margin-right: 17px;
+    cursor: pointer;
+}
+
+.item-content {
+
+}
+
+.item-content table {
+
+}
+
+.item-content-th {
+    background-color: #F4F7F8;
+    border-bottom: 1px solid #CCCCCC;
+}
+
+.item-content tr {
+
+}
+
+.item-content tr td {
+    line-height: 35px;
+    text-indent: 11px;
+    border-right: dotted 1px #c7c7c7;
+    width: 2%;
+    text-align: center;
+}
+
+.item-content tr td a {
+    color: #00a4ac;
+    text-decoration: none;
+    cursor: pointer;
 }

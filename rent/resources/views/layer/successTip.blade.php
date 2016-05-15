@@ -1,6 +1,6 @@
 
 <div id="st-container">
-    <span id="st-content">添加成功</span>
+    <span id="st-content">操作成功</span>
 </div>
 
 
