@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Config extends Model
+class HouseholdMsg extends Model
 {
     /**
      * 关联到模型的数据表
      *
      * @var string
      */
-//    protected $table = 'config';
+    protected $table = 'household_msg';
 
 
     /**
@@ -36,8 +36,14 @@ class Config extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'turnover_rent', 'discount_rent', 'market_rent', 'parent_id'
+        'name', 'job_number', 'card_number', 'has_house', 'has_house_time','has_not_house_time','is_dimission','dimission_time','type'
     ];
-    
 
+    /**
+     * 获取住户的租房信息
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function householdHouseMsg(){
+        return $this->hasMany('App\HouseholdHouseMsg','household_id');
+    }
 }

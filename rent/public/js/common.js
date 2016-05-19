@@ -61,14 +61,24 @@ function showErrorTip(content, width, height) {
     }, 700);
 }
 
-
-function deleteItem() {
-    layer.confirm('确定删除 ？', {
-        btn: ['确定', '取消'] //按钮
-    }, function () {
-
-    }, function () {
-        var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
-        parent.layer.close(index);
-    });
+/**
+ * 显示通用提示框
+ * @param title 标题
+ * @param content 内容
+ * @param leftBtnName 左按钮文字
+ * @param leftBtnFun 左按钮点击事件名
+ * @param args 用二维数组传参数，用隐藏的input保存数据
+ */
+function showCommonDialog(title,content,leftBtnName,leftBtnFun,args) {
+    $("#commonTop span").html(title);
+    $("#commonInfo p").html(content);
+    $("#commonSure").val(leftBtnName);
+    $("#commonSure").attr('onclick',leftBtnFun+"()");
+    $("#commonTip").fadeIn(200);
+    for(i = 0 ; i < args.length; i++){
+        $("#"+args[i][0]).remove();
+        var tmp = '';
+        tmp +='<input type="hidden" id="'+args[i][0]+'" value="'+args[i][1]+'">';
+    }
+    $("#commonTip").append(tmp);
 }

@@ -534,11 +534,13 @@ h2 {
 }
 
 .leftmenu dd {
-    background: url(../images/leftmenubg.gif) repeat-x;
+    /*background: url(../images/leftmenubg.gif) repeat-x;*/
+    background-color: #3E97C9;
     line-height: 35px;
     font-weight: bold;
     font-size: 14px;
     border-right: solid 1px #b7d5df;
+    color: white;
 }
 
 .leftmenu dd span {
@@ -565,9 +567,10 @@ h2 {
 
 .menuson li.active {
     position: relative;
-    background: url(../images/libg.png) repeat-x;
+    /*background: url(../images/libg.png) repeat-x;*/
     line-height: 30px;
     color: #fff;
+    background-color: #3EAFE0;
 }
 
 .menuson li cite {
@@ -750,7 +753,7 @@ h2 {
     line-height: 34px;
     border-bottom: solid 1px #b6cad2;
     text-indent: 11px;
-    text-align: left;
+    text-align: center;
 }
 
 .tablelist td {
@@ -2699,4 +2702,98 @@ h2 {
     color: #00a4ac;
     text-decoration: none;
     cursor: pointer;
+}
+
+
+/*common*/
+#commonTip {
+    width: 400px;
+    height: 260px;
+    position: absolute;
+    top: 28%;
+    left: 35%;
+    background: #fcfdfd;
+    box-shadow: 1px 8px 10px 1px #9b9b9b;
+    border-radius: 1px;
+    behavior: url(js/pie.htc);
+    display: none;
+    z-index: 111;
+}
+
+#commonTop {
+    height: 40px;
+    line-height: 40px;
+    background: url(../images/tcbg.gif) repeat-x;
+    cursor: pointer;
+}
+
+#commonTop span {
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    float: left;
+    text-indent: 20px;
+}
+
+#commonTop a {
+    display: block;
+    background: url(../images/close.png) no-repeat;
+    width: 22px;
+    height: 22px;
+    float: right;
+    margin-right: 7px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+#commonTop a:hover {
+    background: url(../images/close1.png) no-repeat;
+}
+
+#commonInfo {
+    padding-top: 55px;
+    /* margin-left: 65px; */
+    height: 95px;
+    text-align: center;
+}
+
+#commonInfo p {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 37px;
+}
+
+#commonBtn {
+    /*margin-top: 25px;*/
+    margin-left: 26%;
+}
+
+#commonSure, #commonCancel {
+    width: 96px;
+    height: 35px;
+    line-height: 35px;
+    color: #fff;
+    background: url(../images/btnbg1.png) repeat-x;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+#commonCancel {
+    background: url(../images/btnbg2.png) repeat-x;
+    color: #000;
+    font-weight: normal;
+}
+
+#commonNameInput {
+    width: 270px;
+    height: 32px;
+    line-height: 32px;
+    border-top: solid 1px #a7b5bc;
+    border-left: solid 1px #a7b5bc;
+    border-right: solid 1px #ced9df;
+    border-bottom: solid 1px #ced9df;
+    background: url(../images/inputbg.gif) repeat-x;
+    text-indent: 10px;
 }

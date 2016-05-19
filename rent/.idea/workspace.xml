@@ -2,25 +2,26 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b4965588-5e6f-46a9-8866-4b3c2bda0895" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Config.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Model/AddressModel.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Model/BaseFormModel.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/libraries/Util/ArrayUtil.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/database/migrations/2016_05_14_105243_create_configs_table.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/views/layer/editAddressDialog.blade.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/views/layer/editAreaDialog.blade.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/views/layer/errorTip.blade.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/views/layer/sureDeleteDialog.blade.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/HouseholdHouseMsg.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/HouseholdManageController.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/database/migrations/2016_05_15_142437_create_household_house_msgs_table.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/css/addHouseHold.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/css/householdList.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/css/jquery.cxcalendar.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/js/addHousehold.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/js/editHousehold.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/js/householdList.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/js/jquery.cxcalendar.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/views/layer/commonDialog.blade.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/views/option/AddHouseholdView.blade.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/views/option/EditHouseholdView.blade.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/views/option/HouseholdListView.blade.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Config.php" afterPath="$PROJECT_DIR$/app/Config.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/EditConfigController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/EditConfigController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/routes.php" afterPath="$PROJECT_DIR$/app/Http/routes.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/autoload.php" afterPath="$PROJECT_DIR$/bootstrap/autoload.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/css/style.css" afterPath="$PROJECT_DIR$/public/css/style.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/common.js" afterPath="$PROJECT_DIR$/public/js/common.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/editConfig.js" afterPath="$PROJECT_DIR$/public/js/editConfig.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/layer/addAddressDialog.blade.php" afterPath="$PROJECT_DIR$/resources/views/layer/addAddressDialog.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/layer/addAreaDialog.blade.php" afterPath="$PROJECT_DIR$/resources/views/layer/addAreaDialog.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/layer/successTip.blade.php" afterPath="$PROJECT_DIR$/resources/views/layer/successTip.blade.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/layouts/banner.blade.php" afterPath="$PROJECT_DIR$/resources/views/layouts/banner.blade.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/option/editConfig.blade.php" afterPath="$PROJECT_DIR$/resources/views/option/editConfig.blade.php" />
     </list>
@@ -48,71 +49,143 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="routes.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/routes.php">
+      <file leaf-file-name="HouseholdManageController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/HouseholdManageController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="14" column="4" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="53" />
+            <state relative-caret-position="69">
+              <caret line="68" column="0" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
+              <folding>
+                <element signature="e#46#67#0#PHP" expanded="true" />
+                <element signature="e#349#450#0#PHP" expanded="false" />
+                <element signature="e#455#1127#0#PHP" expanded="false" />
+                <element signature="e#1133#1234#0#PHP" expanded="false" />
+                <element signature="e#1239#1540#0#PHP" expanded="false" />
+                <element signature="e#1546#1665#0#PHP" expanded="false" />
+                <element signature="e#2584#2639#0#PHP" expanded="false" />
+                <element signature="e#2644#3250#0#PHP" expanded="false" />
+                <element signature="e#3256#3325#0#PHP" expanded="false" />
+                <element signature="e#3330#3575#0#PHP" expanded="false" />
+                <element signature="e#3581#3637#0#PHP" expanded="false" />
+                <element signature="e#3642#6851#0#PHP" expanded="false" />
+                <element signature="e#3756#3976#0#PHP" expanded="false" />
+                <element signature="e#4379#5667#0#PHP" expanded="false" />
+                <element signature="e#6857#6917#0#PHP" expanded="false" />
+                <element signature="e#6922#7221#0#PHP" expanded="false" />
+                <element signature="e#7227#7302#0#PHP" expanded="false" />
+                <element signature="e#7307#8441#0#PHP" expanded="false" />
+                <element signature="e#8447#8517#0#PHP" expanded="false" />
+                <element signature="e#8522#8766#0#PHP" expanded="false" />
+                <element signature="e#8772#8854#0#PHP" expanded="false" />
+                <element signature="e#8859#11441#0#PHP" expanded="false" />
+                <element signature="e#9506#11435#0#PHP" expanded="false" />
+                <element signature="e#10898#11018#0#PHP" expanded="false" />
+                <element signature="e#11372#11435#0#PHP" expanded="false" />
+                <element signature="e#11447#11511#0#PHP" expanded="false" />
+                <element signature="e#11516#12045#0#PHP" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Config.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Config.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="220">
+              <caret line="40" column="4" selection-start-line="40" selection-start-column="4" selection-end-line="40" selection-end-column="4" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EditConfigController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/EditConfigController.php">
+      <file leaf-file-name="HouseholdHouseMsg.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/HouseholdHouseMsg.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="652">
-              <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+            <state relative-caret-position="184">
+              <caret line="57" column="30" selection-start-line="57" selection-start-column="20" selection-end-line="57" selection-end-column="30" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HouseholdMsg.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/HouseholdMsg.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="360">
+              <caret line="47" column="5" selection-start-line="47" selection-start-column="5" selection-end-line="47" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="editHousehold.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/js/editHousehold.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="468">
+              <caret line="101" column="0" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
               <folding>
-                <element signature="e#46#61#0#PHP" expanded="true" />
-                <element signature="e#1141#1569#0#PHP" expanded="false" />
-                <element signature="e#1634#2028#0#PHP" expanded="false" />
-                <element signature="e#2064#2298#0#PHP" expanded="false" />
-                <element signature="e#2840#3574#0#PHP" expanded="false" />
-                <element signature="e#3640#4009#0#PHP" expanded="false" />
-                <element signature="e#4074#4516#0#PHP" expanded="false" />
-                <element signature="e#4568#4895#0#PHP" expanded="false" />
-                <element signature="e#4947#5210#0#PHP" expanded="false" />
+                <element signature="e#14#344#0" expanded="false" />
+                <element signature="n#!!doc;n#addRent#0" expanded="false" />
+                <element signature="n#!!block;n#addRent#0" expanded="false" />
+                <element signature="e#1807#1928#0" expanded="false" />
+                <element signature="n#!!doc;n#changeHouseTimeModel#0" expanded="false" />
+                <element signature="n#!!block;n#changeHouseTimeModel#0" expanded="false" />
+                <element signature="n#!!doc;n#isDimission#0" expanded="false" />
+                <element signature="n#!!block;n#isDimission#0" expanded="false" />
+                <element signature="n#!!doc;n#getAddressByArea#0" expanded="false" />
+                <element signature="n#!!block;n#getAddressByArea#0" expanded="false" />
+                <element signature="n#!!doc;n#checkOutRent#0" expanded="false" />
+                <element signature="n#!!block;n#checkOutRent#0" expanded="false" />
+                <element signature="n#!!doc;n#addSingleRent#0" expanded="false" />
+                <element signature="n#!!block;n#addSingleRent#0" expanded="false" />
+                <element signature="e#4436#5039#0" expanded="false" />
+                <element signature="n#!!doc;n#deleteRent#0" expanded="false" />
+                <element signature="n#!!block;n#deleteRent#0" expanded="false" />
+                <element signature="n#!!block;n#saveChange#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="editConfig.blade.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/resources/views/option/editConfig.blade.php">
+      <file leaf-file-name="EditHouseholdView.blade.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/resources/views/option/EditHouseholdView.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="248">
-              <caret line="50" column="22" selection-start-line="50" selection-start-column="22" selection-end-line="50" selection-end-column="22" />
+            <state relative-caret-position="329">
+              <caret line="45" column="98" selection-start-line="45" selection-start-column="98" selection-end-line="45" selection-end-column="98" />
               <folding>
-                <element signature="e#687#1100#0#HTML" expanded="false" />
-                <element signature="e#1121#2373#0#HTML" expanded="false" />
+                <element signature="e#5043#7211#0#HTML" expanded="false" />
+                <element signature="e#7315#9120#0#HTML" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="editConfig.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/js/editConfig.js">
+      <file leaf-file-name="AddHouseholdView.blade.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/option/AddHouseholdView.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="576">
-              <caret line="132" column="17" selection-start-line="132" selection-start-column="17" selection-end-line="132" selection-end-column="17" />
+            <state relative-caret-position="439">
+              <caret line="100" column="25" selection-start-line="100" selection-start-column="25" selection-end-line="100" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="addHousehold.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/js/addHousehold.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="137">
+              <caret line="138" column="47" selection-start-line="138" selection-start-column="31" selection-end-line="138" selection-end-column="47" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="routes.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/routes.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="171">
+              <caret line="75" column="36" selection-start-line="75" selection-start-column="36" selection-end-line="75" selection-end-column="36" />
               <folding>
-                <element signature="n#!!block;n#showAddArea#0" expanded="false" />
-                <element signature="n#!!block;n#showAddAddress#0" expanded="false" />
-                <element signature="e#228#1045#0" expanded="false" />
-                <element signature="n#!!block;n#addArea#0" expanded="false" />
-                <element signature="n#!!block;n#addAddress#0" expanded="false" />
-                <element signature="e#1802#2356#0" expanded="false" />
-                <element signature="n#!!block;n#showEditAreaDialog#0" expanded="false" />
-                <element signature="n#!!block;n#editArea#0" expanded="false" />
-                <element signature="n#!!block;n#showEditAddressDialog#0" expanded="false" />
-                <element signature="n#!!block;n#editAddress#0" expanded="false" />
-                <element signature="e#6635#7211#0" expanded="false" />
-                <element signature="n#!!block;n#showSureDeleteDialog#0" expanded="false" />
-                <element signature="n#!!block;n#chooseDeleteFMethod#0" expanded="false" />
-                <element signature="n#!!block;n#deleteArea#0" expanded="false" />
-                <element signature="n#!!block;n#deleteAddress#0" expanded="false" />
-                <element signature="e#8174#8642#0" expanded="false" />
+                <element signature="e#563#1486#1#PHP" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -124,6 +197,10 @@
     <commandsHistory>
       <command text="php artisan make:model Config -m" />
       <command text="php artisan migrate" />
+      <command text="php artisan make:model HouseholdMsg -m" />
+      <command text="php artisan make:model HouseholdHouseMsg -m" />
+      <command text="php artisan migrate" />
+      <command text="php artisan make:controller HouseholdManageController" />
     </commandsHistory>
   </component>
   <component name="Git.Settings">
@@ -135,14 +212,12 @@
       <list>
         <option value="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" />
         <option value="$PROJECT_DIR$/database/migrations/2016_05_14_105243_create_configs_table.php" />
-        <option value="$PROJECT_DIR$/app/Config.php" />
         <option value="$PROJECT_DIR$/app/libraries/Util/Message.php" />
         <option value="$PROJECT_DIR$/app/libraries/Util/show.php" />
         <option value="$PROJECT_DIR$/composer.json" />
         <option value="$PROJECT_DIR$/bootstrap/autoload.php" />
         <option value="$PROJECT_DIR$/app/Model/BaseFormModel.php" />
         <option value="$PROJECT_DIR$/app/libraries/Util/ArrayUtil.php" />
-        <option value="$PROJECT_DIR$/public/js/common.js" />
         <option value="$PROJECT_DIR$/app/Model/AddressModel.php" />
         <option value="$PROJECT_DIR$/resources/views/layer/successTip.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/layer/errorTip.blade.php" />
@@ -150,14 +225,31 @@
         <option value="$PROJECT_DIR$/resources/views/layer/editAreaDialog.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/layer/addAddressDialog.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/layer/sureDeleteDialog.php" />
-        <option value="$PROJECT_DIR$/public/css/style.css" />
         <option value="$PROJECT_DIR$/resources/views/layer/sureDeleteDialog.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/layer/editAddressDialog.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/layouts/banner.blade.php" />
-        <option value="$PROJECT_DIR$/app/Http/routes.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/EditConfigController.php" />
         <option value="$PROJECT_DIR$/public/js/editConfig.js" />
+        <option value="$PROJECT_DIR$/resources/views/option/AddHouseholdView.php" />
         <option value="$PROJECT_DIR$/resources/views/option/editConfig.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/EditConfigController.php" />
+        <option value="$PROJECT_DIR$/resources/views/layouts/banner.blade.php" />
+        <option value="$PROJECT_DIR$/public/css/householdList.css" />
+        <option value="$PROJECT_DIR$/public/css/style.css" />
+        <option value="$PROJECT_DIR$/resources/views/layer/commonDialog.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/option/HouseholdListView.blade.php" />
+        <option value="$PROJECT_DIR$/public/js/common.js" />
+        <option value="$PROJECT_DIR$/public/js/householdList.js" />
+        <option value="$PROJECT_DIR$/database/migrations/2016_05_15_141423_create_household_msgs_table.php" />
+        <option value="$PROJECT_DIR$/app/HouseholdMsg.php" />
+        <option value="$PROJECT_DIR$/public/css/addHouseHold.css" />
+        <option value="$PROJECT_DIR$/database/migrations/2016_05_15_142437_create_household_house_msgs_table.php" />
+        <option value="$PROJECT_DIR$/resources/views/option/AddHouseholdView.blade.php" />
+        <option value="$PROJECT_DIR$/public/js/addHousehold.js" />
+        <option value="$PROJECT_DIR$/app/Http/routes.php" />
+        <option value="$PROJECT_DIR$/public/js/editHousehold.js" />
+        <option value="$PROJECT_DIR$/app/Config.php" />
+        <option value="$PROJECT_DIR$/app/HouseholdHouseMsg.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/HouseholdManageController.php" />
+        <option value="$PROJECT_DIR$/resources/views/option/EditHouseholdView.blade.php" />
       </list>
     </option>
   </component>
@@ -268,6 +360,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -426,11 +520,25 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
+              <option name="myItemId" value="database" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="rent" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="rent" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
+              <option name="myItemId" value="database" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="migrations" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -462,18 +570,60 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="libraries" />
+              <option name="myItemId" value="Http" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="rent" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="rent" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Util" />
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Http" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Controllers" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="rent" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="rent" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Http" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Controllers" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Admin" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -483,8 +633,14 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\project\rent\rent\app\Http\Controllers\Admin" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\project\rent\rent\resources\views\layer" />
+      <recent name="D:\project\rent\rent\resources\views\option" />
+      <recent name="D:\project\rent\rent\public\css" />
+      <recent name="D:\project\rent\rent\public\js" />
     </key>
   </component>
   <component name="RunManager" selected="PHP Web Application.xdebug">
@@ -546,19 +702,25 @@
       <workItem from="1463126721285" duration="6777000" />
       <workItem from="1463144104810" duration="7197000" />
       <workItem from="1463213956863" duration="5676000" />
-      <workItem from="1463270280073" duration="26279000" />
+      <workItem from="1463270280073" duration="32096000" />
+      <workItem from="1463379673413" duration="1324000" />
+      <workItem from="1463446821029" duration="6452000" />
+      <workItem from="1463485728278" duration="11041000" />
+      <workItem from="1463524795964" duration="5281000" />
+      <workItem from="1463533147678" duration="25069000" />
+      <workItem from="1463618212629" duration="20938000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="50479000" />
+    <option name="totallyTimeSpent" value="126401000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27155825" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22919819" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -568,12 +730,12 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.47549018" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.501634" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Command Line Tools Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="1.0" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Command Line Tools Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.7761438" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32843137" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -595,166 +757,16 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="29" />
+      <option name="time" value="65" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Config/Repository.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="65">
-          <caret line="48" column="0" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Container/Container.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="101">
-          <caret line="623" column="0" selection-start-line="623" selection-start-column="0" selection-end-line="623" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Database/DatabaseManager.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="65">
-          <caret line="251" column="0" selection-start-line="251" selection-start-column="0" selection-end-line="251" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/composer/ClassLoader.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="65">
-          <caret line="302" column="0" selection-start-line="302" selection-start-column="0" selection-end-line="302" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Foundation/AliasLoader.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="65" column="0" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="101">
-          <caret line="217" column="0" selection-start-line="217" selection-start-column="0" selection-end-line="217" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/BootProviders.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="78">
-          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Providers/AppServiceProvider.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="245">
-          <caret line="20" column="14" selection-start-line="20" selection-start-column="14" selection-end-line="20" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/layouts/app.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2242">
-          <caret line="11" column="42" selection-start-line="11" selection-start-column="42" selection-end-line="11" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/com/jetbrains/php/lang/psi/stubs/data/Core.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="518">
-          <caret line="551" column="9" selection-start-line="551" selection-start-column="9" selection-end-line="551" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/com/jetbrains/php/lang/psi/stubs/data/standard_9.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="63" column="44" selection-start-line="63" selection-start-column="44" selection-end-line="63" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2016_05_14_105243_create_configs_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="508">
-          <caret line="21" column="33" selection-start-line="21" selection-start-column="33" selection-end-line="21" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/User.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="21" column="7" selection-start-line="21" selection-start-column="7" selection-end-line="21" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/com/jetbrains/php/lang/psi/stubs/data/json.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="123" column="15" selection-start-line="123" selection-start-column="15" selection-end-line="123" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Jobs/Job.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4">
-          <caret line="12" column="5" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/libraries/Util/Message.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="16" column="1" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/composer.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="19" column="22" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bootstrap/app.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-360">
-          <caret line="17" column="2" selection-start-line="17" selection-start-column="2" selection-end-line="17" selection-end-column="2" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/libraries/Util/show.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="11" column="16" selection-start-line="11" selection-start-column="16" selection-end-line="11" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Config.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="39" column="6" selection-start-line="39" selection-start-column="6" selection-end-line="39" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/app/libraries/Util/show.php" />
     <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/VerifyCsrfToken.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="79">
           <caret line="141" column="0" selection-start-line="141" selection-start-column="0" selection-end-line="141" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -762,7 +774,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="79">
           <caret line="74" column="0" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -770,7 +781,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="79">
           <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -778,7 +788,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="79">
           <caret line="134" column="0" selection-start-line="134" selection-start-column="0" selection-end-line="134" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -786,7 +795,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-29">
           <caret line="172" column="0" selection-start-line="172" selection-start-column="0" selection-end-line="172" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -794,7 +802,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="79">
           <caret line="119" column="0" selection-start-line="119" selection-start-column="0" selection-end-line="119" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -802,7 +809,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="164">
           <caret line="111" column="0" selection-start-line="111" selection-start-column="0" selection-end-line="111" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -810,7 +816,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="79">
           <caret line="55" column="0" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -818,7 +823,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="92">
           <caret line="40" column="0" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -826,31 +830,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="396">
           <caret line="16" column="1" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/common.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="331">
-          <caret line="56" column="21" selection-start-line="56" selection-start-column="9" selection-end-line="56" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Model/AddressModel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="30" column="22" selection-start-line="30" selection-start-column="22" selection-end-line="30" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Model/BaseFormModel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1476">
-          <caret line="9" column="14" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="14" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -858,7 +837,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="72">
           <caret line="2" column="28" selection-start-line="2" selection-start-column="28" selection-end-line="2" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -866,100 +844,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="72">
           <caret line="2" column="28" selection-start-line="2" selection-start-column="28" selection-end-line="2" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/layer/addAreaDialog.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="1" column="52" selection-start-line="1" selection-start-column="52" selection-end-line="1" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="78">
-          <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/layer/addAddressDialog.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="900">
-          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="387">
-          <caret line="1528" column="21" selection-start-line="1528" selection-start-column="21" selection-end-line="1528" selection-end-column="21" />
-          <folding>
-            <element signature="e#20478#20730#0" expanded="false" />
-            <element signature="e#20744#20859#0" expanded="false" />
-            <element signature="e#20878#20982#0" expanded="false" />
-            <element signature="e#20998#21192#0" expanded="false" />
-            <element signature="e#21214#21270#0" expanded="false" />
-            <element signature="e#21285#21352#0" expanded="false" />
-            <element signature="e#21369#21439#0" expanded="false" />
-            <element signature="e#21453#21500#0" expanded="false" />
-            <element signature="e#21531#21750#0" expanded="false" />
-            <element signature="e#21767#21864#0" expanded="false" />
-            <element signature="e#21884#22168#0" expanded="false" />
-            <element signature="e#22196#22448#0" expanded="false" />
-            <element signature="e#22463#22578#0" expanded="false" />
-            <element signature="e#22598#22702#0" expanded="false" />
-            <element signature="e#22719#22913#0" expanded="false" />
-            <element signature="e#22936#22992#0" expanded="false" />
-            <element signature="e#23008#23075#0" expanded="false" />
-            <element signature="e#23093#23163#0" expanded="false" />
-            <element signature="e#23178#23225#0" expanded="false" />
-            <element signature="e#23258#23477#0" expanded="false" />
-            <element signature="e#23495#23592#0" expanded="false" />
-            <element signature="e#23613#23897#0" expanded="false" />
-            <element signature="e#23929#24181#0" expanded="false" />
-            <element signature="e#24198#24313#0" expanded="false" />
-            <element signature="e#24335#24439#0" expanded="false" />
-            <element signature="e#24458#24652#0" expanded="false" />
-            <element signature="e#24677#24733#0" expanded="false" />
-            <element signature="e#25043#25262#0" expanded="false" />
-            <element signature="e#25282#25379#0" expanded="false" />
-            <element signature="e#25402#25686#0" expanded="false" />
-            <element signature="e#25718#25970#0" expanded="false" />
-            <element signature="e#25987#26102#0" expanded="false" />
-            <element signature="e#26124#26228#0" expanded="false" />
-            <element signature="e#26247#26441#0" expanded="false" />
-            <element signature="e#26466#26522#0" expanded="false" />
-            <element signature="e#26539#26586#0" expanded="false" />
-            <element signature="e#26623#26842#0" expanded="false" />
-            <element signature="e#26862#26959#0" expanded="false" />
-            <element signature="e#26982#27266#0" expanded="false" />
-            <element signature="e#27283#27567#0" expanded="false" />
-            <element signature="e#27635#27919#0" expanded="false" />
-            <element signature="e#27938#27986#0" expanded="false" />
-            <element signature="e#28008#28034#0" expanded="false" />
-            <element signature="e#28065#28112#0" expanded="false" />
-            <element signature="e#28123#28170#0" expanded="false" />
-            <element signature="e#28204#28456#0" expanded="false" />
-            <element signature="e#28474#28589#0" expanded="false" />
-            <element signature="e#28612#28716#0" expanded="false" />
-            <element signature="e#28736#28930#0" expanded="false" />
-            <element signature="e#28956#29012#0" expanded="false" />
-            <element signature="e#29030#29077#0" expanded="false" />
-            <element signature="e#29116#29335#0" expanded="false" />
-            <element signature="e#29356#29453#0" expanded="false" />
-            <element signature="e#29779#30063#0" expanded="false" />
-            <element signature="e#30134#30418#0" expanded="false" />
-            <element signature="e#31237#31334#0" expanded="false" />
-            <marker date="1463310481937" expanded="true" signature="617:641" placeholder="{...}" />
-            <marker date="1463310481937" expanded="false" signature="30438:30486" placeholder="{...}" />
-            <marker date="1463310481937" expanded="false" signature="30509:30535" placeholder="{...}" />
-            <marker date="1463310481937" expanded="false" signature="30567:30614" placeholder="{...}" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -967,7 +851,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="36">
           <caret line="1" column="4" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="52" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -975,7 +858,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
           <caret line="34" column="67" selection-start-line="34" selection-start-column="67" selection-end-line="34" selection-end-column="67" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -983,7 +865,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="97">
           <caret line="740" column="0" selection-start-line="740" selection-start-column="0" selection-end-line="740" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -991,7 +872,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="84">
           <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -999,71 +879,80 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="84">
           <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/jquery.cxcalendar.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/css/jquery.cxcalendar.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Model/BaseFormModel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="30" column="24" selection-start-line="30" selection-start-column="24" selection-end-line="30" selection-end-column="24" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Routing/Router.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/layer/addAreaDialog.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="97">
-          <caret line="1083" column="0" selection-start-line="1083" selection-start-column="0" selection-end-line="1083" selection-end-column="0" />
+        <state relative-caret-position="36">
+          <caret line="1" column="89" selection-start-line="1" selection-start-column="42" selection-end-line="1" selection-end-column="89" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/layer/addAddressDialog.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/layer/sureDeleteDialog.blade.php">
+    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="7" column="16" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="16" />
+        <state relative-caret-position="-1966">
+          <caret line="129" column="33" selection-start-line="129" selection-start-column="33" selection-end-line="129" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/css/householdList.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="2" column="1" selection-start-line="2" selection-start-column="1" selection-end-line="2" selection-end-column="1" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/layouts/banner.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1224">
-          <caret line="34" column="21" selection-start-line="34" selection-start-column="21" selection-end-line="34" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/routes.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="14" column="4" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="53" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/EditConfigController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="652">
-          <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-          <folding>
-            <element signature="e#46#61#0#PHP" expanded="true" />
-            <element signature="e#1141#1569#0#PHP" expanded="false" />
-            <element signature="e#1634#2028#0#PHP" expanded="false" />
-            <element signature="e#2064#2298#0#PHP" expanded="false" />
-            <element signature="e#2840#3574#0#PHP" expanded="false" />
-            <element signature="e#3640#4009#0#PHP" expanded="false" />
-            <element signature="e#4074#4516#0#PHP" expanded="false" />
-            <element signature="e#4568#4895#0#PHP" expanded="false" />
-            <element signature="e#4947#5210#0#PHP" expanded="false" />
-          </folding>
+        <state relative-caret-position="367">
+          <caret line="40" column="49" selection-start-line="40" selection-start-column="32" selection-end-line="40" selection-end-column="49" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/js/editConfig.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="576">
-          <caret line="132" column="17" selection-start-line="132" selection-start-column="17" selection-end-line="132" selection-end-column="17" />
+        <state relative-caret-position="257">
+          <caret line="252" column="1" selection-start-line="252" selection-start-column="1" selection-end-line="252" selection-end-column="1" />
           <folding>
             <element signature="n#!!block;n#showAddArea#0" expanded="false" />
             <element signature="n#!!block;n#showAddAddress#0" expanded="false" />
-            <element signature="e#228#1045#0" expanded="false" />
+            <element signature="e#806#916#0" expanded="false" />
             <element signature="n#!!block;n#addArea#0" expanded="false" />
             <element signature="n#!!block;n#addAddress#0" expanded="false" />
-            <element signature="e#1802#2356#0" expanded="false" />
+            <element signature="n#!!block;n#getAllAreaAndAddress#0" expanded="false" />
             <element signature="n#!!block;n#showEditAreaDialog#0" expanded="false" />
             <element signature="n#!!block;n#editArea#0" expanded="false" />
             <element signature="n#!!block;n#showEditAddressDialog#0" expanded="false" />
@@ -1078,13 +967,342 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/layer/sureDeleteDialog.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/option/editConfig.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="50" column="22" selection-start-line="50" selection-start-column="22" selection-end-line="50" selection-end-column="22" />
+        <state relative-caret-position="-1306">
+          <caret line="43" column="33" selection-start-line="43" selection-start-column="33" selection-end-line="43" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="159">
+          <caret line="2708" column="11" selection-start-line="2708" selection-start-column="11" selection-end-line="2708" selection-end-column="11" />
           <folding>
-            <element signature="e#687#1100#0#HTML" expanded="false" />
-            <element signature="e#1121#2373#0#HTML" expanded="false" />
+            <element signature="e#20568#20820#0" expanded="false" />
+            <element signature="e#20834#20949#0" expanded="false" />
+            <element signature="e#20968#21072#0" expanded="false" />
+            <element signature="e#21088#21282#0" expanded="false" />
+            <element signature="e#21304#21360#0" expanded="false" />
+            <element signature="e#21375#21442#0" expanded="false" />
+            <element signature="e#21459#21529#0" expanded="false" />
+            <element signature="e#21543#21590#0" expanded="false" />
+            <element signature="e#21621#21840#0" expanded="false" />
+            <element signature="e#21857#21954#0" expanded="false" />
+            <element signature="e#22286#22538#0" expanded="false" />
+            <element signature="e#22553#22668#0" expanded="false" />
+            <element signature="e#22688#22792#0" expanded="false" />
+            <element signature="e#22809#23003#0" expanded="false" />
+            <element signature="e#23026#23082#0" expanded="false" />
+            <element signature="e#23098#23165#0" expanded="false" />
+            <element signature="e#23183#23253#0" expanded="false" />
+            <element signature="e#23268#23315#0" expanded="false" />
+            <element signature="e#23348#23567#0" expanded="false" />
+            <element signature="e#23585#23682#0" expanded="false" />
+            <element signature="e#23703#23987#0" expanded="false" />
+            <element signature="e#24019#24271#0" expanded="false" />
+            <element signature="e#24288#24403#0" expanded="false" />
+            <element signature="e#24425#24529#0" expanded="false" />
+            <element signature="e#24548#24742#0" expanded="false" />
+            <element signature="e#24767#24823#0" expanded="false" />
+            <element signature="e#24841#24938#0" expanded="false" />
+            <element signature="e#24958#25028#0" expanded="false" />
+            <element signature="e#25045#25096#0" expanded="false" />
+            <element signature="e#25133#25352#0" expanded="false" />
+            <element signature="e#25372#25469#0" expanded="false" />
+            <element signature="e#25492#25776#0" expanded="false" />
+            <element signature="e#25808#26060#0" expanded="false" />
+            <element signature="e#26077#26192#0" expanded="false" />
+            <element signature="e#26214#26318#0" expanded="false" />
+            <element signature="e#26337#26531#0" expanded="false" />
+            <element signature="e#26556#26612#0" expanded="false" />
+            <element signature="e#26629#26676#0" expanded="false" />
+            <element signature="e#26713#26932#0" expanded="false" />
+            <element signature="e#26952#27049#0" expanded="false" />
+            <element signature="e#27072#27356#0" expanded="false" />
+            <element signature="e#27373#27657#0" expanded="false" />
+            <element signature="e#28213#28260#0" expanded="false" />
+            <element signature="e#28294#28546#0" expanded="false" />
+            <element signature="e#28564#28679#0" expanded="false" />
+            <element signature="e#28702#28806#0" expanded="false" />
+            <element signature="e#28826#29020#0" expanded="false" />
+            <element signature="e#29046#29102#0" expanded="false" />
+            <element signature="e#29120#29167#0" expanded="false" />
+            <element signature="e#29206#29425#0" expanded="false" />
+            <element signature="e#29446#29543#0" expanded="false" />
+            <element signature="e#29869#30153#0" expanded="false" />
+            <element signature="e#30224#30508#0" expanded="false" />
+            <element signature="e#30528#30576#0" expanded="false" />
+            <element signature="e#30599#30625#0" expanded="false" />
+            <element signature="e#30657#30704#0" expanded="false" />
+            <element signature="e#31327#31424#0" expanded="false" />
+            <element signature="e#44981#45233#0" expanded="false" />
+            <element signature="e#45246#45361#0" expanded="false" />
+            <element signature="e#45379#45483#0" expanded="false" />
+            <element signature="e#45498#45692#0" expanded="false" />
+            <element signature="e#45713#45769#0" expanded="false" />
+            <element signature="e#45783#45880#0" expanded="false" />
+            <element signature="e#45896#45966#0" expanded="false" />
+            <element signature="e#45979#46030#0" expanded="false" />
+            <element signature="e#46059#46278#0" expanded="false" />
+            <element signature="e#46294#46391#0" expanded="false" />
+            <element signature="e#46410#46694#0" expanded="false" />
+            <marker date="1463636973799" expanded="true" signature="617:641" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/layer/commonDialog.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="6" column="10" selection-start-line="6" selection-start-column="10" selection-end-line="6" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/option/HouseholdListView.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="51" column="124" selection-start-line="51" selection-start-column="124" selection-end-line="51" selection-end-column="124" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/householdList.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="18" column="41" selection-start-line="18" selection-start-column="41" selection-end-line="18" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/common.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="295">
+          <caret line="76" column="4" selection-start-line="76" selection-start-column="4" selection-end-line="76" selection-end-column="32" />
+          <folding>
+            <element signature="e#14#986#0" expanded="false" />
+            <element signature="n#!!doc;n#showSuccessTip#0" expanded="false" />
+            <element signature="n#!!block;n#showSuccessTip#0" expanded="false" />
+            <element signature="n#!!doc;n#showErrorTip#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Routing/Router.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="1083" column="0" selection-start-line="1083" selection-start-column="0" selection-end-line="1083" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2016_05_15_141423_create_household_msgs_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="385">
+          <caret line="24" column="74" selection-start-line="24" selection-start-column="74" selection-end-line="24" selection-end-column="74" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/css/addHouseHold.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="256">
+          <caret line="36" column="34" selection-start-line="36" selection-start-column="34" selection-end-line="36" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2016_05_14_105243_create_configs_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="16" column="37" selection-start-line="16" selection-start-column="37" selection-end-line="16" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Model/AddressModel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="86">
+          <caret line="27" column="20" selection-start-line="27" selection-start-column="20" selection-end-line="27" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2016_05_15_142437_create_household_house_msgs_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="799">
+          <caret line="25" column="11" selection-start-line="25" selection-start-column="11" selection-end-line="25" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/option/AddHouseholdView.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="439">
+          <caret line="100" column="25" selection-start-line="100" selection-start-column="25" selection-end-line="100" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/addHousehold.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="137">
+          <caret line="138" column="47" selection-start-line="138" selection-start-column="31" selection-end-line="138" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/routes.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="75" column="36" selection-start-line="75" selection-start-column="36" selection-end-line="75" selection-end-column="36" />
+          <folding>
+            <element signature="e#563#1486#1#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/EditConfigController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="598">
+          <caret line="111" column="0" selection-start-line="111" selection-start-column="0" selection-end-line="111" selection-end-column="0" />
+          <folding>
+            <element signature="e#348#476#0#PHP" expanded="false" />
+            <element signature="e#481#1266#0#PHP" expanded="false" />
+            <element signature="e#1272#1294#0#PHP" expanded="false" />
+            <element signature="e#1299#1747#0#PHP" expanded="false" />
+            <element signature="e#1753#1807#0#PHP" expanded="false" />
+            <element signature="e#1812#2236#0#PHP" expanded="false" />
+            <element signature="e#2242#2267#0#PHP" expanded="false" />
+            <element signature="e#2272#2506#0#PHP" expanded="false" />
+            <element signature="e#2512#2574#0#PHP" expanded="false" />
+            <element signature="e#2579#3009#0#PHP" expanded="false" />
+            <element signature="e#3015#3043#0#PHP" expanded="false" />
+            <element signature="e#3048#3782#0#PHP" expanded="false" />
+            <element signature="e#3788#3843#0#PHP" expanded="false" />
+            <element signature="e#3848#4217#0#PHP" expanded="false" />
+            <element signature="e#4223#4277#0#PHP" expanded="false" />
+            <element signature="e#4282#4724#0#PHP" expanded="false" />
+            <element signature="e#4730#4771#0#PHP" expanded="false" />
+            <element signature="e#4776#5103#0#PHP" expanded="false" />
+            <element signature="e#5109#5150#0#PHP" expanded="false" />
+            <element signature="e#5155#5418#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/editHousehold.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="468">
+          <caret line="101" column="0" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
+          <folding>
+            <element signature="e#14#344#0" expanded="false" />
+            <element signature="n#!!doc;n#addRent#0" expanded="false" />
+            <element signature="n#!!block;n#addRent#0" expanded="false" />
+            <element signature="e#1807#1928#0" expanded="false" />
+            <element signature="n#!!doc;n#changeHouseTimeModel#0" expanded="false" />
+            <element signature="n#!!block;n#changeHouseTimeModel#0" expanded="false" />
+            <element signature="n#!!doc;n#isDimission#0" expanded="false" />
+            <element signature="n#!!block;n#isDimission#0" expanded="false" />
+            <element signature="n#!!doc;n#getAddressByArea#0" expanded="false" />
+            <element signature="n#!!block;n#getAddressByArea#0" expanded="false" />
+            <element signature="n#!!doc;n#checkOutRent#0" expanded="false" />
+            <element signature="n#!!block;n#checkOutRent#0" expanded="false" />
+            <element signature="n#!!doc;n#addSingleRent#0" expanded="false" />
+            <element signature="n#!!block;n#addSingleRent#0" expanded="false" />
+            <element signature="e#4436#5039#0" expanded="false" />
+            <element signature="n#!!doc;n#deleteRent#0" expanded="false" />
+            <element signature="n#!!block;n#deleteRent#0" expanded="false" />
+            <element signature="n#!!block;n#saveChange#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="78">
+          <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="40" column="4" selection-start-line="40" selection-start-column="4" selection-end-line="40" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/HouseholdHouseMsg.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="57" column="30" selection-start-line="57" selection-start-column="20" selection-end-line="57" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/HouseholdMsg.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="47" column="5" selection-start-line="47" selection-start-column="5" selection-end-line="47" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/HouseholdManageController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="69">
+          <caret line="68" column="0" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
+          <folding>
+            <element signature="e#46#67#0#PHP" expanded="true" />
+            <element signature="e#349#450#0#PHP" expanded="false" />
+            <element signature="e#455#1127#0#PHP" expanded="false" />
+            <element signature="e#1133#1234#0#PHP" expanded="false" />
+            <element signature="e#1239#1540#0#PHP" expanded="false" />
+            <element signature="e#1546#1665#0#PHP" expanded="false" />
+            <element signature="e#2584#2639#0#PHP" expanded="false" />
+            <element signature="e#2644#3250#0#PHP" expanded="false" />
+            <element signature="e#3256#3325#0#PHP" expanded="false" />
+            <element signature="e#3330#3575#0#PHP" expanded="false" />
+            <element signature="e#3581#3637#0#PHP" expanded="false" />
+            <element signature="e#3642#6851#0#PHP" expanded="false" />
+            <element signature="e#3756#3976#0#PHP" expanded="false" />
+            <element signature="e#4379#5667#0#PHP" expanded="false" />
+            <element signature="e#6857#6917#0#PHP" expanded="false" />
+            <element signature="e#6922#7221#0#PHP" expanded="false" />
+            <element signature="e#7227#7302#0#PHP" expanded="false" />
+            <element signature="e#7307#8441#0#PHP" expanded="false" />
+            <element signature="e#8447#8517#0#PHP" expanded="false" />
+            <element signature="e#8522#8766#0#PHP" expanded="false" />
+            <element signature="e#8772#8854#0#PHP" expanded="false" />
+            <element signature="e#8859#11441#0#PHP" expanded="false" />
+            <element signature="e#9506#11435#0#PHP" expanded="false" />
+            <element signature="e#10898#11018#0#PHP" expanded="false" />
+            <element signature="e#11372#11435#0#PHP" expanded="false" />
+            <element signature="e#11447#11511#0#PHP" expanded="false" />
+            <element signature="e#11516#12045#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/option/EditHouseholdView.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="329">
+          <caret line="45" column="98" selection-start-line="45" selection-start-column="98" selection-end-line="45" selection-end-column="98" />
+          <folding>
+            <element signature="e#5043#7211#0#HTML" expanded="false" />
+            <element signature="e#7315#9120#0#HTML" expanded="false" />
           </folding>
         </state>
       </provider>

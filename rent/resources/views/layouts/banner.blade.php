@@ -7,9 +7,12 @@
     <title>@yield('title')</title>
     <link href="{{url('/css/style.css')}}" rel="stylesheet" type="text/css"/>
     <link href="{{url('/css/index.css')}}" rel="stylesheet" type="text/css"/>
-    <script language="JavaScript" src="{{url('/js/jquery.js')}}"></script>
+    {{--<script language="JavaScript" src="{{url('/js/jquery.js')}}"></script>--}}
+    <script src="http://cdn.staticfile.org/jquery/2.1.1-rc2/jquery.min.js"></script>
     <script language="JavaScript" src="{{url('/js/common.js')}}"></script>
-    <script language="JavaScript" src="{{url('/js/editConfig.js')}}"></script>
+    @yield('js')
+    @yield('css')
+
 
 </head>
 
@@ -22,10 +25,20 @@
 
     <dd>
         <div class="title">
-            <span><img src="{{url('/images/leftico02.png')}}"/></span>其他设置
+            <span><img src="{{url('/images/leftico02.png')}}"/></span>配置管理
         </div>
         <ul class="menuson">
-            <li><cite></cite><a href="{{url('admin/editConfig')}}">流程图</a><i></i></li>
+            <li @if($active == 'editConfig') class="active" @endif><cite></cite><a href="{{url('admin/editConfig')}}">配置管理</a><i></i></li>
+        </ul>
+    </dd>
+
+    <dd>
+        <div class="title">
+            <span><img src="{{url('/images/leftico02.png')}}"/></span>住户管理
+        </div>
+        <ul class="menuson">
+            <li @if($active == 'AddHouseholdView') class="active" @endif><cite></cite><a href="{{url('admin/AddHouseholdView')}}">新增住户</a><i></i></li>
+            <li @if($active == 'HouseholdListView') class="active" @endif><cite></cite><a href="{{url('admin/HouseholdListView')}}">住户列表</a><i></i></li>
         </ul>
     </dd>
 

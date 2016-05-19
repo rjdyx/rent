@@ -1,0 +1,129 @@
+.addHouseHold-content{
+    width: 60%;
+    /* margin-left: 24%; */
+    /* margin-top: 4%; */
+    margin: 4% auto;
+    border: solid 1px #a7b5bc;
+    padding: 3% 0% 3% 5%;
+}
+
+.addHouseHold-content-house{
+    width: 60%;
+    /* margin-left: 24%; */
+    /* margin-top: 4%; */
+    margin: 4% auto;
+    border: solid 1px #a7b5bc;
+    padding: 0% 0% 3% 5%;
+}
+
+.addHouseHold-content table{
+    width: 100%;
+}
+
+.addHouseHold-content table tr {
+    line-height: 46px;
+}
+
+.addHouseHold-content table tr td {
+
+}
+
+.addHouseHold-content table tr td label {
+    font-size: 14px;
+    /*font-weight: bold;*/
+}
+
+
+#name,#jobNumber,#cardNumber,#type,.region,.address,.area{
+    width: 180px;
+    height: 32px;
+    line-height: 32px;
+    border-top: solid 1px #a7b5bc;
+    border-left: solid 1px #a7b5bc;
+    border-right: solid 1px #ced9df;
+    border-bottom: solid 1px #ced9df;
+    background: url(../images/inputbg.gif) repeat-x;
+    text-indent: 10px;
+}
+
+.radio-hasHouse{
+    display: inline;
+}
+
+.radio-hasHouse-name{
+    display: inline;
+}
+
+#has-house-time,#dimission-time,.first-check-in-time{
+    width: 180px;
+    height: 32px;
+    line-height: 32px;
+    border-top: solid 1px #a7b5bc;
+    border-left: solid 1px #a7b5bc;
+    border-right: solid 1px #ced9df;
+    border-bottom: solid 1px #ced9df;
+    background: url(../images/inputbg.gif) repeat-x;
+    text-indent: 10px;
+}
+
+#isDimission{
+
+}
+
+.td-right{
+
+}
+
+.addHouseHold-title{
+    width: 92%;
+    margin: 3% 0;
+    padding-bottom: 3%;
+    border-bottom: solid 1px #a7b5bc;
+}
+
+.close{
+    display: block;
+    background: url(../images/close.png) no-repeat;
+    width: 22px;
+    height: 22px;
+    float: right;
+    cursor: pointer;
+}
+
+.add-new-rent{
+    margin: 0 auto;
+    width: 300px;
+    padding-bottom: 5%;
+}
+
+.add-new-rent button{
+    background-color: #F1F5F7;
+    line-height: 33px;
+    height: 33px;
+    border: solid 1px #d3dbde;
+    border-radius: 3px;
+    cursor: pointer;
+    width: 100px;
+    display: inline;
+}
+
+#btn-right{
+    margin-left: 100px;
+}
+
+.opt-rent-btn{
+    margin: 0 auto;
+    width: 300px;
+    padding-top: 5%;
+}
+
+.opt-rent-btn button{
+    background-color: #F1F5F7;
+    line-height: 33px;
+    height: 33px;
+    border: solid 1px #d3dbde;
+    border-radius: 3px;
+    cursor: pointer;
+    width: 100px;
+    display: inline;
+}

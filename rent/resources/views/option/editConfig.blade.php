@@ -1,5 +1,11 @@
 @extends('layouts.banner')
 
+@section('title', '配置管理')
+
+@section('js')
+<script language="JavaScript" src="{{url('/js/editConfig.js')}}"></script>
+@endsection
+
 @section('content')
 
     <div class="rightinfo">
@@ -78,9 +84,5 @@
     @include('layer.successTip')
     @include('layer.errorTip')
     @include('layer.sureDeleteDialog')
-
-    <script type="text/javascript">
-        $('.tablelist tbody tr:odd').addClass('odd');
-    </script>
 
 @endsection

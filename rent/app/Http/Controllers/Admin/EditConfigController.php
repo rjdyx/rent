@@ -16,6 +16,11 @@ use App\libraries\Util;
 class EditConfigController extends Controller
 {
 
+    /**
+     * 进入配置页面
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function editConfig(Request $request){
         $arrTotal = array();
 
@@ -35,7 +40,7 @@ class EditConfigController extends Controller
             $arrItem[1] = $addresses;
             $arrTotal[$i] = $arrItem;
         }
-        return view('option.editConfig', ['arrTotal' => $arrTotal]);
+        return view('option.editConfig', ['arrTotal' => $arrTotal,'active' => 'editConfig']);
     }
 
     /**
@@ -46,7 +51,7 @@ class EditConfigController extends Controller
         $name = $Request->input('name');
         $valid = Validator::make(
             array('name' => $name),
-            array('name' => 'required|between:2,20')
+            array('name' => 'required|between:2,20|unique:configs,name')
         );
         if (!$valid->fails()) {
             Config::create(['name' => $name]);
@@ -64,6 +69,7 @@ class EditConfigController extends Controller
     public function addAddress(Request $request)
     {
         $data = Input::All();
+        $tmp = $data['data'];
         $addressForm = new AddressModel($data['data']);
         $DBarr = $addressForm->getDBArray();
 
