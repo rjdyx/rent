@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use DB;
+use App\Rent;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -14,11 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //日志记录每次执行的sql语句
-//         DB::listen(function($sql, $bindings, $time) {
-//             $time = date('y-m-d h:i:s',time());
-//             Log::info('时间：'.$time.'  sql:'.$sql);
-//         });
+        
     }
 
     /**

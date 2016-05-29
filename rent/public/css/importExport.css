@@ -1,0 +1,73 @@
+.import-export-content {
+    text-align: center;
+    margin-top: 5%;
+}
+
+.import-content {
+    border: 1px solid #C1C1C1;
+    width: 600px;
+    padding: 30px 0;
+    margin: 0 auto;
+}
+
+.export-content {
+    border: 1px solid #C1C1C1;
+    width: 600px;
+    padding: 60px 0 30px 0;
+    margin: 0 auto;
+    margin-bottom: 25px;
+}
+
+input[type=checkbox] {
+
+}
+
+#export-rent-btn, #import-rent-btn {
+    width: 66px;
+    height: 28px;
+    /* line-height: 35px; */
+    color: #fff;
+    background-color: #3B95C8;
+    /* font-size: 14px; */
+    font-weight: bold;
+    border-radius: 3px;
+    cursor: pointer;
+    margin: 0 auto;
+}
+
+#export-rent-btn{
+    display: block;
+    margin: 30px auto 0 auto;
+}
+
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+input[type="file"]::-webkit-file-upload-button{
+    width: 66px;
+    height: 28px;
+    color: #fff;
+    background-color: #3B95C8;
+    font-weight: bold;
+    border-radius: 3px;
+    cursor: pointer;
+    border: 1px solid #3B95C8;
+}
+
+.export-form-item{
+    border: 1px solid black;
+    width: 60px;
+    padding: 6px;
+    border-radius: 5px;
+    display: inline-block;
+    cursor: pointer;
+    margin-right: 6px;
+}
+
+.export-form-item input{
+    display: none;
+}
+
+.export-form-item label{
+    cursor: pointer;
+}

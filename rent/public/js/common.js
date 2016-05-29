@@ -69,16 +69,26 @@ function showErrorTip(content, width, height) {
  * @param leftBtnFun 左按钮点击事件名
  * @param args 用二维数组传参数，用隐藏的input保存数据
  */
-function showCommonDialog(title,content,leftBtnName,leftBtnFun,args) {
+function showCommonDialog(title, content, leftBtnName, leftBtnFun, args) {
     $("#commonTop span").html(title);
     $("#commonInfo p").html(content);
     $("#commonSure").val(leftBtnName);
-    $("#commonSure").attr('onclick',leftBtnFun+"()");
+    $("#commonSure").attr('onclick', leftBtnFun + "()");
     $("#commonTip").fadeIn(200);
-    for(i = 0 ; i < args.length; i++){
-        $("#"+args[i][0]).remove();
+    for (i = 0; i < args.length; i++) {
+        $("#" + args[i][0]).remove();
         var tmp = '';
-        tmp +='<input type="hidden" id="'+args[i][0]+'" value="'+args[i][1]+'">';
+        tmp += '<input type="hidden" id="' + args[i][0] + '" value="' + args[i][1] + '">';
     }
     $("#commonTip").append(tmp);
+}
+
+/**
+ * 隐藏弹出窗口
+ * @param dialogId
+ */
+function fadeOutDialog(dialogId) {
+    $('#'+dialogId).fadeOut(200);
+    $('label[class=error]').remove();
+    $('#'+dialogId).css('width', '400px');
 }

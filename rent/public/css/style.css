@@ -534,13 +534,13 @@ h2 {
 }
 
 .leftmenu dd {
-    /*background: url(../images/leftmenubg.gif) repeat-x;*/
-    background-color: #3E97C9;
+    background-color: #FFFFFF;
     line-height: 35px;
     font-weight: bold;
     font-size: 14px;
     border-right: solid 1px #b7d5df;
-    color: white;
+    color: #636363;
+    border-bottom: 1px solid #E8E8E8;
 }
 
 .leftmenu dd span {
@@ -552,9 +552,9 @@ h2 {
     display: none;
 }
 
-.leftmenu dd:first-child .menuson {
-    display: block;
-}
+/*.leftmenu dd:first-child .menuson {*/
+    /*display: block;*/
+/*}*/
 
 .menuson {
     line-height: 30px;
@@ -570,7 +570,7 @@ h2 {
     /*background: url(../images/libg.png) repeat-x;*/
     line-height: 30px;
     color: #fff;
-    background-color: #3EAFE0;
+    background-color: #e7e7e7;
 }
 
 .menuson li cite {
@@ -606,11 +606,12 @@ h2 {
 }
 
 .menuson li.active a {
-    color: #fff;
+    /*color: #fff;*/
 }
 
 .title {
     cursor: pointer;
+    border-bottom: 1px solid #E8E8E8;
 }
 
 /**支持二级菜单覆盖样式**/
@@ -748,7 +749,7 @@ h2 {
 }
 
 .tablelist th {
-    background: url(../images/th.gif) repeat-x;
+    background-color: #F0F5F7;
     height: 34px;
     line-height: 34px;
     border-bottom: solid 1px #b6cad2;
@@ -760,6 +761,7 @@ h2 {
     line-height: 35px;
     text-indent: 11px;
     border-right: dotted 1px #c7c7c7;
+    text-align: center;
 }
 
 .tablelink {
@@ -1289,7 +1291,7 @@ h2 {
 #addAreaTip {
     width: 400px;
     height: 260px;
-    position: absolute;
+    position: fixed;
     top: 28%;
     left: 35%;
     background: #fcfdfd;
@@ -1377,11 +1379,103 @@ h2 {
     text-indent: 10px;
 }
 
+/*resetPWD*/
+#resetPWDTip {
+    width: 400px;
+    height: 260px;
+    position: fixed;
+    top: 28%;
+    left: 35%;
+    background: #fcfdfd;
+    box-shadow: 1px 8px 10px 1px #9b9b9b;
+    border-radius: 1px;
+    behavior: url(js/pie.htc);
+    display: none;
+    z-index: 111;
+}
+
+#resetPWDTop {
+    height: 40px;
+    line-height: 40px;
+    background: url(../images/tcbg.gif) repeat-x;
+    cursor: pointer;
+}
+
+#resetPWDTop span {
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    float: left;
+    text-indent: 20px;
+}
+
+#resetPWDTop a {
+    display: block;
+    background: url(../images/close.png) no-repeat;
+    width: 22px;
+    height: 22px;
+    float: right;
+    margin-right: 7px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+#resetPWDTop a:hover {
+    background: url(../images/close1.png) no-repeat;
+}
+
+#resetPWDInfo {
+    padding-top: 30px;
+    margin-left: 65px;
+    height: 95px;
+}
+
+#resetPWDInfo p {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 37px;
+}
+
+#resetPWDBtn {
+    margin-top: 25px;
+    margin-left: 26%;
+}
+
+#resetPWDSure, #resetPWDCancel {
+    width: 96px;
+    height: 35px;
+    line-height: 35px;
+    color: #fff;
+    background: url(../images/btnbg1.png) repeat-x;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+#resetPWDCancel {
+    background: url(../images/btnbg2.png) repeat-x;
+    color: #000;
+    font-weight: normal;
+}
+
+#resetPWDNameInput {
+    width: 270px;
+    height: 32px;
+    line-height: 32px;
+    border-top: solid 1px #a7b5bc;
+    border-left: solid 1px #a7b5bc;
+    border-right: solid 1px #ced9df;
+    border-bottom: solid 1px #ced9df;
+    background: url(../images/inputbg.gif) repeat-x;
+    text-indent: 10px;
+}
+
 /*editArea*/
 #editAreaTip {
     width: 400px;
     height: 260px;
-    position: absolute;
+    position: fixed;
     top: 28%;
     left: 35%;
     background: #fcfdfd;
@@ -1473,7 +1567,7 @@ h2 {
 #sureDeleteTip {
     width: 400px;
     height: 260px;
-    position: absolute;
+    position: fixed;
     top: 28%;
     left: 35%;
     background: #fcfdfd;
@@ -1566,7 +1660,7 @@ h2 {
 #addAddressTip {
     width: 400px;
     height: 375px;
-    position: absolute;
+    position: fixed;
     top: 17%;
     left: 35%;
     background: #fcfdfd;
@@ -1685,11 +1779,166 @@ h2 {
     font-weight: bold;
 }
 
+/*showDetail*/
+#showDetailTip {
+    width: 400px;
+    height: 420px;
+    position: fixed;
+    top: 17%;
+    left: 35%;
+    background: #fcfdfd;
+    box-shadow: 1px 8px 10px 1px #9b9b9b;
+    border-radius: 1px;
+    behavior: url(js/pie.htc);
+    display: none;
+    z-index: 111;
+}
+
+#showDetailTop {
+    height: 40px;
+    line-height: 40px;
+    background: url(../images/tcbg.gif) repeat-x;
+    cursor: pointer;
+}
+
+#showDetailTop span {
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    float: left;
+    text-indent: 20px;
+}
+
+#showDetailTop a {
+    display: block;
+    background: url(../images/close.png) no-repeat;
+    width: 22px;
+    height: 22px;
+    float: right;
+    margin-right: 7px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+#showDetailTop a:hover {
+    background: url(../images/close1.png) no-repeat;
+}
+
+#showDetailBtn {
+    text-align: center;
+}
+
+#showDetailCancel {
+    width: 96px;
+    height: 35px;
+    line-height: 35px;
+    color: #fff;
+    background: url(../images/btnbg1.png) repeat-x;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+
+.showDetailTable {
+    margin-left: 64px;
+    margin-top: 9px;
+    margin-bottom: 10px;
+}
+
+.showDetailTable tr {
+    line-height: 34px;
+    border-bottom: 1px solid #E0E0E0;
+}
+
+.showDetailTable tr td {
+    width: 140px;
+}
+
+/*showDetail*/
+#showDetailTip {
+    width: 400px;
+    height: 420px;
+    position: absolute;
+    top: 17%;
+    left: 35%;
+    background: #fcfdfd;
+    box-shadow: 1px 8px 10px 1px #9b9b9b;
+    border-radius: 1px;
+    behavior: url(js/pie.htc);
+    display: none;
+    z-index: 111;
+}
+
+#showDetailTop {
+    height: 40px;
+    line-height: 40px;
+    background: url(../images/tcbg.gif) repeat-x;
+    cursor: pointer;
+}
+
+#showDetailTop span {
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    float: left;
+    text-indent: 20px;
+}
+
+#showDetailTop a {
+    display: block;
+    background: url(../images/close.png) no-repeat;
+    width: 22px;
+    height: 22px;
+    float: right;
+    margin-right: 7px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+#showDetailTop a:hover {
+    background: url(../images/close1.png) no-repeat;
+}
+
+#showDetailBtn {
+    text-align: center;
+}
+
+#showDetailCancel {
+    width: 96px;
+    height: 35px;
+    line-height: 35px;
+    color: #fff;
+    background: url(../images/btnbg1.png) repeat-x;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+
+.showDetailTable {
+    margin-left: 64px;
+    margin-top: 9px;
+    margin-bottom: 10px;
+}
+
+.showDetailTable tr {
+    line-height: 34px;
+    border-bottom: 1px solid #E0E0E0;
+}
+
+.showDetailTable tr td {
+    width: 140px;
+}
+
+
 /*editAddress*/
 #editAddressTip {
     width: 400px;
     height: 375px;
-    position: absolute;
+    position: fixed;
     top: 17%;
     left: 35%;
     background: #fcfdfd;
@@ -1803,8 +2052,6 @@ h2 {
     font-weight: bold;
 }
 
-
-
 /*tools*/
 .toolsli {
     clear: both;
@@ -1853,42 +2100,42 @@ h2 {
 }
 
 /*error 404*/
-.error {
-    background: url(../images/404.png) no-repeat;
-    width: 490px;
-    margin-top: 75px;
-    padding-top: 65px;
-}
+/*.error {*/
+    /*background: url(../images/404.png) no-repeat;*/
+    /*width: 490px;*/
+    /*margin-top: 75px;*/
+    /*padding-top: 65px;*/
+/*}*/
 
-.error h2 {
-    font-size: 22px;
-    padding-left: 154px;
-}
+/*.error h2 {*/
+    /*font-size: 22px;*/
+    /*padding-left: 154px;*/
+/*}*/
 
-.error p {
-    padding-left: 154px;
-    line-height: 35px;
-    color: #717678;
-}
+/*.error p {*/
+    /*padding-left: 154px;*/
+    /*line-height: 35px;*/
+    /*color: #717678;*/
+/*}*/
 
-.reindex {
-    padding-left: 154px;
-}
+/*.reindex {*/
+    /*padding-left: 154px;*/
+/*}*/
 
-.reindex a {
-    width: 115px;
-    height: 35px;
-    font-size: 14px;
-    font-weight: bold;
-    color: #fff;
-    background: #3c95c8;
-    display: block;
-    line-height: 35px;
-    text-align: center;
-    border-radius: 3px;
-    behavior: url(js/pie.htc);
-    margin-top: 20px;
-}
+/*.reindex a {*/
+    /*width: 115px;*/
+    /*height: 35px;*/
+    /*font-size: 14px;*/
+    /*font-weight: bold;*/
+    /*color: #fff;*/
+    /*background: #3c95c8;*/
+    /*display: block;*/
+    /*line-height: 35px;*/
+    /*text-align: center;*/
+    /*border-radius: 3px;*/
+    /*behavior: url(js/pie.htc);*/
+    /*margin-top: 20px;*/
+/*}*/
 
 /*computer*/
 .comtitle {
@@ -2605,7 +2852,7 @@ h2 {
 #st-container {
     width: 150px;
     height: 50px;
-    position: absolute;
+    position: fixed;
     top: 49%;
     left: 46%;
     background-color: #4CAF50;
@@ -2625,7 +2872,7 @@ h2 {
 #et-container {
     width: 150px;
     height: 50px;
-    position: absolute;
+    position: fixed;
     top: 49%;
     left: 46%;
     background-color: #FF9800;
@@ -2704,12 +2951,11 @@ h2 {
     cursor: pointer;
 }
 
-
 /*common*/
 #commonTip {
     width: 400px;
     height: 260px;
-    position: absolute;
+    position: fixed;
     top: 28%;
     left: 35%;
     background: #fcfdfd;
@@ -2796,4 +3042,55 @@ h2 {
     border-bottom: solid 1px #ced9df;
     background: url(../images/inputbg.gif) repeat-x;
     text-indent: 10px;
+}
+
+/*pagination*/
+.pagination-content{
+    text-align: center;
+}
+
+.pagination {
+    display: inline-block;
+    padding-left: 0;
+    margin: 20px 0;
+    border-radius: 4px;
+}
+
+.pagination>li {
+    display: inline;
+}
+
+.pagination>li:first-child>a, .pagination>li:first-child>span {
+    margin-left: 0;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.pagination>.disabled>a, .pagination>.disabled>a:focus, .pagination>.disabled>a:hover, .pagination>.disabled>span, .pagination>.disabled>span:focus, .pagination>.disabled>span:hover {
+    color: #777;
+    cursor: not-allowed;
+    background-color: #fff;
+    border-color: #ddd;
+}
+
+.pagination>li>a, .pagination>li>span {
+    position: relative;
+    float: left;
+    padding: 6px 12px;
+    margin-left: -1px;
+    line-height: 1.42857143;
+    color: #337ab7;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+.pagination li[class='active'] span{
+    background-color: #337ab7;
+    color: #fff;
+}
+
+.error{
+    /*display: block;*/
+    color: red;
 }

@@ -1,6 +1,169 @@
 $(function () {
-    // getAllAreaAndAddress();
+    init();
 })
+
+function init() {
+    $("#addArea-form").validate({
+        onsubmit: true,// 是否在提交是验证
+        onfocusout: false,// 是否在获取焦点时验证
+        onkeyup: false,// 是否在敲击键盘时验证
+
+        rules: {
+            areaName: {
+                required: true,
+                minlength: 2,
+                maxlength: 20,
+            }
+        },
+        messages: {
+            areaName: {
+                required: '请输入区域名',
+                minlength: '长度不能少于2',
+                maxlength: '长度不能超过20',
+            }
+        },
+        submitHandler: function(form) {  //通过之后回调
+            addArea();
+            $('#addAreaTip').css('width','400px');
+        },
+        invalidHandler: function(form, validator) {  //不通过回调
+            $('#addAreaTip').css('width','432px');
+            return false;
+        }
+    });
+    $("#editArea-form").validate({
+        onsubmit: true,// 是否在提交是验证
+        onfocusout: false,// 是否在获取焦点时验证
+        onkeyup: false,// 是否在敲击键盘时验证
+
+        rules: {
+            areaName: {
+                required: true,
+                minlength: 2,
+                maxlength: 20,
+            }
+        },
+        messages: {
+            areaName: {
+                required: '请输入区域名',
+                minlength: '长度不能少于2',
+                maxlength: '长度不能超过20',
+            }
+        },
+        submitHandler: function(form) {  //通过之后回调
+            editArea();
+            $('#editAreaTip').css('width','400px');
+        },
+        invalidHandler: function(form, validator) {  //不通过回调
+            $('#editAreaTip').css('width','432px');
+            return false;
+        }
+    });
+    $("#form_addAddress").validate({
+        onsubmit: true,// 是否在提交是验证
+        onfocusout: false,// 是否在获取焦点时验证
+        onkeyup: false,// 是否在敲击键盘时验证
+
+        rules: {
+            AddressName:{
+                required: true,
+                minlength: 2,
+                maxlength: 20
+            },
+            TurnoverRent:{
+                required: true,
+                number:true
+            },
+            DiscountRent:{
+                required: true,
+                number:true
+            },
+            MarketRent:{
+                required: true,
+                number:true
+            }
+        },
+        messages: {
+            AddressName:{
+                required: '请输入房址',
+                minlength: '长度不能小于2',
+                maxlength: '长度不能超过20'
+            },
+            TurnoverRent:{
+                required: '请输入周转期租金',
+                number:'必须为数字'
+            },
+            DiscountRent:{
+                required: '请输入优惠市场租金',
+                number:'必须为数字'
+            },
+            MarketRent:{
+                required: '请输入市场租金',
+                number:'必须为数字'
+            }
+        },
+        submitHandler: function(form) {  //通过之后回调
+            addAddress();
+            $('#addAddressTip').css('width','400px');
+        },
+        invalidHandler: function(form, validator) {  //不通过回调
+            $('#addAddressTip').css('width','432px');
+            return false;
+        }
+    });
+    $("#form_editAddress").validate({
+        onsubmit: true,// 是否在提交是验证
+        onfocusout: false,// 是否在获取焦点时验证
+        onkeyup: false,// 是否在敲击键盘时验证
+
+        rules: {
+            AddressName:{
+                required: true,
+                minlength: 2,
+                maxlength: 20
+            },
+            TurnoverRent:{
+                required: true,
+                number:true
+            },
+            DiscountRent:{
+                required: true,
+                number:true
+            },
+            MarketRent:{
+                required: true,
+                number:true
+            }
+        },
+        messages: {
+            AddressName:{
+                required: '请输入房址',
+                minlength: '长度不能小于2',
+                maxlength: '长度不能超过20'
+            },
+            TurnoverRent:{
+                required: '请输入周转期租金',
+                number:'必须为数字'
+            },
+            DiscountRent:{
+                required: '请输入优惠市场租金',
+                number:'必须为数字'
+            },
+            MarketRent:{
+                required: '请输入市场租金',
+                number:'必须为数字'
+            }
+        },
+        submitHandler: function(form) {  //通过之后回调
+            editAddress();
+            $('#editAddressTip').css('width','400px');
+        },
+        invalidHandler: function(form, validator) {  //不通过回调
+            $('#editAddressTip').css('width','490px');
+            return false;
+        }
+    });
+}
 
 /**
  * 显示新增区域查看
@@ -246,7 +409,7 @@ function editAddress() {
  * @param id
  * @param flag
  */
-function showSureDeleteDialog(id,flag) {
+function showSureDeleteDialog(id, flag) {
     $("#sure-delete-id").val(id);
     $("#sure-delete-flag").val(flag);
     $("#sureDeleteTip").fadeIn(200);
@@ -257,9 +420,9 @@ function showSureDeleteDialog(id,flag) {
  */
 function chooseDeleteFMethod() {
     flag = $("#sure-delete-flag").val();
-    if (flag == 0){
+    if (flag == 0) {
         deleteArea();
-    }else{
+    } else {
         deleteAddress();
     }
 }
@@ -270,7 +433,7 @@ function chooseDeleteFMethod() {
 function deleteArea() {
     $.ajax({
         type: "get",
-        url: rootUrl + "/admin/deleteArea/"+$("#sure-delete-id").val(),
+        url: rootUrl + "/admin/deleteArea/" + $("#sure-delete-id").val(),
         dataType: "json",
         success: function (ret) {
             if (ret == 'success') {
@@ -293,7 +456,7 @@ function deleteArea() {
 function deleteAddress() {
     $.ajax({
         type: "get",
-        url: rootUrl + "/admin/deleteAddress/"+$("#sure-delete-id").val(),
+        url: rootUrl + "/admin/deleteAddress/" + $("#sure-delete-id").val(),
         dataType: "json",
         success: function (ret) {
             if (ret == 'success') {

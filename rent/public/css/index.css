@@ -15,6 +15,20 @@ header h1 {
     margin-left: 30px;
 }
 
+header div{
+    float: right;
+    width: 100px;
+    height: 80px;
+}
+
+header div span{
+    display: inline-block;
+    margin-right: 10px;
+}
+header div span a{
+    color: white;
+}
+
 h1 {
     display: block;
     font-size: 2em;

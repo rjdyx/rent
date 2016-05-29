@@ -36,7 +36,7 @@ class HouseholdMsg extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'job_number', 'card_number', 'has_house', 'has_house_time','has_not_house_time','is_dimission','dimission_time','type'
+        'name', 'job_number', 'card_number', 'institution' ,'has_house', 'has_house_time','has_not_house_time','is_dimission','dimission_time','type'
     ];
 
     /**
@@ -45,5 +45,13 @@ class HouseholdMsg extends Model
      */
     public function householdHouseMsg(){
         return $this->hasMany('App\HouseholdHouseMsg','household_id');
+    }
+
+    /**
+     * 获取房租信息
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function rent(){
+        return $this->hasMany('App\Rent','household_id');
     }
 }

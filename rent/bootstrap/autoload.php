@@ -26,6 +26,7 @@ require __DIR__.'/../vendor/autoload.php';
 
 
 require __DIR__.'/../app/libraries/Util/ArrayUtil.php';
+require __DIR__.'/../app/libraries/Util/RentUtil.php';
 
 /*
 |--------------------------------------------------------------------------

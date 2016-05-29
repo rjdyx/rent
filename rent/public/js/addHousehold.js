@@ -20,18 +20,25 @@ var count = 1;
  * 新增租房模块
  */
 function addRent() {
+
+
+    if(count == 2){
+        return ;
+    }
+
+    count++;
     
     $(".add-new-rent").remove();
-    tmp = '<div class="addHouseHold-content addHouseHold-content-house rent-item item' + (++count) + '">' +
-        '<div class="addHouseHold-title">租房' + count + '<a class="close" onclick="$(\'.item' + count + '\').remove()"></a></div><form class="form-rent-item"><table> <tr> <td>' +
+    tmp = '<div class="addHouseHold-content addHouseHold-content-house rent-item item' + (count) + '">' +
+        '<div class="addHouseHold-title">租房' + count + '<a class="close" onclick="$(\'.item' + count + '\').remove();count--;"></a></div><form class="form-rent-item"><table> <tr> <td>' +
         '<label for="region">区域：</label></td> <td class="td-right">' +
         '<select class="region" id="region'+count+'" name="region"></select></td> <td>' +
         '<label for="address">房址：</label> </td><td>' +
         '<select class="address" id="address'+count+'" name="address"></select></td></tr><tr><td>' +
         '<label for="area">租房面积：</label></td><td class="td-right">' +
-        '<input class="area" name="area" type="text"/></td><td>' +
+        '<input class="area" name="area" type="text" placeholder="必填，数字"></td><td>' +
         '<label for="first-check-in-time">第一次入住时间：</label></td><td>' +
-        '<input type="text" id="checkInTime' + count + '" class="first-check-in-time" name="firsttimeCheckIn" value="" readonly="readonly">' +
+        '<input type="text" id="checkInTime' + count + '" class="first-check-in-time" name="firsttimeCheckIn" value="" readonly="readonly" placeholder="必选">' +
         '</td> </tr></table></form></div>';
     tmp += '<div class="add-new-rent">' +
         '<button onclick="addRent()">新增租房</button><button id="btn-right" onclick="addHousehold()">保存</button>' +

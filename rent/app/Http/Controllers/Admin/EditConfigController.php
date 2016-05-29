@@ -40,7 +40,12 @@ class EditConfigController extends Controller
             $arrItem[1] = $addresses;
             $arrTotal[$i] = $arrItem;
         }
-        return view('option.editConfig', ['arrTotal' => $arrTotal,'active' => 'editConfig']);
+        return view('option.editConfig',
+            [
+                'arrTotal' => $arrTotal,
+                'active' => 'editConfig',
+                'sildedown' => 'editConfig'
+            ]);
     }
 
     /**

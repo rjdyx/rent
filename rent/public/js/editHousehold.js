@@ -34,9 +34,9 @@ function addRent() {
         '<label for="address">房址：</label> </td><td>' +
         '<select class="address" id="address' + count + '" name="address"></select></td></tr><tr><td>' +
         '<label for="area">租房面积：</label></td><td class="td-right">' +
-        '<input class="area" name="area" type="text"/></td><td>' +
+        '<input class="area" name="area" type="text" placeholder="必填，数字"></td><td>' +
         '<label for="first-check-in-time">第一次入住时间：</label></td><td>' +
-        '<input type="text" id="checkInTime' + count + '" class="first-check-in-time" name="firsttimeCheckIn" value="" readonly="readonly">' +
+        '<input type="text" id="checkInTime' + count + '" class="first-check-in-time" name="firsttimeCheckIn" value="" readonly="readonly" placeholder="必选">' +
         '</td> </tr></table></form>' +
         '<div class="opt-rent-btn">' +
         '<button onclick="addSingleRent(\'form-item' + count + '\',' + count + ')">保存</button>' +
@@ -111,7 +111,6 @@ function getAddressByArea(name, count) {
         success: function (ret) {
             $("#address" + count).children().remove();
             var tmp = '';
-            debugger;
             for (i = 0; i < ret.length; i++) {
                 tmp += '<option value="' + ret[i]['id'] + '">' + ret[i]['name'] + '</option>';
             }
@@ -128,10 +127,10 @@ function getAddressByArea(name, count) {
 /**
  * 退房
  */
-function checkOutRent(id) {
+function checkOutRent() {
     $.ajax({
         type: "get",
-        url: rootUrl + "/admin/checkOutRent/" + id,
+        url: rootUrl + "/admin/checkOutRent/" + $("#input-id").val(),
         dataType: "json",
         success: function (ret) {
             if (ret == 'success') {
@@ -183,10 +182,10 @@ function addSingleRent(id,order) {
  * 租房作废，不记录房租信息
  * @param id
  */
-function deleteRent(id) {
+function deleteRent() {
     $.ajax({
         type: "get",
-        url: rootUrl + "/admin/deleteRent/"+id,
+        url: rootUrl + "/admin/deleteRent/"+$("#input-id").val(),
         dataType: "json",
         success: function (ret) {
             if (ret == 'success') {

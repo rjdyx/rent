@@ -28,7 +28,7 @@ class HouseholdManageController extends Controller
             ->get();
         $addresses = null;
         if (sizeof($areas) > 0) {
-            $addresses = Config::select('id','name')
+            $addresses = Config::select('id', 'name')
                 ->where('parent_id', '=', $areas[0]->id)
                 ->orderBy('created_at', 'asc')
                 ->get();
@@ -38,7 +38,8 @@ class HouseholdManageController extends Controller
             [
                 'active' => 'AddHouseholdView',
                 'areas' => $areas,
-                'addresses' => $addresses
+                'addresses' => $addresses,
+                'sildedown' => 'household'
             ]);
     }
 
@@ -49,12 +50,39 @@ class HouseholdManageController extends Controller
     public function HouseholdListView()
     {
 
-        $householdmsgs = HouseholdMsg::orderBy('created_at','asc')->get();
+        $input = Input::all();
+        if (sizeof($input) == 0) {
+            $input = [
+                'jobNumber' => '',
+                'name' => '',
+                'institution' => '',
+                'hasHouse' => '-1',
+                'isDimission' => '-1'
+            ];
+            $householdmsgs = HouseholdMsg::orderBy('created_at', 'asc')->paginate(15);
+        } else {
+            $where = array();
+            if ($input['hasHouse'] != -1) {
+                $where['has_house'] = $input['hasHouse'];
+            }
+            if ($input['isDimission'] != -1) {
+                $where['is_dimission'] = $input['isDimission'];
+            }
+            $householdmsgs = HouseholdMsg::where('job_number', 'like', '%' . $input['jobNumber'] . '%')
+                ->where('name', 'like', '%' . $input['name'] . '%')
+                ->where('institution', 'like', '%' . $input['institution'] . '%')
+                ->where($where)
+                ->orderBy('created_at', 'asc')
+                ->paginate(15);
+        }
+
 
         return view('option.HouseholdListView',
             [
                 'active' => 'HouseholdListView',
-                'householdMsgs' => $householdmsgs
+                'householdMsgs' => $householdmsgs,
+                'input' => $input,
+                'sildedown' => 'household'
             ]);
     }
 
@@ -78,6 +106,16 @@ class HouseholdManageController extends Controller
             ->orderBy('order', 'asc')
             ->get();
 
+        //测试用的
+//        date_default_timezone_set('PRC');
+//        $time = time();
+////        $time = strtotime('2016-01-31');
+//        $days = date('t', $time);
+//        \App\libraries\Util\calculateOneMonthRent($householdmsg, $time, $days);
+
+//        foreach ($rents as $rent){
+//            \App\libraries\Util\calculateAllMonthRent($householdmsg,$rent);
+//        }
 
         $rentsCheckOut = $householdmsg->householdHouseMsg()
             ->where('is_check_out', '=', 1)
@@ -107,7 +145,7 @@ class HouseholdManageController extends Controller
             ->get();
         $addresses = null;
         if (sizeof($areas) > 0) {
-            $addresses = Config::select('name')
+            $addresses = Config::select('id', 'name')
                 ->where('parent_id', '=', $areas[0]->id)
                 ->orderBy('created_at', 'asc')
                 ->get();
@@ -125,8 +163,9 @@ class HouseholdManageController extends Controller
      * @param $name
      * @return mixed
      */
-    public function getAddressByArea($id){
-        $addresses = Config::select('id','name')
+    public function getAddressByArea($id)
+    {
+        $addresses = Config::select('id', 'name')
             ->where('parent_id', '=', $id)
             ->orderBy('created_at', 'asc')
             ->get();
@@ -149,8 +188,9 @@ class HouseholdManageController extends Controller
         //验证规则
         $rule = array(
             'name' => 'required|between:1,10',
-            'jobNumber' => 'required|size:12',
+            'jobNumber' => 'required|size:12|unique:household_msg,job_number',
             'cardNumber' => 'required|size:19',
+            'institution' => 'required|between:1,20',
             'hasHouse' => 'required|numeric|between:0,2',
             'hasHouseTime' => 'required|date',
             'type' => 'required|numeric|between:0,3'
@@ -161,6 +201,7 @@ class HouseholdManageController extends Controller
             $householdMsg->name = $baseData['name'];
             $householdMsg->job_number = $baseData['jobNumber'];
             $householdMsg->card_number = $baseData['cardNumber'];
+            $householdMsg->institution = $baseData['institution'];
             $householdMsg->has_house = $baseData['hasHouse'];
             $householdMsg->type = $baseData['type'];
             //判断是存入有房时间还是无房时间
@@ -215,6 +256,8 @@ class HouseholdManageController extends Controller
             $householdHouseMsg->order = $i + 1;
             $householdHouseMsg->household_id = $resultId;
             $householdHouseMsg->save();
+
+            \App\libraries\Util\calculateLastOneMonthRent($householdMsg, $householdHouseMsg);
         }
 
         return response()->json('success');
@@ -227,6 +270,16 @@ class HouseholdManageController extends Controller
      */
     public function checkOutRent($id)
     {
+        date_default_timezone_set('PRC');
+        $time = time();
+        $days = date('t', $time);
+
+        $rent = HouseholdHouseMsg::where('id', '=', $id)
+            ->first();
+        $householdmsg = HouseholdMsg::where('id', '=', $rent->household_id)
+            ->first();
+        \App\libraries\Util\calculateOneMonthOneRent($householdmsg, $rent, $time, $days);
+
         $result = HouseholdHouseMsg::where('id', '=', $id)
             ->update(['is_check_out' => 1]);
         if ($result == 1) {
@@ -267,6 +320,12 @@ class HouseholdManageController extends Controller
             $householdHouseMsg->order = $order;
             $householdHouseMsg->household_id = $householdId;
             $householdHouseMsg->save();
+
+            //计算房租
+            $householdmsg = HouseholdMsg::where('id', '=', $householdId)
+                ->first();
+            \App\libraries\Util\calculateLastOneMonthRent($householdmsg, $householdHouseMsg);
+
             return response()->json('success');
         } else {
             return response()->json('failed');
@@ -294,7 +353,8 @@ class HouseholdManageController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function saveChange(Request $request){
+    public function saveChange(Request $request)
+    {
         $flag = false;
         $data = Input::all();
         $householdId = $data['id'];
@@ -303,19 +363,29 @@ class HouseholdManageController extends Controller
         //验证规则
         $rule = array(
             'name' => 'required|between:1,10',
-            'jobNumber' => 'required|size:12',
             'cardNumber' => 'required|size:19',
+            'institution' => 'required|between:1,20',
             'hasHouse' => 'required|numeric|between:0,2',
             'hasHouseTime' => 'required|date',
             'type' => 'required|numeric|between:0,3'
         );
 
-        $householdMsg = HouseholdMsg::find($householdId);
+        $oldHouseholdMsg = $householdMsg = HouseholdMsg::find($householdId);
 
         if (!Validator::make($input, $rule)->fails()) {
             $householdMsg->name = $input['name'];
-            $householdMsg->job_number = $input['jobNumber'];
+            if ($householdMsg->job_number != $input['jobNumber']) {
+                if (!Validator::make(
+                    ['jobNumber' => $input['jobNumber']],
+                    ['jobNumber' => 'required|size:12|unique:household_msg,job_number'])->fails()
+                ) {
+                    $householdMsg->job_number = $input['jobNumber'];
+                } else {
+                    return response()->json('failed');
+                }
+            }
             $householdMsg->card_number = $input['cardNumber'];
+            $householdMsg->institution = $input['institution'];
             $householdMsg->type = $input['type'];
 
             if ($householdMsg->has_house != $input['hasHouse']) {
@@ -353,6 +423,15 @@ class HouseholdManageController extends Controller
             }
             if ($flag) {
                 //重新统计房租
+                $rent = $oldHouseholdMsg->Rent()->orderBy('time_pay_rent','desc')->first();
+                date_default_timezone_set('PRC');
+                $time = time();
+                $days = date('t', $time);
+                //最新交租时间与现在一样的时候不插入房租信息
+                if(date('Y-m-d',strtotime($rent->time_pay_rent)) != date('Y-m-d',$time)){
+                    \App\libraries\Util\calculateOneMonthRent($oldHouseholdMsg, $time, $days);
+                }
+
             }
             $result = $householdMsg->save();
             if ($result == 1) {

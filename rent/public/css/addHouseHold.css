@@ -34,7 +34,7 @@
 }
 
 
-#name,#jobNumber,#cardNumber,#type,.region,.address,.area{
+#name,#jobNumber,#cardNumber,#institution,#type,.region,.address,.area{
     width: 180px;
     height: 32px;
     line-height: 32px;
@@ -108,7 +108,7 @@
 }
 
 #btn-right{
-    margin-left: 100px;
+    margin-left: 90px;
 }
 
 .opt-rent-btn{

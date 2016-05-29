@@ -17,6 +17,7 @@ class CreateHouseholdMsgsTable extends Migration
             $table->string('name',10);//姓名
             $table->string('job_number',12);//工号
             $table->string('card_number',19);//银行卡号
+            $table->string('institution',20);//单位
             $table->integer('has_house')->default(0);//是否有房：0：无房，1：有商品房，2：有房改房
             $table->timestamp('has_house_time')->nullable();//有房时间
             $table->timestamp('has_not_house_time')->nullable();//无房时间

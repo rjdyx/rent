@@ -1,23 +1,23 @@
 <div id="addAddressTip">
-    <div id="addAddressTop"><span>添加房址</span><a onclick="$('#addAddressTip').fadeOut(200)"></a></div>
+    <div id="addAddressTop"><span>添加房址</span><a onclick="fadeOutDialog('addAddressTip')"></a></div>
 
     <form id="form_addAddress">
         <table class="addAddressTable">
             <tr>
                 <td><label for="addAddressNameInput">房址名：</label></td>
-                <td><input name="AddressName" type="text" id="addAddressNameInput"/></td>
+                <td><input name="AddressName" type="text" id="addAddressNameInput" placeholder="长度2~20" required></td>
             </tr>
             <tr>
                 <td><label for="addAddressNameInput">周转期租金：</label></td>
-                <td><input name="TurnoverRent" type="text" id="addTurnoverRentInput"/> 元</td>
+                <td><input name="TurnoverRent" type="text" id="addTurnoverRentInput" placeholder="" required> 元</td>
             </tr>
             <tr>
                 <td><label for="addAddressNameInput">优惠市场租金：</label></td>
-                <td><input name="DiscountRent" type="text" id="addDiscountRentInput"/> 元</td>
+                <td><input name="DiscountRent" type="text" id="addDiscountRentInput" placeholder="" required> 元</td>
             </tr>
             <tr>
                 <td><label for="addAddressNameInput">市场租金：</label></td>
-                <td><input name="MarketRent" type="text" id="addMarketRentInput"/> 元</td>
+                <td><input name="MarketRent" type="text" id="addMarketRentInput" placeholder="" required> 元</td>
             </tr>
             <tr>
                 <td><span class="lb-area">所属区域：</span></td>
@@ -28,11 +28,12 @@
                 </td>
             </tr>
         </table>
-    </form>
 
-    <div id="addAddressBtn">
-        <input name="" type="button" id="addAddressSure" value="添加" onclick="addAddress()"/>&nbsp;
-        <input name="" type="button" id="addAddressCancel" onclick="$('#addAddressTip').fadeOut(200)" value="取消"/>
-    </div>
+
+        <div id="addAddressBtn">
+            <input name="" type="submit" id="addAddressSure" value="添加"/>&nbsp;
+            <input name="" type="button" id="addAddressCancel" onclick="fadeOutDialog('addAddressTip')" value="取消"/>
+        </div>
+    </form>
 
 </div>

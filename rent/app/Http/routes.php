@@ -11,15 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('option.editConfig', ['tmp' => '1']);
-});
+Route::get('/', 'admin\EditConfigController@editConfig')->middleware(['auth']);
 
 
 /*
 *接收配置管理的后台请求
 */
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {// 匹配 "/admin/*" URL,控制器在 "App\Http\Controllers\Admin" 命名空间下
+Route::group(['middleware' => 'auth', 'prefix' => 'admin', 'namespace' => 'Admin'], function () {// 匹配 "/admin/*" URL,控制器在 "App\Http\Controllers\Admin" 命名空间下
 
     //进入编辑配置页面
     Route::get('editConfig', 'EditConfigController@editConfig');
@@ -58,7 +56,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {// 匹�
 /*
 *接收住户管理的后台请求
 */
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {// 匹配 "/admin/*" URL,控制器在 "App\Http\Controllers\Admin" 命名空间下
+Route::group(['middleware' => 'auth', 'prefix' => 'admin', 'namespace' => 'Admin'], function () {// 匹配 "/admin/*" URL,控制器在 "App\Http\Controllers\Admin" 命名空间下
 
     //进入新增住户信息页面
     Route::get('AddHouseholdView', 'HouseholdManageController@AddHouseholdView');
@@ -96,7 +94,62 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {// 匹�
 
 });
 
+/*
+*接收房租管理的后台请求
+*/
+Route::group(['middleware' => 'auth', 'prefix' => 'admin', 'namespace' => 'Admin'], function () {// 匹配 "/admin/*" URL,控制器在 "App\Http\Controllers\Admin" 命名空间下
+
+    //进入房租信息页面
+    Route::get('RentMsgListView', 'RentManageController@RentMsgListView');
+
+    //显示详情
+    Route::get('showDetail/{id}', 'RentManageController@showDetail');
+
+    //显示房租信息
+    Route::get('viewRent/{id}', 'RentManageController@viewRent');
+
+
+});
+
+/*
+*接收房租导入导出的后台请求
+*/
+Route::group(['middleware' => 'auth', 'prefix' => 'admin', 'namespace' => 'Admin'], function () {// 匹配 "/admin/*" URL,控制器在 "App\Http\Controllers\Admin" 命名空间下
+
+    //进入导入导出页面
+    Route::get('importExportView', 'ExcelController@importExportView');
+
+    //导出
+    Route::get('export', 'ExcelController@export');
+
+    //导入
+    Route::post('import', 'ExcelController@import');
+
+});
+
+/*
+*接收超级管理员的后台请求
+*/
+Route::group(['middleware' => ['auth','admin'], 'prefix' => 'admin', 'namespace' => 'Admin'], function () {// 匹配 "/admin/*" URL,控制器在 "App\Http\Controllers\Admin" 命名空间下
+
+    //进入新增账号页面
+    Route::get('addUserView', 'AdminController@addUserView');
+
+    //进入管理账号页面
+    Route::get('manageUserView', 'AdminController@manageUserView');
+
+    //新增账号
+    Route::post('addUser', 'AdminController@addUser');
+
+    //重置密码
+    Route::get('resetPWD','AdminController@resetPWD');
+
+    //冻结
+    Route::get('lock/{id}/{flag}','AdminController@lock');
+
+
+});
+
 
 Route::auth();
 
-Route::get('/home', 'HomeController@index');
