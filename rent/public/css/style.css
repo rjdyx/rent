@@ -700,7 +700,7 @@ h2 {
 }
 
 .toolbar li {
-    background: url(../images/toolbg.gif) repeat-x;
+    line-height: 33px;
     line-height: 33px;
     height: 33px;
     border: solid 1px #d3dbde;
@@ -724,7 +724,6 @@ h2 {
 }
 
 .toolbar1 li {
-    background: url(../images/toolbg.gif) repeat-x;
     line-height: 33px;
     height: 33px;
     border: solid 1px #d3dbde;
