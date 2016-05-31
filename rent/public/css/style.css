@@ -538,7 +538,7 @@ h2 {
     line-height: 35px;
     font-weight: bold;
     font-size: 14px;
-    border-right: solid 1px #b7d5df;
+    /*border-right: solid 1px #b7d5df;*/
     color: #636363;
     border-bottom: 1px solid #E8E8E8;
 }
@@ -3093,3 +3093,56 @@ h2 {
     /*display: block;*/
     color: red;
 }
+
+
+/* index */
+
+.index-header{
+    background-color: #f8f8f8;
+    border-color: #e7e7e7;
+    margin: 0;
+    padding: 0;
+    height: 80px;
+    line-height: 80px;
+    width: 100%;
+    color: #000;
+}
+
+.index-search{
+    position: absolute;
+    top: 45%;
+    left: 19%;
+}
+
+.index-input{
+
+}
+
+#index-name,#index-jobNumber,#index-cardNumber{
+    width: 165px;
+    height: 32px;
+    line-height: 32px;
+    border-top: solid 1px #a7b5bc;
+    border-left: solid 1px #a7b5bc;
+    border-right: solid 1px #ced9df;
+    border-bottom: solid 1px #ced9df;
+    text-indent: 10px;
+}
+
+.index-search form label{
+    margin-left: 10px;
+}
+
+#index-submit{
+    line-height: 33px;
+    height: 35px;
+    width: 100px;
+    border: solid 1px #d3dbde;
+    /* padding-right: 10px; */
+    /* margin-right: 5px; */
+    border-radius: 3px;
+    cursor: pointer;
+    background-color: white;
+    margin-left: 30px;
+}
+

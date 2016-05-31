@@ -47,6 +47,7 @@ h1 {
     min-width: 140px;
     position: absolute;
     float: left;
+    border-right: 1px solid #E8E8E8;
 }
 
 .content{

@@ -11,7 +11,9 @@
 |
 */
 
-Route::get('/', 'admin\EditConfigController@editConfig')->middleware(['auth']);
+Route::get('/', function(){
+    return view('layouts.index');
+});
 
 
 /*
