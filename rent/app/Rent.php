@@ -36,7 +36,7 @@ class Rent extends Model
      * @var array
      */
     protected $fillable = [
-        'firsttime_check_in', 'lasttime_pay_rent', 'rent', 'formulas'
+        'firsttime_check_in', 'lasttime_pay_rent', 'rent', 'intervel', 'isDimission', 'order', 'hasHouse', 'time', 'region', 'address', 'money', 'area'
     ];
     
     public function householdMsg(){

@@ -59,7 +59,7 @@ class RentManageController extends Controller
     public function showDetail($id)
     {
         $rent = Rent::where('id', '=', $id)->first();
-        return response()->json($rent->formulas);
+        return response()->json($rent);
     }
 
     /**

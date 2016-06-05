@@ -1,11 +1,13 @@
 <div id="editAreaTip">
-    <input type="hidden" value="" id="edit-area-id">
+
     <div id="editAreaTop"><span>修改区域</span><a onclick="fadeOutDialog('editAreaTip')"></a></div>
 
-    <form id="editArea-form">
+    <form id="editArea-form" method="post" action="{{ url('/admin/editArea') }}">
+        {!! csrf_field() !!}
+        <input type="hidden" value="" id="edit-area-id" name="id">
         <div id="editAreaInfo">
             <p>区域名：</p>
-            <input name="areaName" type="text" id="editAreaNameInput" placeholder="长度2~20" required>
+            <input name="name" type="text" id="editAreaNameInput" placeholder="长度2~20" minlength="2" maxlength="20"  required>
         </div>
 
         <div id="editAreaBtn">

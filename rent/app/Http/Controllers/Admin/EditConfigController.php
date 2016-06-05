@@ -53,7 +53,7 @@ class EditConfigController extends Controller
      */
     public function addArea(Request $Request)
     {
-        $name = $Request->input('name');
+        $name = $Request->input('areaName');
         $valid = Validator::make(
             array('name' => $name),
             array('name' => 'required|between:2,20|unique:configs,name')
@@ -74,8 +74,7 @@ class EditConfigController extends Controller
     public function addAddress(Request $request)
     {
         $data = Input::All();
-        $tmp = $data['data'];
-        $addressForm = new AddressModel($data['data']);
+        $addressForm = new AddressModel($data);
         $DBarr = $addressForm->getDBArray();
 
         if ($addressForm->isValid()) {
@@ -165,7 +164,7 @@ class EditConfigController extends Controller
     public function editAddress(Request $request)
     {
         $data = Input::All();
-        $addressForm = new AddressModel($data['data']);
+        $addressForm = new AddressModel($data);
         $DBarr = $addressForm->getDBArray();
 
         if ($addressForm->isValid()) {

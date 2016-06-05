@@ -1,5 +1,6 @@
 $(function () {
-    init();
+    // init();
+    init2();
 })
 
 function init() {
@@ -22,12 +23,12 @@ function init() {
                 maxlength: '长度不能超过20',
             }
         },
-        submitHandler: function(form) {  //通过之后回调
+        submitHandler: function (form) {  //通过之后回调
             addArea();
-            $('#addAreaTip').css('width','400px');
+            $('#addAreaTip').css('width', '400px');
         },
-        invalidHandler: function(form, validator) {  //不通过回调
-            $('#addAreaTip').css('width','432px');
+        invalidHandler: function (form, validator) {  //不通过回调
+            $('#addAreaTip').css('width', '432px');
             return false;
         }
     });
@@ -50,12 +51,12 @@ function init() {
                 maxlength: '长度不能超过20',
             }
         },
-        submitHandler: function(form) {  //通过之后回调
+        submitHandler: function (form) {  //通过之后回调
             editArea();
-            $('#editAreaTip').css('width','400px');
+            $('#editAreaTip').css('width', '400px');
         },
-        invalidHandler: function(form, validator) {  //不通过回调
-            $('#editAreaTip').css('width','432px');
+        invalidHandler: function (form, validator) {  //不通过回调
+            $('#editAreaTip').css('width', '432px');
             return false;
         }
     });
@@ -65,49 +66,49 @@ function init() {
         onkeyup: false,// 是否在敲击键盘时验证
 
         rules: {
-            AddressName:{
+            AddressName: {
                 required: true,
                 minlength: 2,
                 maxlength: 20
             },
-            TurnoverRent:{
+            TurnoverRent: {
                 required: true,
-                number:true
+                number: true
             },
-            DiscountRent:{
+            DiscountRent: {
                 required: true,
-                number:true
+                number: true
             },
-            MarketRent:{
+            MarketRent: {
                 required: true,
-                number:true
+                number: true
             }
         },
         messages: {
-            AddressName:{
+            AddressName: {
                 required: '请输入房址',
                 minlength: '长度不能小于2',
                 maxlength: '长度不能超过20'
             },
-            TurnoverRent:{
+            TurnoverRent: {
                 required: '请输入周转期租金',
-                number:'必须为数字'
+                number: '必须为数字'
             },
-            DiscountRent:{
+            DiscountRent: {
                 required: '请输入优惠市场租金',
-                number:'必须为数字'
+                number: '必须为数字'
             },
-            MarketRent:{
+            MarketRent: {
                 required: '请输入市场租金',
-                number:'必须为数字'
+                number: '必须为数字'
             }
         },
-        submitHandler: function(form) {  //通过之后回调
+        submitHandler: function (form) {  //通过之后回调
             addAddress();
-            $('#addAddressTip').css('width','400px');
+            $('#addAddressTip').css('width', '400px');
         },
-        invalidHandler: function(form, validator) {  //不通过回调
-            $('#addAddressTip').css('width','432px');
+        invalidHandler: function (form, validator) {  //不通过回调
+            $('#addAddressTip').css('width', '432px');
             return false;
         }
     });
@@ -117,52 +118,115 @@ function init() {
         onkeyup: false,// 是否在敲击键盘时验证
 
         rules: {
-            AddressName:{
+            AddressName: {
                 required: true,
                 minlength: 2,
                 maxlength: 20
             },
-            TurnoverRent:{
+            TurnoverRent: {
                 required: true,
-                number:true
+                number: true
             },
-            DiscountRent:{
+            DiscountRent: {
                 required: true,
-                number:true
+                number: true
             },
-            MarketRent:{
+            MarketRent: {
                 required: true,
-                number:true
+                number: true
             }
         },
         messages: {
-            AddressName:{
+            AddressName: {
                 required: '请输入房址',
                 minlength: '长度不能小于2',
                 maxlength: '长度不能超过20'
             },
-            TurnoverRent:{
+            TurnoverRent: {
                 required: '请输入周转期租金',
-                number:'必须为数字'
+                number: '必须为数字'
             },
-            DiscountRent:{
+            DiscountRent: {
                 required: '请输入优惠市场租金',
-                number:'必须为数字'
+                number: '必须为数字'
             },
-            MarketRent:{
+            MarketRent: {
                 required: '请输入市场租金',
-                number:'必须为数字'
+                number: '必须为数字'
             }
         },
-        submitHandler: function(form) {  //通过之后回调
+        submitHandler: function (form) {  //通过之后回调
             editAddress();
-            $('#editAddressTip').css('width','400px');
+            $('#editAddressTip').css('width', '400px');
         },
-        invalidHandler: function(form, validator) {  //不通过回调
-            $('#editAddressTip').css('width','490px');
+        invalidHandler: function (form, validator) {  //不通过回调
+            $('#editAddressTip').css('width', '490px');
             return false;
         }
     });
+}
+
+function init2() {
+    addAreaOptions = {
+        success: function (ret){
+            if (ret == 'success') {
+                $("#addAreaTip").fadeOut(200);
+                showSuccessTip();
+                getAllAreaAndAddress();
+            } else {
+                showErrorTip();
+            }
+        },　　　　   //提交成功后执行的回调函数
+        dataType: "json",　　　　　　　//服务器返回数据类型
+        clearForm: true,　　　　　　 //提交成功后是否清空表单中的字段值
+        restForm: true,　　　　　　  //提交成功后是否重置表单中的字段值，即恢复到页面加载时的状态
+    }
+    $("#addArea-form").ajaxForm(addAreaOptions);
+    editAreaOptions = {
+        success: function (ret){
+            if (ret == 'success') {
+                $("#editAreaTip").fadeOut(200);
+                showSuccessTip();
+                getAllAreaAndAddress();
+            } else {
+                showErrorTip();
+            }
+        },　　　　   //提交成功后执行的回调函数
+        dataType: "json",　　　　　　　//服务器返回数据类型
+        clearForm: true,　　　　　　 //提交成功后是否清空表单中的字段值
+        restForm: true,　　　　　　  //提交成功后是否重置表单中的字段值，即恢复到页面加载时的状态
+    }
+    $("#editArea-form").ajaxForm(editAreaOptions);
+    addAddressOptions = {
+        success: function (ret){
+            if (ret == 'success') {
+                $("#addAddressTip").fadeOut(200);
+                showSuccessTip();
+                getAllAreaAndAddress();
+            } else {
+                showErrorTip();
+            }
+        },　　　　   //提交成功后执行的回调函数
+        dataType: "json",　　　　　　　//服务器返回数据类型
+        clearForm: true,　　　　　　 //提交成功后是否清空表单中的字段值
+        restForm: true,　　　　　　  //提交成功后是否重置表单中的字段值，即恢复到页面加载时的状态
+    }
+    $("#form_addAddress").ajaxForm(addAddressOptions);
+    addAddressOptions = {
+        success: function (ret){
+            if (ret == 'success') {
+                $("#editAddressTip").fadeOut(200);
+                showSuccessTip();
+                getAllAreaAndAddress();
+            } else {
+                showErrorTip();
+            }
+        },　　　　   //提交成功后执行的回调函数
+        dataType: "json",　　　　　　　//服务器返回数据类型
+        clearForm: true,　　　　　　 //提交成功后是否清空表单中的字段值
+        restForm: true,　　　　　　  //提交成功后是否重置表单中的字段值，即恢复到页面加载时的状态
+    }
+    $("#form_editAddress").ajaxForm(addAddressOptions);
 }
 
 /**

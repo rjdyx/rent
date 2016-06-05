@@ -11,9 +11,6 @@
 
 
 @section('content')
-
-    <form id="form-household">
-
         <div class="addHouseHold-content">
             <form id="form-household-base-msg">
                 <table>
@@ -149,7 +146,6 @@
             <button id="btn-right" onclick="addHousehold()">保存</button>
         </div>
 
-    </form>
     <script src="{{url('/js/jquery.cxcalendar.min.js')}}"></script>
     <link rel="stylesheet" href="{{url('/css/jquery.cxcalendar.css')}}">
     <script type="text/javascript">

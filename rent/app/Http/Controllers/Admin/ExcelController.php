@@ -30,17 +30,17 @@ class ExcelController extends Controller
     }
 
     /**
-     * 导入
+     * 导出
      */
     public function export()
     {
         $input = Input::all();
 
-        $all = array(['工号', '姓名', '单位', '入住时间', '上次结算时间', '本次结算时间', '房租', '详情']);
-        $school = array(['工号', '姓名', '单位', '入住时间', '上次结算时间', '本次结算时间', '房租', '详情']);
-        $province = array(['工号', '姓名', '单位', '入住时间', '上次结算时间', '本次结算时间', '房租', '详情']);
-        $lease = array(['工号', '姓名', '单位', '入住时间', '上次结算时间', '本次结算时间', '房租', '详情']);
-        $postdoctor = array(['工号', '姓名', '单位', '入住时间', '上次结算时间', '本次结算时间', '房租', '详情']);
+        $all = array(['工号', '姓名', '单位', '入住时间', '上次结算时间', '本次结算时间', '房租']);
+        $school = array(['工号', '姓名', '单位', '入住时间', '上次结算时间', '本次结算时间', '房租']);
+        $province = array(['工号', '姓名', '单位', '入住时间', '上次结算时间', '本次结算时间', '房租']);
+        $lease = array(['工号', '姓名', '单位', '入住时间', '上次结算时间', '本次结算时间', '房租']);
+        $postdoctor = array(['工号', '姓名', '单位', '入住时间', '上次结算时间', '本次结算时间', '房租']);
 
 
         $rentArr['allInput'] = 0;
@@ -70,7 +70,6 @@ class ExcelController extends Controller
                     $tmp[4] = date('Y-m-d', strtotime($rent->lasttime_pay_rent)) == '1970-01-01' ? '无' : date('Y-m-d', strtotime($item->lasttime_pay_rent));
                     $tmp[5] = date('Y-m-d', strtotime($rent->time_pay_rent));
                     $tmp[6] = $rent->rent;
-                    $tmp[7] = $rent->formulas;
                     array_push($all, $tmp);
                 }
             }
@@ -91,7 +90,6 @@ class ExcelController extends Controller
                     $tmp[4] = date('Y-m-d', strtotime($rent->lasttime_pay_rent)) == '1970-01-01' ? '无' : date('Y-m-d', strtotime($item->lasttime_pay_rent));
                     $tmp[5] = date('Y-m-d', strtotime($rent->time_pay_rent));
                     $tmp[6] = $rent->rent;
-                    $tmp[7] = $rent->formulas;
                     array_push($school, $tmp);
                 }
             }
@@ -112,7 +110,6 @@ class ExcelController extends Controller
                     $tmp[4] = date('Y-m-d', strtotime($rent->lasttime_pay_rent)) == '1970-01-01' ? '无' : date('Y-m-d', strtotime($item->lasttime_pay_rent));
                     $tmp[5] = date('Y-m-d', strtotime($rent->time_pay_rent));
                     $tmp[6] = $rent->rent;
-                    $tmp[7] = $rent->formulas;
                     array_push($province, $tmp);
                 }
             }
@@ -134,7 +131,6 @@ class ExcelController extends Controller
                     $tmp[4] = date('Y-m-d', strtotime($rent->lasttime_pay_rent)) == '1970-01-01' ? '无' : date('Y-m-d', strtotime($item->lasttime_pay_rent));
                     $tmp[5] = date('Y-m-d', strtotime($rent->time_pay_rent));
                     $tmp[6] = $rent->rent;
-                    $tmp[7] = $rent->formulas;
                     array_push($lease, $tmp);
                 }
             }
@@ -156,13 +152,12 @@ class ExcelController extends Controller
                     $tmp[4] = date('Y-m-d', strtotime($rent->lasttime_pay_rent)) == '1970-01-01' ? '无' : date('Y-m-d', strtotime($item->lasttime_pay_rent));
                     $tmp[5] = date('Y-m-d', strtotime($rent->time_pay_rent));
                     $tmp[6] = $rent->rent;
-                    $tmp[7] = $rent->formulas;
                     array_push($postdoctor, $tmp);
                 }
             }
         }
 
-        $rentArr['all'] = $school;
+        $rentArr['all'] = $all;
         $rentArr['school'] = $school;
         $rentArr['province'] = $province;
         $rentArr['lease'] = $lease;
@@ -210,7 +205,7 @@ class ExcelController extends Controller
     }
 
     /**
-     * 导出
+     * 导入
      * @param Request $request
      */
     public function import(Request $request)

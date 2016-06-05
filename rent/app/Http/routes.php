@@ -11,9 +11,17 @@
 |
 */
 
+/**
+ * 访问首页
+ */
 Route::get('/', function(){
     return view('layouts.index');
 });
+
+/**
+ * 首页房租搜索
+ */
+Route::get('/searchRentByOne','IndexController@searchRentByOne');
 
 
 /*

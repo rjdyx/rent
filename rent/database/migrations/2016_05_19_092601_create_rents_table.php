@@ -18,8 +18,16 @@ class CreateRentsTable extends Migration
             $table->timestamp('lasttime_pay_rent')->nullable();//房租上次结算时间
             $table->timestamp('time_pay_rent');//房租结算时间
             $table->decimal('rent', 11, 2);//房租
-            $table->string('formulas');//计算公式（天数*[年限+区域+房址+租金]*平方数*比例=房租）
             $table->integer('household_id');
+            $table->integer('intervel');//天数
+            $table->integer('isDimission');//是否离职
+            $table->integer('order');//第几间租房
+            $table->integer('hasHouse');//是否有房
+            $table->integer('time');//年限
+            $table->string('region',20);//区域
+            $table->string('address',20);//房址
+            $table->decimal('money', 11, 2);//租金x比例
+            $table->decimal('area', 11, 2);//租房面积
             $table->timestamps();
         });
     }

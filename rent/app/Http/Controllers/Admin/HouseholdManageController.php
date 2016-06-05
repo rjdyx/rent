@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\HouseholdMsg;
 use App\HouseholdHouseMsg;
 use App\Http\Controllers\Controller;
+use App\Rent;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Input;
@@ -454,6 +455,8 @@ class HouseholdManageController extends Controller
     {
         $householdMsg = HouseholdMsg::find($id);
         $result1 = HouseholdHouseMsg::where('household_id', '=', $householdMsg->id)
+            ->delete();
+        Rent::where('household_id', '=', $householdMsg->id)
             ->delete();
         if ($result1 > 0) {
             $result2 = $householdMsg->delete();

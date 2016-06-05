@@ -22,7 +22,7 @@
                             <label class="col-md-4 control-label">账号名：</label>
 
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="name" value="{{ old('name') }}">
+                                <input type="text" class="form-control" name="name" value="{{ old('name') }}" required>
 
                                 @if ($errors->has('name'))
                                     <span class="help-block">
@@ -36,7 +36,7 @@
                             <label class="col-md-4 control-label">邮箱：</label>
 
                             <div class="col-md-6">
-                                <input type="email" class="form-control" name="email" value="{{ old('email') }}">
+                                <input type="email" class="form-control" name="email" value="{{ old('email') }}" required>
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">
@@ -50,7 +50,7 @@
                             <label class="col-md-4 control-label">密码：</label>
 
                             <div class="col-md-6">
-                                <input type="password" class="form-control" name="password">
+                                <input type="password" class="form-control" name="password" minlength="6" required>
 
                                 @if ($errors->has('password'))
                                     <span class="help-block">
@@ -64,7 +64,7 @@
                             <label class="col-md-4 control-label">确认密码：</label>
 
                             <div class="col-md-6">
-                                <input type="password" class="form-control" name="password_confirmation">
+                                <input type="password" class="form-control" name="password_confirmation" minlength="6" required>
 
                                 @if ($errors->has('password_confirmation'))
                                     <span class="help-block">

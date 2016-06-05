@@ -2,7 +2,9 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title')</title>
     {{--<link href="{{url('/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css"/>--}}
@@ -10,6 +12,9 @@
     <link href="{{url('/css/index.css')}}" rel="stylesheet" type="text/css"/>
     <script language="JavaScript" src="{{url('/js/jquery-2.1.3.min.js')}}"></script>
     <script language="JavaScript" src="{{url('/js/jquery.validate.min.js')}}"></script>
+    <script language="JavaScript" src="{{url('/js/jquery.metadata.js')}}"></script>
+    <script language="JavaScript" src="{{url('/js/jquery.poshytip.min.js')}}"></script>
+    <script language="JavaScript" src="{{url('/js/jquery.form.min.js')}}"></script>
     <script language="JavaScript" src="{{url('/js/messages_zh.js')}}"></script>
     <script language="JavaScript" src="{{url('/js/common.js')}}"></script>
     @yield('js')

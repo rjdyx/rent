@@ -44,7 +44,7 @@ function calculateOneMonthRent(HouseholdMsg $householdMsg, $now, $days)
  * 4、月初入住，月中结算
  * 5、月中入住，月中结算
  */
-function calculateOneMonthOneRent(HouseholdMsg $householdMsg,HouseholdHouseMsg $rent, $now, $days)
+function calculateOneMonthOneRent(HouseholdMsg $householdMsg, HouseholdHouseMsg $rent, $now, $days)
 {
     $jobNumber = $householdMsg->job_number;//工号
     $name = $householdMsg->name;//姓名
@@ -88,7 +88,8 @@ function calculateAllMonthRent(HouseholdMsg $householdMsg, HouseholdHouseMsg $re
  * @param HouseholdMsg $householdMsg
  * @param HouseholdHouseMsg $rent
  */
-function calculateLastOneMonthRent(HouseholdMsg $householdMsg, HouseholdHouseMsg $rent){
+function calculateLastOneMonthRent(HouseholdMsg $householdMsg, HouseholdHouseMsg $rent)
+{
     date_default_timezone_set('PRC');
     $now = time();//当前时间
     $firsttimeCheckIn = $rent->firsttime_check_in;//第一次入住时间
@@ -98,17 +99,17 @@ function calculateLastOneMonthRent(HouseholdMsg $householdMsg, HouseholdHouseMsg
     $firstTimeM = date('m', strtotime($firsttimeCheckIn));
 
     if ($nowY == $firstTimeY && $nowM - $firstTimeM >= 1 || $nowY != $firstTimeY) {
-        
-        if($nowY == $firstTimeY && $nowM - $firstTimeM > 1 || $nowY != $firstTimeY){
+
+        if ($nowY == $firstTimeY && $nowM - $firstTimeM > 1 || $nowY != $firstTimeY) {
             $begin = 1;
-        }else if($nowY == $firstTimeY && $nowM - $firstTimeM == 1){
+        } else if ($nowY == $firstTimeY && $nowM - $firstTimeM == 1) {
             $begin = date('d', strtotime($firsttimeCheckIn));
         }
 
         $BeginDate = date('Y-m-01', time());//获取月份的第一天
         $endTime = strtotime("$BeginDate -1 day");//获取上个月份的最后一天
         $days = date('t', $endTime);//一个月的天数
-        calculateOneRentHasBeginTime($householdMsg,$rent,$begin,$endTime,$days);
+        calculateOneRentHasBeginTime($householdMsg, $rent, $begin, $endTime, $days);
     }
 
 }
@@ -148,20 +149,18 @@ function calculateOneRent(HouseholdMsg $householdMsg, HouseholdHouseMsg $rent, $
     $rentMsg = new Rent;
     $lasttime_pay_rent = date('Y-m-d H:i:s', $now);
     $rentMsg->firsttime_check_in = $rent->firsttime_check_in;
-    $rentMsg->lasttime_pay_rent = ($rent->lasttime_pay_rent == null? null:$rent->lasttime_pay_rent);
+    $rentMsg->lasttime_pay_rent = ($rent->lasttime_pay_rent == null ? null : $rent->lasttime_pay_rent);
     $rentMsg->time_pay_rent = $lasttime_pay_rent;
     $rentMsg->rent = $totalRent;
-    $formulas =
-        '天数：' . $intervel .
-        '，是否离职：' . ($isDimission == 0 ? '否' : '是') .
-        '，租房：' . $rent->order .
-        '，是否有房：' . ($hasHouse == 0 ? '无房' : ($hasHouse == 1 ? '商品房' : '房改房')) .
-        '，年限：' . $time .
-        '，区域：' . $rent->regionMsg()->first()->name .
-        '，房址：' . $rent->addressMsg()->first()->name .
-        '，租金x比例：' . $money .
-        '，面积：' . $rent->area;
-    $rentMsg->formulas = $formulas;
+    $rentMsg->intervel = $intervel;
+    $rentMsg->isDimission = $isDimission;
+    $rentMsg->order = $rent->order;
+    $rentMsg->hasHouse = $hasHouse;
+    $rentMsg->time = $time;
+    $rentMsg->region = $rent->regionMsg()->first()->name;
+    $rentMsg->address = $rent->addressMsg()->first()->name;
+    $rentMsg->money = $money;
+    $rentMsg->area = $rent->area;
     $rentMsg->household_id = $householdMsg->id;
     $rentMsg->save();
 
@@ -176,7 +175,7 @@ function calculateOneRent(HouseholdMsg $householdMsg, HouseholdHouseMsg $rent, $
  * @param $now
  * @param $days
  */
-function calculateOneRentHasBeginTime(HouseholdMsg $householdMsg, HouseholdHouseMsg $rent, $begin , $now, $days)
+function calculateOneRentHasBeginTime(HouseholdMsg $householdMsg, HouseholdHouseMsg $rent, $begin, $now, $days)
 {
     $jobNumber = $householdMsg->job_number;//工号
     $name = $householdMsg->name;//姓名
@@ -193,20 +192,18 @@ function calculateOneRentHasBeginTime(HouseholdMsg $householdMsg, HouseholdHouse
     $rentMsg = new Rent;
     $lasttime_pay_rent = date('Y-m-d H:i:s', $now);
     $rentMsg->firsttime_check_in = $rent->firsttime_check_in;
-    $rentMsg->lasttime_pay_rent = ($rent->lasttime_pay_rent == null? null:$rent->lasttime_pay_rent);
+    $rentMsg->lasttime_pay_rent = ($rent->lasttime_pay_rent == null ? null : $rent->lasttime_pay_rent);
     $rentMsg->time_pay_rent = $lasttime_pay_rent;
     $rentMsg->rent = $totalRent;
-    $formulas =
-        '天数：' . $intervel .
-        '，是否离职：' . ($isDimission == 0 ? '否' : '是') .
-        '，租房：' . $rent->order .
-        '，是否有房：' . ($hasHouse == 0 ? '无房' : ($hasHouse == 1 ? '商品房' : '房改房')) .
-        '，年限：' . $time .
-        '，区域：' . $rent->regionMsg()->first()->name .
-        '，房址：' . $rent->addressMsg()->first()->name .
-        '，租金x比例：' . $money .
-        '，面积：' . $rent->area;
-    $rentMsg->formulas = $formulas;
+    $rentMsg->intervel = $intervel;
+    $rentMsg->isDimission = $isDimission;
+    $rentMsg->order = $rent->order;
+    $rentMsg->hasHouse = $hasHouse;
+    $rentMsg->time = $time;
+    $rentMsg->region = $rent->regionMsg()->first()->name;
+    $rentMsg->address = $rent->addressMsg()->first()->name;
+    $rentMsg->money = $money;
+    $rentMsg->area = $rent->area;
     $rentMsg->household_id = $householdMsg->id;
     $rentMsg->save();
 

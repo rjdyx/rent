@@ -3100,17 +3100,20 @@ h2 {
 .index-header{
     background-color: #f8f8f8;
     border-color: #e7e7e7;
-    margin: 0;
-    padding: 0;
-    height: 80px;
+    /* margin: 0; */
+    /* padding: 0; */
+    /* height: 50px; */
     line-height: 80px;
     width: 100%;
     color: #000;
+    text-align: center;
+    font-size: 30px;
 }
+
 
 .index-search{
     position: absolute;
-    top: 45%;
+    top: 28%;
     left: 19%;
 }
 
@@ -3118,7 +3121,7 @@ h2 {
 
 }
 
-#index-name,#index-jobNumber,#index-cardNumber{
+#index-name,#index-jobNumber,#index-institution{
     width: 165px;
     height: 32px;
     line-height: 32px;
@@ -3146,3 +3149,22 @@ h2 {
     margin-left: 30px;
 }
 
+#index-info-list{
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 15%;
+    display: none;
+}
+
+#index-info-list .tablelist th{
+    background-color: #F8F8F8;
+    border-bottom: solid 1px #E1E1E1;
+}
+
+.limit{
+    width: 150px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: inline-block;
+}

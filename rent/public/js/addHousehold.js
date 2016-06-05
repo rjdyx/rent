@@ -27,7 +27,7 @@ function addRent() {
     }
 
     count++;
-    
+
     $(".add-new-rent").remove();
     tmp = '<div class="addHouseHold-content addHouseHold-content-house rent-item item' + (count) + '">' +
         '<div class="addHouseHold-title">租房' + count + '<a class="close" onclick="$(\'.item' + count + '\').remove();count--;"></a></div><form class="form-rent-item"><table> <tr> <td>' +
@@ -123,6 +123,9 @@ function addHousehold() {
         success: function (ret) {
             if(ret == 'success'){
                 showSuccessTip();
+                setTimeout(function () {
+                    window.location.reload();
+                }, 1000);
             }else if (ret == 'baseMsgError') {
                 showErrorTip();
                 return;
