@@ -22,6 +22,25 @@ class HouseholdManageController extends Controller
      */
     public function AddHouseholdView()
     {
+
+        //测试用的
+//        date_default_timezone_set('PRC');
+//        $now = time();
+//        $time = strtotime('2014-06-25');
+//        $intervel = $now - $time;
+//        $year = date('Y', $intervel);
+//        $month = date('m', $intervel);
+//        $day = date('d', $intervel);
+//        $days = date('t', $time);
+//        $days = (int)($intervel / (24 * 60 * 60));
+//        $year = (int)($days / 365);
+//        $yushu = $days % 365;
+//        $household = HouseholdMsg::where('id', 23)->first();
+//        $time = $household->in_school_time;
+//        $time = strtotime('2016-06-26 23:50:50');
+//        $days = date('t', $time);
+//        \App\libraries\Util\calculateOneMonthRent($household, $time, $days);
+
         //获取所有区域
         $areas = Config::select('id', 'name')
             ->where('parent_id', '=', '0')
@@ -129,7 +148,8 @@ class HouseholdManageController extends Controller
                 'householdMsg' => $householdmsg,
                 'rents' => $rents,
                 'rentsCheckOut' => $rentsCheckOut,
-                'areas' => $areas
+                'areas' => $areas,
+                'sildedown' => 'household'
             ]);
     }
 
@@ -189,12 +209,12 @@ class HouseholdManageController extends Controller
         //验证规则
         $rule = array(
             'name' => 'required|between:1,10',
-            'jobNumber' => 'required|size:12|unique:household_msg,job_number',
-            'cardNumber' => 'required|size:19',
+            'jobNumber' => 'required|between:1,12|unique:household_msg,job_number',
+            'cardNumber' => 'required|between:1,19',
             'institution' => 'required|between:1,20',
             'hasHouse' => 'required|numeric|between:0,2',
-            'hasHouseTime' => 'required|date',
-            'type' => 'required|numeric|between:0,3'
+            'type' => 'required|numeric|between:0,3',
+            'inSchoolTime' => 'required|date'
         );
 
         $householdMsg = new HouseholdMsg();
@@ -205,61 +225,64 @@ class HouseholdManageController extends Controller
             $householdMsg->institution = $baseData['institution'];
             $householdMsg->has_house = $baseData['hasHouse'];
             $householdMsg->type = $baseData['type'];
-            //判断是存入有房时间还是无房时间
-            if ($baseData['hasHouse'] == 0) {
-                $householdMsg->has_not_house_time = $baseData['hasHouseTime'];
-            } else {
-                $householdMsg->has_house_time = $baseData['hasHouseTime'];
-            }
-            //判断是否离职，若离职则存入离职时间
+            $householdMsg->input_count_time = $baseData['inputCountTime'];
+            $householdMsg->in_school_time = $baseData['inSchoolTime'];
+
+            //判断是否离职
             if (isset($baseData['isDimission'])) {
                 $householdMsg->is_dimission = 1;
-                if (!Validator::make(
-                    ['dimissionTime' => $baseData['dimissionTime']],
-                    ['dimissionTime' => 'required|date'])->fails()
-                ) {
-                    $householdMsg->dimission_time = $baseData['dimissionTime'];
-                } else {
-                    return response()->json('baseMsgError');
-                }
             } else {
                 $householdMsg->is_dimission = 0;
+            }
+
+            //判断是否无房改+补贴
+            if (isset($baseData['hasHouseOrSubsidy'])) {
+                $householdMsg->has_house_or_subsidy = 1;
+            } else {
+                $householdMsg->has_house_or_subsidy = 0;
             }
 
         } else {
             return response()->json('baseMsgError');
         }
 
-        $rentArr = $data['rentArr'];
+        if (\App\libraries\Util\what_kind_of_array($data['rentData']) == 2) {
+            $rentData = \App\libraries\Util\array_two_to_one($data['rentData']);
+        } else {
+            $rentData = $data['rentData'];
+        }
 
         //验证规则
         $rule = array(
             'region' => 'required|numeric',
             'address' => 'required|numeric',
             'area' => 'required|numeric',
-            'firsttimeCheckIn' => 'required|date'
+            'firsttimeCheckIn' => 'required|date',
+            'roomNumber' => 'numeric',
         );
 
-        foreach ($rentArr as $rent) {
-            $rent = \App\libraries\Util\array_two_to_one($rent);
-            if (Validator::make($rent, $rule)->fails()) {
-                return response()->json('rentMsgError');
-            }
+        if (Validator::make($rentData, $rule)->fails()) {
+            return response()->json('rentMsgError');
         }
-        $householdMsg->save();
-        $resultId = $householdMsg->id;
-        for ($i = 0; $i < sizeof($rentArr); $i++) {
-            $householdHouseMsg = new HouseholdHouseMsg();
-            $householdHouseMsg->region_id = $rentArr[$i][0]['value'];
-            $householdHouseMsg->address_id = $rentArr[$i][1]['value'];
-            $householdHouseMsg->area = $rentArr[$i][2]['value'];
-            $householdHouseMsg->firsttime_check_in = $rentArr[$i][3]['value'];
-            $householdHouseMsg->order = $i + 1;
-            $householdHouseMsg->household_id = $resultId;
-            $householdHouseMsg->save();
 
-            \App\libraries\Util\calculateLastOneMonthRent($householdMsg, $householdHouseMsg);
-        }
+        //比较现在的时间和租房第一次入住时间，大的那个作为“有房时间点”
+        $now = time();
+        $householdMsg->time_point = ($now >= strtotime($rentData['firsttimeCheckIn']) ? date('Y-m-d H:i:s', $now) : $rentData['firsttimeCheckIn']);
+        $householdMsg->save();
+
+        $resultId = $householdMsg->id;
+        $householdHouseMsg = new HouseholdHouseMsg();
+        $householdHouseMsg->region_id = $rentData['region'];
+        $householdHouseMsg->address_id = $rentData['address'];
+        $householdHouseMsg->area = $rentData['area'];
+        $householdHouseMsg->firsttime_check_in = $rentData['firsttimeCheckIn'];
+        $householdHouseMsg->room_number = $rentData['roomNumber'];
+        $householdHouseMsg->remark = $rentData['remark'];
+        $householdHouseMsg->order = 1;
+        $householdHouseMsg->household_id = $resultId;
+        $householdHouseMsg->save();
+
+        \App\libraries\Util\calculateLastOneMonthRent($householdMsg, $householdHouseMsg);
 
         return response()->json('success');
     }
@@ -272,7 +295,8 @@ class HouseholdManageController extends Controller
     public function checkOutRent($id)
     {
         date_default_timezone_set('PRC');
-        $time = time();
+//        $time = time();
+        $time = strtotime('2016-06-30 23:50:50');
         $days = date('t', $time);
 
         $rent = HouseholdHouseMsg::where('id', '=', $id)
@@ -284,6 +308,25 @@ class HouseholdManageController extends Controller
         $result = HouseholdHouseMsg::where('id', '=', $id)
             ->update(['is_check_out' => 1]);
         if ($result == 1) {
+
+            if ($rent->order == 1) {//退的是第一间房的情况下
+                $rents = HouseholdHouseMsg::where('household_id', '=', $rent->household_id)
+                    ->where('is_check_out', '=', 0)
+                    ->orderBy('order', 'asc')
+                    ->get();
+
+                //若有两间租房，退掉第一间后，第二间自动变成第一间
+                if (sizeof($rents) == 1) {
+                    $rents[0]->order = 1;
+                    $rents[0]->save();
+                    //比较现在的时间和第二间租房第一次入住时间，大的那个作为“有房时间点”
+                    $now = time();
+                    $householdmsg->time_point = ($now >= strtotime($rents[0]->firsttime_check_in) ? date('Y-m-d H:i:s', $now) : $rents[0]->firsttime_check_in);
+                    $householdmsg->save();
+                }
+            }
+
+
             return response()->json('success');
         } else {
             return response()->json('failed');
@@ -308,7 +351,8 @@ class HouseholdManageController extends Controller
             'region' => 'required|numeric',
             'address' => 'required|numeric',
             'area' => 'required|numeric',
-            'firsttimeCheckIn' => 'required|date'
+            'firsttimeCheckIn' => 'required|date',
+            'roomNumber' => 'numeric',
         );
 
         $input = \App\libraries\Util\array_two_to_one($input);
@@ -318,6 +362,8 @@ class HouseholdManageController extends Controller
             $householdHouseMsg->address_id = $input['address'];
             $householdHouseMsg->area = $input['area'];
             $householdHouseMsg->firsttime_check_in = $input['firsttimeCheckIn'];
+            $householdHouseMsg->room_number = $input['roomNumber'];
+            $householdHouseMsg->remark = $input['remark'];
             $householdHouseMsg->order = $order;
             $householdHouseMsg->household_id = $householdId;
             $householdHouseMsg->save();
@@ -364,21 +410,21 @@ class HouseholdManageController extends Controller
         //验证规则
         $rule = array(
             'name' => 'required|between:1,10',
-            'cardNumber' => 'required|size:19',
+            'cardNumber' => 'required|between:1,19',
             'institution' => 'required|between:1,20',
             'hasHouse' => 'required|numeric|between:0,2',
-            'hasHouseTime' => 'required|date',
-            'type' => 'required|numeric|between:0,3'
+            'type' => 'required|numeric|between:0,3',
         );
 
         $oldHouseholdMsg = $householdMsg = HouseholdMsg::find($householdId);
 
         if (!Validator::make($input, $rule)->fails()) {
             $householdMsg->name = $input['name'];
+
             if ($householdMsg->job_number != $input['jobNumber']) {
                 if (!Validator::make(
                     ['jobNumber' => $input['jobNumber']],
-                    ['jobNumber' => 'required|size:12|unique:household_msg,job_number'])->fails()
+                    ['jobNumber' => 'required|between:1,12|unique:household_msg,job_number',])->fails()
                 ) {
                     $householdMsg->job_number = $input['jobNumber'];
                 } else {
@@ -387,19 +433,26 @@ class HouseholdManageController extends Controller
             }
             $householdMsg->card_number = $input['cardNumber'];
             $householdMsg->institution = $input['institution'];
-            $householdMsg->type = $input['type'];
+
+            if($householdMsg->type == 3 && $input['type'] != 3){
+                //重新统计房租
+                $flag = true;
+                $householdMsg->type = $input['type'];
+            }else if($householdMsg->type != 3 && $input['type'] == 3){
+                //重新统计房租
+                $flag = true;
+                $householdMsg->type = $input['type'];
+            }else if($householdMsg->type >= 0 && $householdMsg->type <= 2 && $input['type'] >= 0 && $input['type'] <= 2){
+                $householdMsg->type = $input['type'];
+            }
+
+            $householdMsg->input_count_time = $input['inputCountTime'];
 
             if ($householdMsg->has_house != $input['hasHouse']) {
                 //重新统计房租
                 $flag = true;
             }
             $householdMsg->has_house = $input['hasHouse'];
-            //判断是存入有房时间还是无房时间
-            if ($input['hasHouse'] == 0) {
-                $householdMsg->has_not_house_time = $input['hasHouseTime'];
-            } else {
-                $householdMsg->has_house_time = $input['hasHouseTime'];
-            }
             //判断是否离职，若离职则存入离职时间
             if (isset($input['isDimission'])) {
                 if ($householdMsg->is_dimission == 0) {
@@ -407,14 +460,7 @@ class HouseholdManageController extends Controller
                     $flag = true;
                 }
                 $householdMsg->is_dimission = 1;
-                if (!Validator::make(
-                    ['dimissionTime' => $input['dimissionTime']],
-                    ['dimissionTime' => 'required|date'])->fails()
-                ) {
-                    $householdMsg->dimission_time = $input['dimissionTime'];
-                } else {
-                    return response()->json('failed');
-                }
+
             } else {
                 if ($householdMsg->is_dimission == 1) {
                     //重新统计房租
@@ -422,17 +468,35 @@ class HouseholdManageController extends Controller
                 }
                 $householdMsg->is_dimission = 0;
             }
+
+            //判断是否无房改+补贴
+            if (isset($input['hasHouseOrSubsidy'])) {
+                if ($householdMsg->has_house_or_subsidy == 0) {
+                    //重新统计房租
+                    $flag = true;
+                }
+                $householdMsg->has_house_or_subsidy = 1;
+
+            } else {
+                if ($householdMsg->has_house_or_subsidy == 1) {
+                    //重新统计房租
+                    $flag = true;
+                }
+                $householdMsg->has_house_or_subsidy = 0;
+            }
+
             if ($flag) {
                 //重新统计房租
-                $rent = $oldHouseholdMsg->Rent()->orderBy('time_pay_rent','desc')->first();
+                $rent = $oldHouseholdMsg->Rent()->orderBy('time_pay_rent', 'desc')->first();
                 date_default_timezone_set('PRC');
                 $time = time();
                 $days = date('t', $time);
                 //最新交租时间与现在一样的时候不插入房租信息
-                if(date('Y-m-d',strtotime($rent->time_pay_rent)) != date('Y-m-d',$time)){
+                $mm = date('Y-m-d', strtotime($rent->time_pay_rent));
+                $nn = date('Y-m-d', $time);
+                if (date('Y-m-d', strtotime($rent->time_pay_rent)) != date('Y-m-d', $time)) {
                     \App\libraries\Util\calculateOneMonthRent($oldHouseholdMsg, $time, $days);
                 }
-
             }
             $result = $householdMsg->save();
             if ($result == 1) {
@@ -468,5 +532,69 @@ class HouseholdManageController extends Controller
         } else {
             return response()->json('failed');
         }
+    }
+
+    /**
+     * 保存房租修改信息
+     * @param $id
+     * @param $order
+     * @param $roomNumber
+     * @param $remark
+     * @return mixed
+     */
+    public function saveRentMsg($id, $order)
+    {
+        $rentTmp = HouseholdHouseMsg::where('id', $id)->first();
+        $householdId = $rentTmp->household_id;
+        $FirstRent = HouseholdHouseMsg::where('household_id', $householdId)
+            ->where('order',1)
+            ->where('is_check_out', '=', 0)
+            ->first();
+
+        //已经存在第一间房则不允许将其他房间设置成第一间房
+        if($order == 1 && $FirstRent != null){
+            return response()->json('failed');
+        }
+
+        $rents = HouseholdHouseMsg::where('household_id', $householdId)
+            ->where('is_check_out', '=', 0)
+            ->get();
+
+
+        if($order == 1 && $FirstRent == null){
+            $householdmsg = HouseholdMsg::where('id',$householdId)->first();
+            $now = time();
+            if(strtotime($rents[0]->firsttime_check_in)>=strtotime($rents[1]->firsttime_check_in)){
+                $max = strtotime($rents[0]->firsttime_check_in);
+                $min = strtotime($rents[1]->firsttime_check_in);
+            }else{
+                $max = strtotime($rents[1]->firsttime_check_in);
+                $min = strtotime($rents[0]->firsttime_check_in);
+            }
+
+            //若现在的时间大于两间房的第一次入住时间，则“有房时间点”选现在的时间
+            if($now >= $max){
+                $householdmsg->time_point = date('Y-m-d H:i:s', $now);
+            }
+
+            //若现在的时间小于两间房的第一次入住时间，则“有房时间点”选两间房中第一次入住时间小的那个时间
+            if($now <= $min){
+                $householdmsg->time_point = date('Y-m-d 00:00:00', $min);
+            }
+
+            //若现在的时间位于两间房第一次入住时间之间，则“有房时间点”选现在的时间
+            if($now >= $min && $now <= $max){
+                $householdmsg->time_point = date('Y-m-d H:i:s', $now);
+            }
+            $householdmsg->save();
+        }
+
+
+
+        $rentTmp->order = $order;
+        $rentTmp->save();
+
+        return response()->json('success');
+
     }
 }

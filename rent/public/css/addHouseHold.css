@@ -1,4 +1,4 @@
-.addHouseHold-content{
+.addHouseHold-content {
     width: 60%;
     /* margin-left: 24%; */
     /* margin-top: 4%; */
@@ -7,7 +7,7 @@
     padding: 3% 0% 3% 5%;
 }
 
-.addHouseHold-content-house{
+.addHouseHold-content-house {
     width: 60%;
     /* margin-left: 24%; */
     /* margin-top: 4%; */
@@ -16,7 +16,7 @@
     padding: 0% 0% 3% 5%;
 }
 
-.addHouseHold-content table{
+.addHouseHold-content table {
     width: 100%;
 }
 
@@ -33,8 +33,41 @@
     /*font-weight: bold;*/
 }
 
+#name, #jobNumber, #cardNumber, #institution, #inputCountTime, #type, .region, .address, .area, .roomNumber ,.remark{
+     width: 180px;
+     height: 32px;
+     line-height: 32px;
+     border-top: solid 1px #a7b5bc;
+     border-left: solid 1px #a7b5bc;
+     border-right: solid 1px #ced9df;
+     border-bottom: solid 1px #ced9df;
+     background: url(../images/inputbg.gif) repeat-x;
+     text-indent: 10px;
+ }
 
-#name,#jobNumber,#cardNumber,#institution,#type,.region,.address,.area{
+.order-number{
+    width: 30px;
+    height: 26px;
+    line-height: 32px;
+    border-top: solid 1px #a7b5bc;
+    border-left: solid 1px #a7b5bc;
+    border-right: solid 1px #ced9df;
+    border-bottom: solid 1px #ced9df;
+    background: url(../images/inputbg.gif) repeat-x;
+    text-indent: 10px;
+    margin-left: 10px;
+}
+
+
+.radio-hasHouse {
+    display: inline;
+}
+
+.radio-hasHouse-name {
+    display: inline;
+}
+
+#inSchoolTime, .first-check-in-time {
     width: 180px;
     height: 32px;
     line-height: 32px;
@@ -46,42 +79,22 @@
     text-indent: 10px;
 }
 
-.radio-hasHouse{
-    display: inline;
-}
-
-.radio-hasHouse-name{
-    display: inline;
-}
-
-#has-house-time,#dimission-time,.first-check-in-time{
-    width: 180px;
-    height: 32px;
-    line-height: 32px;
-    border-top: solid 1px #a7b5bc;
-    border-left: solid 1px #a7b5bc;
-    border-right: solid 1px #ced9df;
-    border-bottom: solid 1px #ced9df;
-    background: url(../images/inputbg.gif) repeat-x;
-    text-indent: 10px;
-}
-
-#isDimission{
+#isDimission {
 
 }
 
-.td-right{
+.td-right {
 
 }
 
-.addHouseHold-title{
+.addHouseHold-title {
     width: 92%;
     margin: 3% 0;
     padding-bottom: 3%;
     border-bottom: solid 1px #a7b5bc;
 }
 
-.close{
+.close {
     display: block;
     background: url(../images/close.png) no-repeat;
     width: 22px;
@@ -90,13 +103,13 @@
     cursor: pointer;
 }
 
-.add-new-rent{
+.add-new-rent {
     margin: 0 auto;
     width: 300px;
     padding-bottom: 5%;
 }
 
-.add-new-rent button{
+.add-new-rent button {
     background-color: #F1F5F7;
     line-height: 33px;
     height: 33px;
@@ -107,17 +120,29 @@
     display: inline;
 }
 
-#btn-right{
+#btn-right {
     margin-left: 90px;
 }
 
-.opt-rent-btn{
+.opt-rent-btn {
     margin: 0 auto;
     width: 300px;
     padding-top: 5%;
 }
 
-.opt-rent-btn button{
+.opt-rent-btn button,.rent-save-btn {
+    background-color: #F1F5F7;
+    line-height: 33px;
+    height: 33px;
+    border: solid 1px #d3dbde;
+    border-radius: 3px;
+    cursor: pointer;
+    width: 100px;
+    display: inline;
+}
+
+.rent-save-btn {
+    float: right;
     background-color: #F1F5F7;
     line-height: 33px;
     height: 33px;

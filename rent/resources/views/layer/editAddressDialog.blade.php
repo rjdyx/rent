@@ -10,16 +10,24 @@
                 <td><input name="AddressName" type="text" id="editAddressNameInput" placeholder="长度2~20" minlength="2" maxlength="20"  required></td>
             </tr>
             <tr>
-                <td><label for="editAddressNameInput">周转期租金：</label></td>
-                <td><input name="TurnoverRent" type="number" id="editTurnoverRentInput" placeholder="" required> 元</td>
+                <td><label for="editTurnoverRentInput">周转期租金：</label></td>
+                <td><input name="TurnoverRent" type="text" id="editTurnoverRentInput" placeholder="" required> 元</td>
             </tr>
             <tr>
-                <td><label for="editAddressNameInput">优惠市场租金：</label></td>
-                <td><input name="DiscountRent" type="number" id="editDiscountRentInput" placeholder="" required> 元</td>
+                <td><label for="editDiscountRentInput">优惠市场租金：</label></td>
+                <td><input name="DiscountRent" type="text" id="editDiscountRentInput" placeholder="" required> 元</td>
             </tr>
             <tr>
-                <td><label for="editAddressNameInput">市场租金：</label></td>
-                <td><input name="MarketRent" type="number" id="editMarketRentInput" placeholder="" required> 元</td>
+                <td><label for="editMarketRentInput">市场租金：</label></td>
+                <td><input name="MarketRent" type="text" id="editMarketRentInput" placeholder="" required> 元</td>
+            </tr>
+            <tr>
+                <td><label for="editStandadRentSingleInput">标准租金单价：</label></td>
+                <td><input name="StandadRentSingle" type="text" id="editStandadRentSingleInput" placeholder="" required> 元</td>
+            </tr>
+            <tr>
+                <td><label for="editStandadRentDecorateInput">单项装修标准租金：</label></td>
+                <td><input name="StandadRentDecorate" type="text" id="editStandadRentDecorateInput" placeholder="" required> 元</td>
             </tr>
             <tr>
                 <td><span class="lb-area">所属区域：</span></td>

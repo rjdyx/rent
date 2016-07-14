@@ -18,6 +18,8 @@ class CreateConfigsTable extends Migration
             $table->decimal('turnover_rent',9,2);//周转租金
             $table->decimal('discount_rent',9,2);//优惠租金
             $table->decimal('market_rent',9,2);//市场租金
+            $table->decimal('standad_rent_single',9,2);//标准租金单价
+            $table->decimal('standad_rent_decorate',9,2);//单项装修标准租金
             $table->string('parent_id',50)->default('0');
             $table->timestamps();
         });

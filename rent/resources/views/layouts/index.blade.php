@@ -6,16 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title')</title>
+    <title>房租查询</title>
     <link href="{{url('/css/style.css')}}" rel="stylesheet" type="text/css"/>
     <link href="{{url('/css/index.css')}}" rel="stylesheet" type="text/css"/>
-    <script language="JavaScript" src="{{url('/js/jquery-2.1.3.min.js')}}"></script>
-    <script language="JavaScript" src="{{url('/js/common.js')}}"></script>
-    <script language="JavaScript" src="{{url('/js/index.js')}}"></script>
-    @yield('js')
-    @yield('css')
-
-
 </head>
 
 <body>
@@ -58,6 +51,9 @@
     </table>
 </div>
 
+<script language="JavaScript" src="{{url('/js/jquery-2.1.3.min.js')}}"></script>
+<script language="JavaScript" src="{{url('/js/common.js')}}"></script>
+<script language="JavaScript" src="{{url('/js/index.js')}}"></script>
 <script type="text/javascript">
     var rootUrl = "{{url('/')}}"; //http://127.0.0.1
 </script>

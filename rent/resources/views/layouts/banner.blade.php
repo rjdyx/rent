@@ -12,8 +12,6 @@
     <link href="{{url('/css/index.css')}}" rel="stylesheet" type="text/css"/>
     <script language="JavaScript" src="{{url('/js/jquery-2.1.3.min.js')}}"></script>
     <script language="JavaScript" src="{{url('/js/jquery.validate.min.js')}}"></script>
-    <script language="JavaScript" src="{{url('/js/jquery.metadata.js')}}"></script>
-    <script language="JavaScript" src="{{url('/js/jquery.poshytip.min.js')}}"></script>
     <script language="JavaScript" src="{{url('/js/jquery.form.min.js')}}"></script>
     <script language="JavaScript" src="{{url('/js/messages_zh.js')}}"></script>
     <script language="JavaScript" src="{{url('/js/common.js')}}"></script>

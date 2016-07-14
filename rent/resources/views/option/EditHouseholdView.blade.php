@@ -20,13 +20,15 @@
                         <label for="name">姓名：</label>
                     </td>
                     <td class="td-right">
-                        <input id="name" name="name" type="text" value="{{ $householdMsg['name'] }}" placeholder="必填，长度1~10">
+                        <input id="name" name="name" type="text" value="{{ $householdMsg['name'] }}"
+                               placeholder="必填，长度1~10">
                     </td>
                     <td>
                         <label for="jobNumber">工号：</label>
                     </td>
                     <td>
-                        <input id="jobNumber" name="jobNumber" type="text" value="{{ $householdMsg['job_number'] }}" placeholder="必填，长度12，不可重复">
+                        <input id="jobNumber" name="jobNumber" type="text" value="{{ $householdMsg['job_number'] }}"
+                               placeholder="必填，长度12，不可重复">
                     </td>
                 </tr>
                 <tr>
@@ -54,11 +56,32 @@
                         <label for="institution">单位：</label>
                     </td>
                     <td class="td-right">
-                        <input id="institution" name="institution" type="text" value="{{ $householdMsg['institution'] }}"  placeholder="必填，长度1~20">
+                        <input id="institution" name="institution" type="text"
+                               value="{{ $householdMsg['institution'] }}" placeholder="必填，长度1~20">
                     </td>
                     <td>
+                        <label for="inputCountTime">累计时间：</label>
                     </td>
                     <td>
+                        <input id="inputCountTime" name="inputCountTime" type="text"
+                               value="{{ $householdMsg['input_count_time'] }}" placeholder="格式为：年.月.日">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="inSchoolTime">入校时间：</label>
+                    </td>
+                    <td>
+                        <input type="text" id="inSchoolTime" name="inSchoolTime"
+                               value="{{ date('Y-m-d',strtotime($householdMsg['in_school_time'])) }}" readonly="readonly"
+                               placeholder="必选">
+                    </td>
+                    <td>
+                        <label for="hasHouseOrSubsidy">无房改+补贴：</label>
+                    </td>
+                    <td>
+                        <input id="hasHouseOrSubsidy" name="hasHouseOrSubsidy" type="checkbox"
+                               @if( $householdMsg['has_house_or_subsidy'] == 1 ) checked="checked" @endif/>
                     </td>
                 </tr>
                 <tr>
@@ -71,42 +94,17 @@
                                 class="radio-hasHouse-name">无房</span>
                         <input class="radio-hasHouse" name="hasHouse" value="1" type="radio"
                                @if( $householdMsg['has_house'] == 1 ) checked="checked" @endif/>&nbsp;<span
-                                class="radio-hasHouse-name">有商品房</span>
+                                class="radio-hasHouse-name">八区内有房</span>
                         <input class="radio-hasHouse" name="hasHouse" value="2" type="radio"
                                @if( $householdMsg['has_house'] == 2 ) checked="checked" @endif/>&nbsp;<span
                                 class="radio-hasHouse-name">有房改房</span>
                     </td>
                     <td>
-                        <label for="has-house-time" id="has-house-label">
-                            @if( $householdMsg['has_house'] == 0 )
-                                无房时间：
-                            @else
-                                有房时间：
-                            @endif
-                        </label>
-                    </td>
-                    <td class="td-right">
-                        <input type="text" id="has-house-time" name="hasHouseTime"
-                           @if( $householdMsg['has_house'] == 0 )
-                                value="{{ date('Y-m-d',strtotime($householdMsg['has_not_house_time'])) }}"
-                           @else
-                               value="{{ date('Y-m-d',strtotime($householdMsg['has_house_time'])) }}"
-                           @endif
-                               readonly="readonly">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
                         <label for="isDimission">是否离职：</label>
                     </td>
                     <td>
-                        <input id="isDimission" name="isDimission" type="checkbox"@if( $householdMsg['is_dimission'] == 1 ) checked="checked" @endif/>
-                    </td>
-                    <td>
-                        <label for="">离职时间：</label>
-                    </td>
-                    <td>
-                        <input type="text" id="dimission-time" name="dimissionTime" value="@if( $householdMsg['is_dimission'] == 1 ){{ date('Y-m-d',strtotime($householdMsg['dimission_time'])) }} @endif" readonly="readonly">
+                        <input id="isDimission" name="isDimission" type="checkbox"
+                               @if( $householdMsg['is_dimission'] == 1 ) checked="checked" @endif/>
                     </td>
                 </tr>
             </table>
@@ -120,7 +118,12 @@
 
     @foreach($rents as $rent)
         <div class="addHouseHold-content addHouseHold-content-house rent-item">
-            <div class="addHouseHold-title">租房{{ $rent['order'] }}</div>
+            <div class="addHouseHold-title">
+                租房<input class="order-number" id="order-number-{{ $rent['order'] }}" value="{{ $rent['order'] }}">
+                <button  class="rent-save-btn" onclick="saveRentMsg({{ $rent['id'] }},{{ $rent['order'] }})">
+                    保存
+                </button>
+            </div>
             <form class="form-rent-item" id="form-item{{ $rent['order'] }}">
                 <table>
                     <tr>
@@ -141,25 +144,44 @@
                     </tr>
                     <tr>
                         <td>
+                            <label for="first-check-in-time">入住时间：</label>
+                        </td>
+                        <td>
+                            <input type="text" class="first-check-in-time" name="firsttimeCheckIn"
+                                   value="{{ date('Y-m-d',strtotime($rent['firsttime_check_in'])) }}"
+                                   readonly="readonly">
+                        </td>
+                        <td>
                             <label for="area">租房面积：</label>
                         </td>
                         <td class="td-right">
                             <input class="area" name="area" type="text"
                                    value="{{ $rent['area'] }}" readonly="readonly"/>
                         </td>
+                    </tr>
+                    <tr>
                         <td>
-                            <label for="first-check-in-time">第一次入住时间：</label>
+                            <label for="roomNumber">房间号：</label>
+                        </td>
+                        <td class="td-right">
+                            <input id="roomNumber{{ $rent['order'] }}" class="roomNumber" name="roomNumber" type="text" placeholder="" value="{{ $rent['room_number'] }}" readonly="readonly">
                         </td>
                         <td>
-                            <input type="text" class="first-check-in-time" name="firsttimeCheckIn"
-                                   value="{{ date('Y-m-d',strtotime($rent['firsttime_check_in'])) }}" readonly="readonly">
+                            <label for="">备注：</label>
+                        </td>
+                        <td>
+                            <textarea id="remark{{ $rent['order'] }}" class="remark" name="remark" readonly="readonly">{{ $rent['remark'] }}</textarea>
                         </td>
                     </tr>
                 </table>
             </form>
             <div class="opt-rent-btn">
-                <button onclick="showCommonDialog('退房','确认退房？','退房','checkOutRent',[['input-id','{{ $rent['id'] }}']])">退房</button>
-                <button onclick="showCommonDialog('作废','确认作废租房记录？','作废','deleteRent',[['input-id','{{ $rent['id'] }}']])">作废</button>
+                <button onclick="showCommonDialog('退房','确认退房？','退房','checkOutRent',[['input-id','{{ $rent['id'] }}']])">
+                    退房
+                </button>
+                <button onclick="showCommonDialog('作废','确认作废租房记录？','作废','deleteRent',[['input-id','{{ $rent['id'] }}']])">
+                    作废
+                </button>
             </div>
         </div>
     @endforeach
@@ -169,7 +191,8 @@
 
     @foreach($rentsCheckOut as $rent)
         <div class="addHouseHold-content addHouseHold-content-house rent-item">
-            <div class="addHouseHold-title">租房——已退房&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;退房时间：{{ date('Y-m-d',strtotime($rent['lasttime_pay_rent'])) }}</div>
+            <div class="addHouseHold-title">
+                租房——已退房&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;退房时间：{{ date('Y-m-d',strtotime($rent['lasttime_pay_rent'])) }}</div>
             <form class="form-rent-item">
                 <table>
                     <tr>
@@ -177,18 +200,26 @@
                             <label for="region">区域：</label>
                         </td>
                         <td class="td-right">
-                            <input class="region" name="region" type="text"
+                            <input class="region" id="region{{ $rent['order'] }}" name="region" type="text"
                                    value="{{ $rent->regionMsg()->first()->name }}" readonly="readonly"/>
                         </td>
                         <td>
                             <label for="address">房址：</label>
                         </td>
                         <td>
-                            <input class="address" name="address" type="text"
+                            <input class="address" id="address{{ $rent['order'] }}" name="address" type="text"
                                    value="{{ $rent->addressMsg()->first()->name }}" readonly="readonly"/>
                         </td>
                     </tr>
                     <tr>
+                        <td>
+                            <label for="first-check-in-time">入住时间：</label>
+                        </td>
+                        <td>
+                            <input type="text" class="first-check-in-time" name="firsttimeCheckIn"
+                                   value="{{ date('Y-m-d',strtotime($rent['firsttime_check_in'])) }}"
+                                   readonly="readonly">
+                        </td>
                         <td>
                             <label for="area">租房面积：</label>
                         </td>
@@ -196,12 +227,19 @@
                             <input class="area" name="area" type="text"
                                    value="{{ $rent['area'] }}" readonly="readonly"/>
                         </td>
+                    </tr>
+                    <tr>
                         <td>
-                            <label for="first-check-in-time">第一次入住时间：</label>
+                            <label for="roomNumber">房间号：</label>
+                        </td>
+                        <td class="td-right">
+                            <input id="roomNumber" class="roomNumber" name="roomNumber" type="text" placeholder="" value="{{ $rent['room_number'] }}" readonly="readonly">
                         </td>
                         <td>
-                            <input type="text" class="first-check-in-time" name="firsttimeCheckIn"
-                                   value="{{ date('Y-m-d',strtotime($rent['firsttime_check_in'])) }}" readonly="readonly">
+                            <label for="">备注：</label>
+                        </td>
+                        <td>
+                            <textarea id="remark" class="remark" name="remark" readonly="readonly">{{ $rent['remark'] }}</textarea>
                         </td>
                     </tr>
                 </table>
@@ -212,12 +250,7 @@
     <script src="{{url('/js/jquery.cxcalendar.min.js')}}"></script>
     <link rel="stylesheet" href="{{url('/css/jquery.cxcalendar.css')}}">
     <script type="text/javascript">
-        $('#has-house-time').cxCalendar();
-        $('#dimission-time').cxCalendar();
-        @if( $householdMsg['is_dimission'] == 0 )
-                $('#dimission-time').hide();
-        @endif
-        var count = {{ sizeof($rents) }} ;
+        var count = {{ sizeof($rents) }};
     </script>
 
     @include('layer.successTip')

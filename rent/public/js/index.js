@@ -12,12 +12,9 @@ function searchRentByOne() {
         dataType: "json",
         success: function (ret) {
             if(ret == 'none'){
-                alert('none');
+                
                 return ;
             }
-            // $(".index-search").animate({
-            //     top:'28%'
-            // });
             $("#index-info-list").fadeIn(200);
             tmp = '';
             for(i = 0;i<ret.length;i++){
@@ -29,7 +26,7 @@ function searchRentByOne() {
                             '<td>'+ret[i]['rent']+'</td>'+
                             '<td>'+ret[i]['order']+'</td>'+
                             '<td>'+(ret[i]['isDimission']==0?'否':'是')+'</td>'+
-                            '<td>'+(ret[i]['hasHouse']==0?'否':(ret[i]['hasHouse']==1?'商品房':'房改房'))+'</td>'+
+                            '<td>'+(ret[i]['hasHouse']==0?'否':(ret[i]['hasHouse']==1?'八区内有房':'有房改房'))+'</td>'+
                             '<td>'+ret[i]['time']+'</td>'+
                             '<td>'+ret[i]['region']+'</td>'+
                             '<td>'+ret[i]['address']+'</td>'+

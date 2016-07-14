@@ -28,8 +28,8 @@
             <select id="hasHouse" name="hasHouse" class="search-input">
                 <option value="-1" @if( $input['hasHouse'] == -1 ) selected="selected" @endif></option>
                 <option value="0" @if( $input['hasHouse'] == 0 ) selected="selected" @endif>无房</option>
-                <option value="1" @if( $input['hasHouse'] == 1 ) selected="selected" @endif>商品房</option>
-                <option value="2" @if( $input['hasHouse'] == 2 ) selected="selected" @endif>房改房</option>
+                <option value="1" @if( $input['hasHouse'] == 1 ) selected="selected" @endif>八区内有房</option>
+                <option value="2" @if( $input['hasHouse'] == 2 ) selected="selected" @endif>有房改房</option>
             </select>
             </div>
             <div class="search-item">
@@ -55,6 +55,7 @@
                 <th>工号</th>
                 <th>银行卡号</th>
                 <th>单位</th>
+                <th>入校时间</th>
                 <th>是否有房</th>
                 <th>是否离职</th>
                 <th>租房数</th>
@@ -69,13 +70,14 @@
                     <td>{{ $householdMsg['job_number'] }}</td>
                     <td>{{ $householdMsg['card_number'] }}</td>
                     <td>{{ $householdMsg['institution'] }}</td>
+                    <td>{{ date('Y-m-d',strtotime($householdMsg['in_school_time'])) }}</td>
                     <td>
                         @if($householdMsg['has_house'] == 0)
                             无房
                         @elseif($householdMsg['has_house'] == 1)
-                            商品房
+                            八区内有房
                         @else
-                            房改房
+                            有房改房
                         @endif
                     </td>
                     <td>

@@ -3,7 +3,7 @@
 @section('title', '配置管理')
 
 @section('js')
-<script language="JavaScript" src="{{url('/js/editConfig.js')}}"></script>
+    <script language="JavaScript" src="{{url('/js/editConfig.js')}}"></script>
 @endsection
 
 @section('content')
@@ -30,7 +30,8 @@
                     <div class="item-title">
                         <span class="item-area">{{ $arrItem[0]['name'] }}</span>
                         <span class="item-top-operation">
-                            <a onclick="showEditAreaDialog('{{ $arrItem[0]['id'] }}','{{ $arrItem[0]['name'] }}')">编辑</a><a onclick="showSureDeleteDialog('{{ $arrItem[0]['id'] }}',0)">删除</a>
+                            <a onclick="showEditAreaDialog('{{ $arrItem[0]['id'] }}','{{ $arrItem[0]['name'] }}')">编辑</a><a
+                                    onclick="showSureDeleteDialog('{{ $arrItem[0]['id'] }}',0)">删除</a>
                         </span>
                     </div>
                     <div class="item-content">
@@ -38,19 +39,39 @@
                             <tr class="item-content-th">
                                 <td>房址</td>
                                 <td>周转租金</td>
-                                <td>优惠市场租金</td>
+                                <td>优惠租金</td>
                                 <td>市场租金</td>
+                                <td>标准租金单价</td>
+                                <td>单项装修标准租金</td>
                                 <td>操作</td>
                             </tr>
-                            @foreach($arrItem[1] as $address)
-                                <tr id="{{ $address['id'] }}">
-                                    <td>{{ $address['name'] }}</td>
-                                    <td>{{ $address['turnover_rent'] }}</td>
-                                    <td>{{ $address['discount_rent'] }}</td>
-                                    <td>{{ $address['market_rent'] }}</td>
-                                    <td><a onclick="showEditAddressDialog('{{ $address['id'] }}','{{ $address['name'] }}','{{ $address['turnover_rent'] }}','{{ $address['discount_rent'] }}','{{ $address['market_rent'] }}')">编辑</a>&nbsp;&nbsp;<a onclick="showSureDeleteDialog('{{ $address['id'] }}',1)">删除</a></td>
+                            @for($i=1;$i<sizeof($arrItem);$i++)
+
+                                <tr id="{{ $arrItem[$i][0]['id'] }}">
+                                    <td>
+                                        @for($j=0;$j<sizeof($arrItem[$i]);$j++)
+                                            <a onclick="showEditAddressDialog('{{ $arrItem[$i][$j]['id'] }}','{{ $arrItem[$i][$j]['name'] }}','{{ $arrItem[$i][$j]['turnover_rent'] }}','{{ $arrItem[$i][$j]['discount_rent'] }}','{{ $arrItem[$i][$j]['market_rent'] }}','{{ $arrItem[$i][$j]['standad_rent_single'] }}','{{ $arrItem[$i][$j]['standad_rent_decorate'] }}')">
+                                                {{ $arrItem[$i][$j]['name'] }}
+                                            </a>
+                                            @if($j != sizeof($arrItem[$i])-1)
+                                                、
+                                            @endif
+                                        @endfor
+                                    </td>
+                                    <td>{{ $arrItem[$i][0]['turnover_rent'] }}</td>
+                                    <td>{{ $arrItem[$i][0]['discount_rent'] }}</td>
+                                    <td>{{ $arrItem[$i][0]['market_rent'] }}</td>
+                                    <td>{{ $arrItem[$i][0]['standad_rent_single'] }}</td>
+                                    <td>{{ $arrItem[$i][0]['standad_rent_decorate'] }}</td>
+                                    <td>
+                                        <a onclick="showAddSameAddress('{{ $arrItem[$i][0]['id'] }}','{{ $arrItem[$i][0]['name'] }}','{{ $arrItem[$i][0]['turnover_rent'] }}','{{ $arrItem[$i][0]['discount_rent'] }}','{{ $arrItem[$i][0]['market_rent'] }}','{{ $arrItem[$i][0]['standad_rent_single'] }}','{{ $arrItem[$i][0]['standad_rent_decorate'] }}')">
+                                            添加
+                                        </a>&nbsp;&nbsp;&nbsp;
+                                        <a onclick="showSureDeleteDialog('{{ $arrItem[$i][0]['id'] }}',1)">删除</a>
+                                    </td>
                                 </tr>
-                            @endforeach
+
+                            @endfor
 
                         </table>
                     </div>

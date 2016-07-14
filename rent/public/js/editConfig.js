@@ -168,7 +168,7 @@ function init() {
 
 function init2() {
     addAreaOptions = {
-        success: function (ret){
+        success: function (ret) {
             if (ret == 'success') {
                 $("#addAreaTip").fadeOut(200);
                 showSuccessTip();
@@ -183,7 +183,7 @@ function init2() {
     }
     $("#addArea-form").ajaxForm(addAreaOptions);
     editAreaOptions = {
-        success: function (ret){
+        success: function (ret) {
             if (ret == 'success') {
                 $("#editAreaTip").fadeOut(200);
                 showSuccessTip();
@@ -198,7 +198,7 @@ function init2() {
     }
     $("#editArea-form").ajaxForm(editAreaOptions);
     addAddressOptions = {
-        success: function (ret){
+        success: function (ret) {
             if (ret == 'success') {
                 $("#addAddressTip").fadeOut(200);
                 showSuccessTip();
@@ -213,7 +213,7 @@ function init2() {
     }
     $("#form_addAddress").ajaxForm(addAddressOptions);
     addAddressOptions = {
-        success: function (ret){
+        success: function (ret) {
             if (ret == 'success') {
                 $("#editAddressTip").fadeOut(200);
                 showSuccessTip();
@@ -241,6 +241,14 @@ function showAddArea() {
  * 显示新增房址窗口
  */
 function showAddAddress() {
+    $('#addAddressTip').fadeIn(200);
+    $('#addAddressNameInput').val("");
+    $('#addTurnoverRentInput').val("");
+    $('#addDiscountRentInput').val("");
+    $('#addMarketRentInput').val("");
+    $('#addStandadRentSingleInput').val("");
+    $('#addStandadRentDecorateInput').val("");
+    $("#addAreaOption").children().remove();
     $.ajax({
         type: "post",
         url: rootUrl + "/admin/getAllArea",
@@ -249,12 +257,6 @@ function showAddAddress() {
         },
         dataType: "json",
         success: function (ret) {
-            $('#addAddressTip').fadeIn(200);
-            $('#addAddressNameInput').val("");
-            $('#addTurnoverRentInput').val("");
-            $('#addDiscountRentInput').val("");
-            $('#addMarketRentInput').val("");
-            $("#addAreaOption").children().remove();
             var tmp = '';
             for (i = 0; i < ret.length; i++) {
                 tmp += '<option value="' + ret[i]['id'] + '">' + ret[i]['name'] + '</option>';
@@ -347,15 +349,30 @@ function getAllAreaAndAddress() {
                     '<td>周转租金</td>' +
                     '<td>优惠市场租金</td>' +
                     '<td>市场租金</td>' +
+                    '<td>标准租金单价</td>' +
+                    '<td>单项装修标准租金</td>' +
                     '<td>操作</td>' +
                     '</tr>';
-                for (j = 0; j < ret[i][1].length; j++) {
-                    tmp += '<tr id="' + ret[i][1][j]['id'] + '">' +
-                        '<td>' + ret[i][1][j]['name'] + '</td>' +
-                        '<td>' + ret[i][1][j]['turnover_rent'] + '</td>' +
-                        '<td>' + ret[i][1][j]['discount_rent'] + '</td>' +
-                        '<td>' + ret[i][1][j]['market_rent'] + '</td>' +
-                        '<td><a onclick="showEditAddressDialog(\'' + ret[i][1][j]['id'] + '\',\'' + ret[i][1][j]['name'] + '\',\'' + ret[i][1][j]['turnover_rent'] + '\',\'' + ret[i][1][j]['discount_rent'] + '\',\'' + ret[i][1][j]['market_rent'] + '\')">编辑</a>&nbsp;&nbsp;<a onclick="showSureDeleteDialog(\'' + ret[i][1][j]['id'] + '\',\'1\')">删除</a></td>' +
+                for (j = 1; j < ret[i].length; j++) {
+                    name = "";
+                    for (h = 0; h < ret[i][j].length; h++) {
+                        name += '<a onclick="showEditAddressDialog(\'' + ret[i][j][h]['id'] + '\',\'' + ret[i][j][h]['name'] + '\',\'' + ret[i][j][h]['turnover_rent'] + '\',\'' + ret[i][j][h]['discount_rent'] + '\',\'' + ret[i][j][h]['market_rent'] + '\',\'' + ret[i][j][h]['standad_rent_single'] + '\',\'' + ret[i][j][h]['standad_rent_decorate'] + '\')">' + ret[i][j][h]['name'] + '</a>';
+                        if (h != ret[i][j].length - 1) {
+                            name += "、";
+                        }
+                    }
+                    tmp += '<tr id="' + ret[i][j][0]['id'] + '">' +
+                        '<td>' +
+                        name +
+                        '</td>' +
+                        '<td>' + ret[i][j][0]['turnover_rent'] + '</td>' +
+                        '<td>' + ret[i][j][0]['discount_rent'] + '</td>' +
+                        '<td>' + ret[i][j][0]['market_rent'] + '</td>' +
+                        '<td>' + ret[i][j][0]['standad_rent_single'] + '</td>' +
+                        '<td>' + ret[i][j][0]['standad_rent_decorate'] + '</td>' +
+                        '<td>' +
+                        '<a onclick="showAddSameAddress(\'' + ret[i][j][0]['id'] + '\',\'' + ret[i][j][0]['name'] + '\',\'' + ret[i][j][0]['turnover_rent'] + '\',\'' + ret[i][j][0]['discount_rent'] + '\',\'' + ret[i][j][0]['market_rent'] + '\',\'' + ret[i][j][0]['standad_rent_single'] + '\',\'' + ret[i][j][0]['standad_rent_decorate'] + '\')">添加</a>&nbsp;&nbsp;&nbsp;' +
+                        '<a onclick="showSureDeleteDialog(\'' + ret[i][j][0]['id'] + '\',\'1\')">删除</a></td>' +
                         '</tr>';
                 }
                 tmp += '</table></div></div>';
@@ -409,12 +426,14 @@ function editArea() {
 /**
  * 显示编辑房址窗口
  */
-function showEditAddressDialog(id, AddressName, TurnoverRent, DiscountRent, MarketRent) {
+function showEditAddressDialog(id, AddressName, TurnoverRent, DiscountRent, MarketRent, StandadRentSingle, StandadRentDecorate) {
     $("#edit-address-id").val(id);
     $("#editAddressNameInput").val(AddressName);
     $("#editTurnoverRentInput").val(TurnoverRent);
     $("#editDiscountRentInput").val(DiscountRent);
     $("#editMarketRentInput").val(MarketRent);
+    $("#editStandadRentSingleInput").val(StandadRentSingle);
+    $("#editStandadRentDecorateInput").val(StandadRentDecorate);
     $("#editAddressTip").fadeIn(200);
     $.ajax({
         type: "post",
@@ -437,6 +456,41 @@ function showEditAddressDialog(id, AddressName, TurnoverRent, DiscountRent, Mark
         }
     });
 }
+
+
+/**
+ * 显示新增同房租不同名房址的窗口
+ */
+function showAddSameAddress(id, AddressName, TurnoverRent, DiscountRent, MarketRent, StandadRentSingle, StandadRentDecorate) {
+    $("#addAddressNameInput").val("");
+    $("#addTurnoverRentInput").val(TurnoverRent);
+    $("#addDiscountRentInput").val(DiscountRent);
+    $("#addMarketRentInput").val(MarketRent);
+    $("#addStandadRentSingleInput").val(StandadRentSingle);
+    $("#addStandadRentDecorateInput").val(StandadRentDecorate);
+    $("#addAddressTip").fadeIn(200);
+    $.ajax({
+        type: "post",
+        url: rootUrl + "/admin/getAllAreaAndCheckOne",
+        data: {
+            _token: $('meta[name="csrf-token"]').attr('content'),
+            id: id
+        },
+        dataType: "json",
+        success: function (ret) {
+            $("#addAreaOption").children().remove();
+            var tmp = '';
+            for (i = 0; i < ret.areas.length; i++) {
+                tmp += '<option ' + (ret.areas[i]['id'] == ret.areaId ? 'selected="selected"' : '') + ' value="' + ret.areas[i]['id'] + '">' + ret.areas[i]['name'] + '</option>';
+            }
+            $("#addAreaOption").append(tmp);
+        },
+        error: function () {
+            alert('errot');
+        }
+    });
+}
+
 
 /**
  * 编辑房址

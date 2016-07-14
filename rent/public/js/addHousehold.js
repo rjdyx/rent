@@ -107,24 +107,21 @@ function isDimission() {
  */
 function addHousehold() {
     var baseData = $("#form-household-base-msg").serializeArray();
-    var rentArr = new Array();
-    $(".form-rent-item").each(function (index) {
-        rentArr[index] = $(this).serializeArray();
-    });
+    var rentData = $(".form-rent-item").serializeArray();
     $.ajax({
         type: "post",
         url: rootUrl + "/admin/addHousehold",
         data: {
             _token: $('meta[name="csrf-token"]').attr('content'),
             baseData: baseData,
-            rentArr: rentArr
+            rentData: rentData
         },
         dataType: "json",
         success: function (ret) {
             if(ret == 'success'){
                 showSuccessTip();
                 setTimeout(function () {
-                    window.location.reload();
+                    // window.location.reload();
                 }, 1000);
             }else if (ret == 'baseMsgError') {
                 showErrorTip();

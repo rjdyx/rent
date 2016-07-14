@@ -30,7 +30,7 @@ class Kernel extends ConsoleKernel
             $householdmsgs = HouseholdMsg::all();
             date_default_timezone_set('PRC');
             $time = time();
-//            $time = strtotime('2016-05-31 00:00:00');
+//            $time = strtotime('2016-06-30 23:50:50');
             $days = date('t', $time);
             foreach ($householdmsgs as $householdmsg){
                 \App\libraries\Util\calculateOneMonthRent($householdmsg, $time, $days);

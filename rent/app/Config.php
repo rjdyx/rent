@@ -36,8 +36,8 @@ class Config extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'turnover_rent', 'discount_rent', 'market_rent', 'parent_id'
+        'name', 'turnover_rent', 'discount_rent', 'market_rent', 'standad_rent_single', 'standad_rent_decorate', 'parent_id'
     ];
-    
+
 
 }

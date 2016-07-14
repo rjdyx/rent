@@ -22,22 +22,54 @@ var flag = 0;
  */
 function addRent() {
 
-    if (count == 2 || flag != 0) {
+    if (flag != 0) {
         return;
     }
     flag = 1;
 
     tmp = '<div class="addHouseHold-content addHouseHold-content-house rent-item item' + (++count) + '">' +
-        '<div class="addHouseHold-title">租房' + count + '<a class="close" onclick="$(\'.item' + count + '\').remove();count--;flag = 0;"></a></div><form class="form-rent-item" id="form-item' + count + '"><table> <tr> <td>' +
-        '<label for="region">区域：</label></td> <td class="td-right">' +
-        '<select class="region" id="region' + count + '" name="region"></select></td> <td>' +
-        '<label for="address">房址：</label> </td><td>' +
-        '<select class="address" id="address' + count + '" name="address"></select></td></tr><tr><td>' +
+        '<div class="addHouseHold-title">租房<input class="order-number" value="' + count + '"><a class="close" onclick="$(\'.item' + count + '\').remove();count--;flag = 0;"></a></div><form class="form-rent-item" id="form-item' + count + '">' +
+        '<table>' +
+        '<tr>' +
+        '<td>' +
+        '<label for="region">区域：</label>' +
+        '</td>' +
+        '<td class="td-right">' +
+        '<select class="region" id="region' + count + '" name="region"></select>' +
+        '</td>' +
+        '<td>' +
+        '<label for="address">房址：</label>' +
+        '</td>' +
+        '<td>' +
+        '<select class="address" id="address' + count + '" name="address"></select>' +
+        '</td>' +
+        '</tr>' +
+        '<tr>' +
+        '<td>' +
         '<label for="area">租房面积：</label></td><td class="td-right">' +
-        '<input class="area" name="area" type="text" placeholder="必填，数字"></td><td>' +
-        '<label for="first-check-in-time">第一次入住时间：</label></td><td>' +
+        '<input class="area" name="area" type="text" placeholder="必填，数字">' +
+        '</td>' +
+        '<td>' +
+        '<label for="first-check-in-time">入住时间：</label>' +
+        '</td>' +
+        '<td>' +
         '<input type="text" id="checkInTime' + count + '" class="first-check-in-time" name="firsttimeCheckIn" value="" readonly="readonly" placeholder="必选">' +
-        '</td> </tr></table></form>' +
+        '</td>' +
+        '</tr>' +
+        '<tr>' +
+        '<td>' +
+        '<label for="roomNumber">房间号：</label>' +
+        '</td>' +
+        '<td class="td-right">' +
+        '<input id="roomNumber" class="roomNumber" name="roomNumber" type="text" placeholder="">' +
+        '</td>' +
+        '<td>' +
+        '<label for="">备注：</label>' +
+        '</td>' +
+        '<td>' +
+        '<textarea id="remark" class="remark" name="remark"></textarea>' +
+        '</tr>' +
+        '</table></form>' +
         '<div class="opt-rent-btn">' +
         '<button onclick="addSingleRent(\'form-item' + count + '\',' + count + ')">保存</button>' +
         '</div></div>';
@@ -151,7 +183,7 @@ function checkOutRent() {
  * 新增租房
  * @param id
  */
-function addSingleRent(id,order) {
+function addSingleRent(id, order) {
     var data = $("#" + id).serializeArray();
     $.ajax({
         type: "post",
@@ -159,7 +191,7 @@ function addSingleRent(id,order) {
         data: {
             _token: $('meta[name="csrf-token"]').attr('content'),
             id: $("#householdId").val(),
-            order:order,
+            order: order,
             data: data
         },
         dataType: "json",
@@ -185,7 +217,7 @@ function addSingleRent(id,order) {
 function deleteRent() {
     $.ajax({
         type: "get",
-        url: rootUrl + "/admin/deleteRent/"+$("#input-id").val(),
+        url: rootUrl + "/admin/deleteRent/" + $("#input-id").val(),
         dataType: "json",
         success: function (ret) {
             if (ret == 'success') {
@@ -208,6 +240,7 @@ function deleteRent() {
  */
 function saveChange(id) {
     var data = $("#form-household-base-msg").serializeArray();
+    // console.log(data);
     $.ajax({
         type: "post",
         url: rootUrl + "/admin/saveChange",
@@ -221,6 +254,29 @@ function saveChange(id) {
             if (ret == 'success') {
                 showSuccessTip();
                 window.location.reload();
+            }
+            if (ret == 'failed') {
+                showErrorTip();
+            }
+        },
+        error: function () {
+            alert('errot');
+        }
+    });
+}
+
+/**
+ * 保存房租修改信息
+ * @param id
+ */
+function saveRentMsg(id, order) {
+    $.ajax({
+        type: "get",
+        url: rootUrl + "/admin/saveRentMsg/"+id+"/"+$("#order-number-"+order).val(),
+        dataType: "json",
+        success: function (ret) {
+            if (ret == 'success') {
+                showSuccessTip();
             }
             if (ret == 'failed') {
                 showErrorTip();

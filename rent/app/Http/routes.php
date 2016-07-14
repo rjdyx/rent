@@ -101,7 +101,9 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin', 'namespace' => 'Admin
     //删除住户信息
     Route::get('deleteHouseholdMsg/{id}', 'HouseholdManageController@deleteHouseholdMsg');
 
-
+    //保存房租修改信息
+    Route::get('saveRentMsg/{id}/{order}','HouseholdManageController@saveRentMsg');
+    
 });
 
 /*

@@ -21,7 +21,8 @@ class EditConfigController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function editConfig(Request $request){
+    public function editConfig(Request $request)
+    {
         $arrTotal = array();
 
         //获取所有区域
@@ -33,11 +34,52 @@ class EditConfigController extends Controller
         for ($i = 0; $i < sizeof($areas); $i++) {
             $arrItem = array();
             $arrItem[0] = $areas[$i];
-            $addresses = Config::select('id', 'name', 'turnover_rent', 'discount_rent', 'market_rent')
+            $addresses = Config::select('id', 'name', 'turnover_rent', 'discount_rent', 'market_rent', 'standad_rent_single', 'standad_rent_decorate')
                 ->where('parent_id', '=', $areas[$i]->id)
+                ->orderBy('turnover_rent', 'asc')
+                ->orderBy('discount_rent', 'asc')
+                ->orderBy('market_rent', 'asc')
+                ->orderBy('standad_rent_single', 'asc')
+                ->orderBy('standad_rent_decorate', 'asc')
                 ->orderBy('created_at', 'asc')
                 ->get();
-            $arrItem[1] = $addresses;
+            if(sizeof($addresses) == 0){
+                $arrTotal[$i] = $arrItem;
+                continue;
+            }
+            $index = 1;
+            $same = array();
+            $turnover_rent = $addresses[0]->turnover_rent;
+            $discount_rent = $addresses[0]->discount_rent;
+            $market_rent = $addresses[0]->market_rent;
+            $standad_rent_single = $addresses[0]->standad_rent_single;
+            $standad_rent_decorate = $addresses[0]->standad_rent_decorate;
+            for ($j = 0; $j < sizeof($addresses); $j++) {
+                if ($turnover_rent == $addresses[$j]->turnover_rent &&
+                    $discount_rent == $addresses[$j]->discount_rent &&
+                    $market_rent == $addresses[$j]->market_rent &&
+                    $standad_rent_single == $addresses[$j]->standad_rent_single &&
+                    $standad_rent_decorate == $addresses[$j]->standad_rent_decorate
+                ) {
+                    array_push($same, $addresses[$j]);
+                    if($j == sizeof($addresses)-1){
+                        $arrItem[$index] = $same;
+                    }
+                } else {
+                    $turnover_rent = $addresses[$j]->turnover_rent;
+                    $discount_rent = $addresses[$j]->discount_rent;
+                    $market_rent = $addresses[$j]->market_rent;
+                    $standad_rent_single = $addresses[$j]->standad_rent_single;
+                    $standad_rent_decorate = $addresses[$j]->standad_rent_decorate;
+                    $arrItem[$index] = $same;
+                    $index++;
+                    $same = array();
+                    array_push($same, $addresses[$j]);
+                    if($j == sizeof($addresses)-1){
+                        $arrItem[$index] = $same;
+                    }
+                }
+            }
             $arrTotal[$i] = $arrItem;
         }
         return view('option.editConfig',
@@ -130,11 +172,52 @@ class EditConfigController extends Controller
         for ($i = 0; $i < sizeof($areas); $i++) {
             $arrItem = array();
             $arrItem[0] = $areas[$i];
-            $addresses = Config::select('id', 'name', 'turnover_rent', 'discount_rent', 'market_rent')
+            $addresses = Config::select('id', 'name', 'turnover_rent', 'discount_rent', 'market_rent', 'standad_rent_single', 'standad_rent_decorate')
                 ->where('parent_id', '=', $areas[$i]->id)
+                ->orderBy('turnover_rent', 'asc')
+                ->orderBy('discount_rent', 'asc')
+                ->orderBy('market_rent', 'asc')
+                ->orderBy('standad_rent_single', 'asc')
+                ->orderBy('standad_rent_decorate', 'asc')
                 ->orderBy('created_at', 'asc')
                 ->get();
-            $arrItem[1] = $addresses;
+            if(sizeof($addresses) == 0){
+                $arrTotal[$i] = $arrItem;
+                continue;
+            }
+            $index = 1;
+            $same = array();
+            $turnover_rent = $addresses[0]->turnover_rent;
+            $discount_rent = $addresses[0]->discount_rent;
+            $market_rent = $addresses[0]->market_rent;
+            $standad_rent_single = $addresses[0]->standad_rent_single;
+            $standad_rent_decorate = $addresses[0]->standad_rent_decorate;
+            for ($j = 0; $j < sizeof($addresses); $j++) {
+                if ($turnover_rent == $addresses[$j]->turnover_rent &&
+                    $discount_rent == $addresses[$j]->discount_rent &&
+                    $market_rent == $addresses[$j]->market_rent &&
+                    $standad_rent_single == $addresses[$j]->standad_rent_single &&
+                    $standad_rent_decorate == $addresses[$j]->standad_rent_decorate
+                ) {
+                    array_push($same, $addresses[$j]);
+                    if($j == sizeof($addresses)-1){
+                        $arrItem[$index] = $same;
+                    }
+                } else {
+                    $turnover_rent = $addresses[$j]->turnover_rent;
+                    $discount_rent = $addresses[$j]->discount_rent;
+                    $market_rent = $addresses[$j]->market_rent;
+                    $standad_rent_single = $addresses[$j]->standad_rent_single;
+                    $standad_rent_decorate = $addresses[$j]->standad_rent_decorate;
+                    $arrItem[$index] = $same;
+                    $index++;
+                    $same = array();
+                    array_push($same, $addresses[$j]);
+                    if($j == sizeof($addresses)-1){
+                        $arrItem[$index] = $same;
+                    }
+                }
+            }
             $arrTotal[$i] = $arrItem;
         }
         return response()->json($arrTotal);
@@ -184,11 +267,11 @@ class EditConfigController extends Controller
     {
         $result = Config::where('id', '=', $id)
             ->delete();
-        Config::where('parent_id','=',$id)
+        Config::where('parent_id', '=', $id)
             ->delete();
         if ($result > 0) {
             return response()->json('success');
-        }else{
+        } else {
             return response()->json('fail');
         }
     }
@@ -203,7 +286,7 @@ class EditConfigController extends Controller
             ->delete();
         if ($result > 0) {
             return response()->json('success');
-        }else{
+        } else {
             return response()->json('fail');
         }
     }

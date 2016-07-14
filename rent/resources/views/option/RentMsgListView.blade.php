@@ -36,24 +36,24 @@
         <table class="tablelist">
             <thead>
             <tr>
-                <th></th>
-                <th>工号</th>
                 <th>姓名</th>
-                <th>单位</th>
+                <th>第几间房</th>
+                <th>地址</th>
+                <th>面积</th>
                 <th>入住时间</th>
                 <th>上次结算时间</th>
                 <th>本次结算时间</th>
                 <th>房租</th>
-                <th>详情</th>
+                <th>其他</th>
             </tr>
             </thead>
             <tbody>
             @foreach( $rents as $rent)
                 <tr>
-                    <td></td>
-                    <td>{{ $rent->householdMsg()->first()->job_number }}</td>
                     <td>{{ $rent->householdMsg()->first()->name }}</td>
-                    <td>{{ $rent->householdMsg()->first()->institution }}</td>
+                    <td>{{ $rent->order }}</td>
+                    <td>{{ $rent->region.' '.$rent->address.'-'.$rent->room_number }}</td>
+                    <td>{{ $rent->area }}</td>
                     <td>{{ date('Y-m-d',strtotime($rent->firsttime_check_in)) }}</td>
                     <td>{{ ($rent->lasttime_pay_rent == null? '' :date('Y-m-d',strtotime($rent->lasttime_pay_rent))) }}</td>
                     <td>{{ date('Y-m-d',strtotime($rent->time_pay_rent)) }}</td>

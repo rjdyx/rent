@@ -1657,8 +1657,8 @@ h2 {
 
 /*addAddress*/
 #addAddressTip {
-    width: 400px;
-    height: 375px;
+    width: 423px;
+    height: 465px;
     position: fixed;
     top: 17%;
     left: 35%;
@@ -1747,7 +1747,7 @@ h2 {
     text-indent: 10px;
 }
 
-#addTurnoverRentInput, #addDiscountRentInput, #addMarketRentInput {
+#addTurnoverRentInput, #addDiscountRentInput, #addMarketRentInput ,#addStandadRentSingleInput,#addStandadRentDecorateInput{
     width: 180px;
     height: 32px;
     line-height: 32px;
@@ -1858,9 +1858,9 @@ h2 {
 /*showDetail*/
 #showDetailTip {
     width: 400px;
-    height: 420px;
+    height: 285px;
     position: absolute;
-    top: 17%;
+    top: 26%;
     left: 35%;
     background: #fcfdfd;
     box-shadow: 1px 8px 10px 1px #9b9b9b;
@@ -1935,8 +1935,8 @@ h2 {
 
 /*editAddress*/
 #editAddressTip {
-    width: 400px;
-    height: 375px;
+    width: 423px;
+    height: 465px;
     position: fixed;
     top: 17%;
     left: 35%;
@@ -2025,7 +2025,7 @@ h2 {
     text-indent: 10px;
 }
 
-#editTurnoverRentInput, #editDiscountRentInput, #editMarketRentInput {
+#editTurnoverRentInput, #editDiscountRentInput, #editMarketRentInput ,#editStandadRentSingleInput,#editStandadRentDecorateInput {
     width: 180px;
     height: 32px;
     line-height: 32px;
@@ -2889,11 +2889,11 @@ h2 {
 
 /*item*/
 .item {
-    width: 45%;
+    width: 71%;
     border: 1px solid #cbcbcb;
     display: inline-block;
     margin-bottom: 2%;
-    margin-right: 3%;
+    margin-left: 14%;
 }
 
 .item-title {
@@ -2933,7 +2933,7 @@ h2 {
 }
 
 .item-content tr {
-
+    border-bottom: 1px solid #CCCCCC;
 }
 
 .item-content tr td {

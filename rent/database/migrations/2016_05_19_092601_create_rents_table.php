@@ -26,6 +26,7 @@ class CreateRentsTable extends Migration
             $table->integer('time');//年限
             $table->string('region',20);//区域
             $table->string('address',20);//房址
+            $table->integer('room_number');//房间号
             $table->decimal('money', 11, 2);//租金x比例
             $table->decimal('area', 11, 2);//租房面积
             $table->timestamps();
