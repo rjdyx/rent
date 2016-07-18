@@ -33,7 +33,7 @@
                         <label for="cardNumber">银行卡号：</label>
                     </td>
                     <td class="td-right">
-                        <input id="cardNumber" name="cardNumber" type="text" placeholder="必填，长度1~19">
+                        <input id="cardNumber" name="cardNumber" type="text" placeholder="非必填，长度1~19">
                     </td>
                     <td>
                         <label for="type">发放方式：</label>

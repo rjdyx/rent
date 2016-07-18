@@ -28,7 +28,7 @@
                     </td>
                     <td>
                         <input id="jobNumber" name="jobNumber" type="text" value="{{ $householdMsg['job_number'] }}"
-                               placeholder="必填，长度12，不可重复">
+                               placeholder="必填，长度1~12，不可重复">
                     </td>
                 </tr>
                 <tr>
@@ -37,7 +37,7 @@
                     </td>
                     <td class="td-right">
                         <input id="cardNumber" name="cardNumber" type="text"
-                               value="{{ $householdMsg['card_number'] }}" placeholder="必填，长度19">
+                               value="{{ $householdMsg['card_number'] }}" placeholder="非必填，长度19">
                     </td>
                     <td>
                         <label for="type">发放方式：</label>

@@ -386,8 +386,8 @@ function countIntervelTime($inSchoolTime)
 
 /**
  * 统计累计年限
- * @param $inputCountTime
- * @param $increCountTime
+ * @param $inputCountTime 手动累计时间
+ * @param $increCountTime 自动累计时间
  * @return int
  */
 function countYears($inputCountTime, $increCountTime)

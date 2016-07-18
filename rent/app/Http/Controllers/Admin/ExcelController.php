@@ -217,7 +217,7 @@ class ExcelController extends Controller
                 $baseRule = array(
                     'name' => 'required|between:1,10',
                     'jobNumber' => 'required|between:1,12|unique:household_msg,job_number',
-                    'cardNumber' => 'required|between:1,19',
+                    'cardNumber' => 'between:1,19',
                     'institution' => 'required|between:1,20',
                     'hasHouse' => 'required|numeric|between:0,2',
                     'type' => 'required|numeric|between:0,3',
@@ -263,6 +263,11 @@ class ExcelController extends Controller
                             array_push($errorArr, $msg);
 //                            $flag = false;
                             continue;
+                        }
+
+                        //第一次入住时间为空，则直接使用入校时间
+                        if($msg[14]){
+                            $msg[14] = $tmpHouseholdMsg->in_school_time;
                         }
 
                         $arrRent['roomNumber'] = $msg[12];
@@ -387,6 +392,12 @@ class ExcelController extends Controller
                                 break;
                         }
 
+                        $noInputCountTime = false;//标志手动输入的累计时间是否为空
+                        if($msg[7] == null){
+                            $msg[7] = '0.0.0';
+                            $noInputCountTime = true;
+                        }
+
                         $arrBase['name'] = $msg[0];//姓名
                         $arrBase['jobNumber'] = $msg[1];//工号
                         $arrBase['cardNumber'] = $msg[2];//银行卡号
@@ -410,11 +421,27 @@ class ExcelController extends Controller
                             $householdMsg->in_school_time = $arrBase['inSchoolTime'];
                             $householdMsg->has_house_or_subsidy = $arrBase['hasHouseOrSubsidy'];
                             $householdMsg->is_dimission = $arrBase['isDimission'];
+                            if($noInputCountTime){
+                                //累计住房时间若是为空，则直接用入校时间去计算累计时间
+                                $now_tmp = time();
+                                $intervel = $now_tmp - strtotime($householdMsg->in_school_time);
+                                if ($intervel >= 0) {
+                                    $days_inc = (int)($intervel / (24 * 60 * 60));
+                                    $householdMsg->incre_count_time += $days_inc;
+                                    $householdMsg->time_point = date('Y-m-d', $now_tmp);
+                                }
+                                $noInputCountTime = false;
+                            }
                         } else {
                             //记录错误信息
                             array_push($errorArr, $msg);
                             $flag = true;
                             continue;
+                        }
+
+                        //第一次入住时间为空，则直接使用入校时间
+                        if($msg[14] == null){
+                            $msg[14] = $msg[8];
                         }
 
                         $arrRent['roomNumber'] = $msg[12];

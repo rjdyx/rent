@@ -210,7 +210,7 @@ class HouseholdManageController extends Controller
         $rule = array(
             'name' => 'required|between:1,10',
             'jobNumber' => 'required|between:1,12|unique:household_msg,job_number',
-            'cardNumber' => 'required|between:1,19',
+            'cardNumber' => 'between:1,19',
             'institution' => 'required|between:1,20',
             'hasHouse' => 'required|numeric|between:0,2',
             'type' => 'required|numeric|between:0,3',
@@ -410,7 +410,7 @@ class HouseholdManageController extends Controller
         //验证规则
         $rule = array(
             'name' => 'required|between:1,10',
-            'cardNumber' => 'required|between:1,19',
+            'cardNumber' => 'between:1,19',
             'institution' => 'required|between:1,20',
             'hasHouse' => 'required|numeric|between:0,2',
             'type' => 'required|numeric|between:0,3',
