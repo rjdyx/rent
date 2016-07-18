@@ -38,10 +38,10 @@ class ExcelController extends Controller
     {
         $input = Input::all();
 
-        $all = array(['工号', '姓名', '单位', '地址', '入住时间', '第几间房', '月租金额']);
+        $all = array(['姓名', '工号', '月租金额', '单位', '地址', '入住时间', '第几间房']);
         $school = array(['姓名', '工号', '月租金额']);//校发
         $province = array(['姓名', '账号', '月租金额']);//省发
-        $lease = array(['地址', '姓名', '单位', '工号', '月租']);//租赁人员
+        $lease = array(['姓名', '工号', '月租金额']);//租赁人员
         $postdoctor = array(['姓名', '工号', '月租金额']);//博士后
 
 
@@ -65,14 +65,14 @@ class ExcelController extends Controller
                     ->whereBetween('time_pay_rent', [$BeginDate, date('Y-m-d 23:59:59', $endTime)])
                     ->get();
                 foreach ($rents as $rent) {
-
-                    $tmp[0] = $householdMsg->job_number;
-                    $tmp[1] = $householdMsg->name;
-                    $tmp[2] = $householdMsg->institution;
-                    $tmp[3] = $rent->region . $rent->address . '-' . $rent->room_number;
-                    $tmp[4] = date('Y-m-d', strtotime($rent->firsttime_check_in));
-                    $tmp[5] = $rent->order;
-                    $tmp[6] = $rent->rent;
+                    $tmp = array();
+                    $tmp[0] = $householdMsg->name;
+                    $tmp[1] = $householdMsg->job_number;
+                    $tmp[2] = $rent->rent;
+                    $tmp[3] = $householdMsg->institution;
+                    $tmp[4] = $rent->region . $rent->address . '-' . $rent->room_number;
+                    $tmp[5] = date('Y-m-d', strtotime($rent->firsttime_check_in));
+                    $tmp[6] = $rent->order;
                     array_push($all, $tmp);
                 }
             }
@@ -86,6 +86,7 @@ class ExcelController extends Controller
                     ->whereBetween('time_pay_rent', [$BeginDate, date('Y-m-d 23:59:59', $endTime)])
                     ->get();
                 foreach ($rents as $rent) {
+                    $tmp = array();
                     $tmp[0] = $householdMsg->name;
                     $tmp[1] = $householdMsg->job_number;
                     $tmp[2] = $rent->rent;
@@ -102,8 +103,9 @@ class ExcelController extends Controller
                     ->whereBetween('time_pay_rent', [$BeginDate, date('Y-m-d 23:59:59', $endTime)])
                     ->get();
                 foreach ($rents as $rent) {
+                    $tmp = array();
                     $tmp[0] = $householdMsg->name;
-                    $tmp[1] = $householdMsg->job_number;
+                    $tmp[1] = $householdMsg->card_number;
                     $tmp[2] = $rent->rent;
                     array_push($province, $tmp);
                 }
@@ -119,11 +121,10 @@ class ExcelController extends Controller
                     ->whereBetween('time_pay_rent', [$BeginDate, date('Y-m-d 23:59:59', $endTime)])
                     ->get();
                 foreach ($rents as $rent) {
-                    $tmp[0] = $rent->region . $rent->address . '-' . $rent->room_number;
-                    $tmp[1] = $householdMsg->name;
-                    $tmp[2] = $householdMsg->institution;
-                    $tmp[3] = $householdMsg->job_number;
-                    $tmp[4] = $rent->rent;
+                    $tmp = array();
+                    $tmp[0] = $householdMsg->name;
+                    $tmp[1] = $householdMsg->job_number;
+                    $tmp[2] = $rent->rent;
                     array_push($lease, $tmp);
                 }
             }
@@ -138,6 +139,7 @@ class ExcelController extends Controller
                     ->whereBetween('time_pay_rent', [$BeginDate, date('Y-m-d 23:59:59', $endTime)])
                     ->get();
                 foreach ($rents as $rent) {
+                    $tmp = array();
                     $tmp[0] = $householdMsg->name;
                     $tmp[1] = $householdMsg->job_number;
                     $tmp[2] = $rent->rent;
@@ -176,7 +178,7 @@ class ExcelController extends Controller
                 });
             }
             if ($provinceInput == 1) {
-                $excel->sheet('省发', function ($sheet) use ($province) {
+                $excel->sheet('统发', function ($sheet) use ($province) {
                     $sheet->rows($province);
                 });
             }
