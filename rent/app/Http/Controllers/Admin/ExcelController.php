@@ -38,7 +38,7 @@ class ExcelController extends Controller
     {
         $input = Input::all();
 
-        $all = array(['姓名', '工号', '月租金额', '单位', '地址', '入住时间', '第几间房']);
+        $all = array(['姓名', '工号', '月租金额']);//全部
         $school = array(['姓名', '工号', '月租金额']);//校发
         $province = array(['姓名', '账号', '月租金额']);//省发
         $lease = array(['姓名', '工号', '月租金额']);//租赁人员
@@ -64,17 +64,15 @@ class ExcelController extends Controller
                 $rents = Rent::where('household_id', $householdMsg->id)
                     ->whereBetween('time_pay_rent', [$BeginDate, date('Y-m-d 23:59:59', $endTime)])
                     ->get();
+                $totalRent = 0;
                 foreach ($rents as $rent) {
-                    $tmp = array();
-                    $tmp[0] = $householdMsg->name;
-                    $tmp[1] = $householdMsg->job_number;
-                    $tmp[2] = $rent->rent;
-                    $tmp[3] = $householdMsg->institution;
-                    $tmp[4] = $rent->region . $rent->address . '-' . $rent->room_number;
-                    $tmp[5] = date('Y-m-d', strtotime($rent->firsttime_check_in));
-                    $tmp[6] = $rent->order;
-                    array_push($all, $tmp);
+                    $totalRent += $rent->rent;
                 }
+                $tmp = array();
+                $tmp[0] = $householdMsg->name;
+                $tmp[1] = $householdMsg->job_number;
+                $tmp[2] = $totalRent;
+                array_push($all, $tmp);
             }
         }
 
@@ -85,13 +83,15 @@ class ExcelController extends Controller
                 $rents = Rent::where('household_id', $householdMsg->id)
                     ->whereBetween('time_pay_rent', [$BeginDate, date('Y-m-d 23:59:59', $endTime)])
                     ->get();
+                $totalRent = 0;
                 foreach ($rents as $rent) {
-                    $tmp = array();
-                    $tmp[0] = $householdMsg->name;
-                    $tmp[1] = $householdMsg->job_number;
-                    $tmp[2] = $rent->rent;
-                    array_push($school, $tmp);
+                    $totalRent += $rent->rent;
                 }
+                $tmp = array();
+                $tmp[0] = $householdMsg->name;
+                $tmp[1] = $householdMsg->job_number;
+                $tmp[2] = $totalRent;
+                array_push($school, $tmp);
             }
         }
 
@@ -102,13 +102,15 @@ class ExcelController extends Controller
                 $rents = Rent::where('household_id', $householdMsg->id)
                     ->whereBetween('time_pay_rent', [$BeginDate, date('Y-m-d 23:59:59', $endTime)])
                     ->get();
+                $totalRent = 0;
                 foreach ($rents as $rent) {
-                    $tmp = array();
-                    $tmp[0] = $householdMsg->name;
-                    $tmp[1] = $householdMsg->card_number;
-                    $tmp[2] = $rent->rent;
-                    array_push($province, $tmp);
+                    $totalRent += $rent->rent;
                 }
+                $tmp = array();
+                $tmp[0] = $householdMsg->name;
+                $tmp[1] = $householdMsg->job_number;
+                $tmp[2] = $totalRent;
+                array_push($province, $tmp);
             }
         }
 
@@ -120,13 +122,15 @@ class ExcelController extends Controller
                 $rents = Rent::where('household_id', $householdMsg->id)
                     ->whereBetween('time_pay_rent', [$BeginDate, date('Y-m-d 23:59:59', $endTime)])
                     ->get();
+                $totalRent = 0;
                 foreach ($rents as $rent) {
-                    $tmp = array();
-                    $tmp[0] = $householdMsg->name;
-                    $tmp[1] = $householdMsg->job_number;
-                    $tmp[2] = $rent->rent;
-                    array_push($lease, $tmp);
+                    $totalRent += $rent->rent;
                 }
+                $tmp = array();
+                $tmp[0] = $householdMsg->name;
+                $tmp[1] = $householdMsg->job_number;
+                $tmp[2] = $totalRent;
+                array_push($lease, $tmp);
             }
         }
 
@@ -138,13 +142,15 @@ class ExcelController extends Controller
                 $rents = Rent::where('household_id', $householdMsg->id)
                     ->whereBetween('time_pay_rent', [$BeginDate, date('Y-m-d 23:59:59', $endTime)])
                     ->get();
+                $totalRent = 0;
                 foreach ($rents as $rent) {
-                    $tmp = array();
-                    $tmp[0] = $householdMsg->name;
-                    $tmp[1] = $householdMsg->job_number;
-                    $tmp[2] = $rent->rent;
-                    array_push($postdoctor, $tmp);
+                    $totalRent += $rent->rent;
                 }
+                $tmp = array();
+                $tmp[0] = $householdMsg->name;
+                $tmp[1] = $householdMsg->job_number;
+                $tmp[2] = $totalRent;
+                array_push($postdoctor, $tmp);
             }
         }
 
