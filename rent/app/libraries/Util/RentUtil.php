@@ -213,6 +213,7 @@ function calculateOneRent(HouseholdMsg $householdMsg, HouseholdHouseMsg $rent, $
     $rentMsg->money = $money;
     $rentMsg->area = $rent->area;
     $rentMsg->household_id = $householdMsg->id;
+    $rentMsg->household_house_id = $rent->id;
     $rentMsg->save();
 
     $rent->lasttime_pay_rent = $lasttime_pay_rent;
@@ -282,6 +283,7 @@ function calculateOneRentHasBeginTime(HouseholdMsg $householdMsg, HouseholdHouse
     $rentMsg->money = $money;
     $rentMsg->area = $rent->area;
     $rentMsg->household_id = $householdMsg->id;
+    $rentMsg->household_house_id = $rent->id;
     $rentMsg->save();
 
     $rent->lasttime_pay_rent = $lasttime_pay_rent;

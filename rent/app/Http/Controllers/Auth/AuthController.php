@@ -29,7 +29,7 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/admin/editConfig';
+    protected $redirectTo = '/admin/HouseholdListView';
 
     /**
      * 登录失败之后的跳转路径

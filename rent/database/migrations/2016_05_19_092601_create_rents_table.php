@@ -18,7 +18,8 @@ class CreateRentsTable extends Migration
             $table->timestamp('lasttime_pay_rent')->nullable();//房租上次结算时间
             $table->timestamp('time_pay_rent');//房租结算时间
             $table->decimal('rent', 11, 2);//房租
-            $table->integer('household_id');
+            $table->integer('household_id');//租户id
+            $table->integer('household_house_id');//租房id
             $table->integer('intervel');//天数
             $table->integer('isDimission');//是否离职
             $table->integer('order');//第几间租房

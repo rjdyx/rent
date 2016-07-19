@@ -387,8 +387,15 @@ class HouseholdManageController extends Controller
      */
     public function deleteRent($id)
     {
-        $result = HouseholdHouseMsg::destroy($id);
-        if ($result == 1) {
+        //获取租房id
+        $houseHoldHouse = HouseholdHouseMsg::where('id',$id)->first();
+        $houseHoldHouseId = $houseHoldHouse->id;
+        //删除租房
+        $deleteHouse = HouseholdHouseMsg::destroy($id);
+        //根据
+        Rent::where('household_house_id',$houseHoldHouseId)
+            ->delete();
+        if ($deleteHouse == 1) {
             return response()->json('success');
         } else {
             return response()->json('failed');
