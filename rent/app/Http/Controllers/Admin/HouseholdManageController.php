@@ -258,7 +258,6 @@ class HouseholdManageController extends Controller
             'address' => 'required|numeric',
             'area' => 'required|numeric',
             'firsttimeCheckIn' => 'required|date',
-            'roomNumber' => 'numeric',
         );
 
         if (Validator::make($rentData, $rule)->fails()) {
@@ -295,8 +294,8 @@ class HouseholdManageController extends Controller
     public function checkOutRent($id)
     {
         date_default_timezone_set('PRC');
-//        $time = time();
-        $time = strtotime('2016-06-30 23:50:50');
+        $time = time();
+//        $time = strtotime('2017-04-15 12:00:00');
         $days = date('t', $time);
 
         $rent = HouseholdHouseMsg::where('id', '=', $id)
@@ -334,7 +333,7 @@ class HouseholdManageController extends Controller
     }
 
     /**
-     * 新增租房
+     * 新增一间租房
      * @param Request $request
      * @return mixed
      */
@@ -352,11 +351,18 @@ class HouseholdManageController extends Controller
             'address' => 'required|numeric',
             'area' => 'required|numeric',
             'firsttimeCheckIn' => 'required|date',
-            'roomNumber' => 'numeric',
         );
 
         $input = \App\libraries\Util\array_two_to_one($input);
         if (!Validator::make($input, $rule)->fails()) {
+
+            //比较现在的时间和租房第一次入住时间，大的那个作为“有房时间点”
+            $householdMsg = HouseholdMsg::where('id',$householdId)->first();
+            $now = time();
+//            $now = strtotime('2017-08-23 12:00:00');
+            $householdMsg->time_point = ($now >= strtotime($input['firsttimeCheckIn']) ? date('Y-m-d H:i:s', $now) : $input['firsttimeCheckIn']);
+            $householdMsg->save();
+
             $householdHouseMsg = new HouseholdHouseMsg();
             $householdHouseMsg->region_id = $input['region'];
             $householdHouseMsg->address_id = $input['address'];
@@ -381,7 +387,7 @@ class HouseholdManageController extends Controller
     }
 
     /**
-     * 租房作废，不记录房租信息
+     * 租房作废，不记录房租信息，同时删除与此租房有关的所有历史房租信息
      * @param $id
      * @return mixed
      */
@@ -423,7 +429,8 @@ class HouseholdManageController extends Controller
             'type' => 'required|numeric|between:0,3',
         );
 
-        $oldHouseholdMsg = $householdMsg = HouseholdMsg::find($householdId);
+        $householdMsg = HouseholdMsg::find($householdId);
+        $oldHouseholdMsg = HouseholdMsg::find($householdId);
 
         if (!Validator::make($input, $rule)->fails()) {
             $householdMsg->name = $input['name'];
@@ -479,15 +486,19 @@ class HouseholdManageController extends Controller
             //判断是否无房改+补贴
             if (isset($input['hasHouseOrSubsidy'])) {
                 if ($householdMsg->has_house_or_subsidy == 0) {
-                    //重新统计房租
-                    $flag = true;
+                    if (strtotime($householdMsg->in_school_time) <= strtotime('1999-12-31')){
+                        //重新统计房租
+                        $flag = true;
+                    }
                 }
                 $householdMsg->has_house_or_subsidy = 1;
 
             } else {
                 if ($householdMsg->has_house_or_subsidy == 1) {
-                    //重新统计房租
-                    $flag = true;
+                    if (strtotime($householdMsg->in_school_time) <= strtotime('1999-12-31')){
+                        //重新统计房租
+                        $flag = true;
+                    }
                 }
                 $householdMsg->has_house_or_subsidy = 0;
             }
@@ -543,10 +554,9 @@ class HouseholdManageController extends Controller
 
     /**
      * 保存房租修改信息
+     *
      * @param $id
      * @param $order
-     * @param $roomNumber
-     * @param $remark
      * @return mixed
      */
     public function saveRentMsg($id, $order)

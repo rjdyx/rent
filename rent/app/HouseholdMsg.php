@@ -40,7 +40,7 @@ class HouseholdMsg extends Model
     ];
 
     /**
-     * 获取住户的租房信息
+     * 获取住户所有的租房信息
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function householdHouseMsg(){

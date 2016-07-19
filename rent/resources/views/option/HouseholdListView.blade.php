@@ -87,7 +87,7 @@
                             是
                         @endif
                     </td>
-                    <td>{{ sizeof($householdMsg->householdHouseMsg) }}</td>
+                    <td>{{ sizeof($householdMsg->householdHouseMsg()->where('is_check_out', 0)->get()) }}</td>
                     <td>
                         <a href="{{ url('/admin/viewRent') }}/{{ $householdMsg['id'] }}" class="tablelink">查看</a>
                         <a href="{{ url('/admin/editHouseholdMsg') }}/{{ $householdMsg['id'] }}" class="tablelink">修改</a>

@@ -30,7 +30,7 @@ function calculateOneMonthRent(HouseholdMsg $householdMsg, $now, $days)
 
     if (isset($householdMsg->time_point)) {//“有房时间点”不为空
         $now_tmp = time();
-//        $now_tmp = strtotime('2016-06-26 23:50:50');
+//        $now_tmp = strtotime('2017-08-31 23:50:50');
         $intervel = $now_tmp - strtotime($householdMsg->time_point);
         if ($intervel >= 0) {
             $days_inc = (int)($intervel / (24 * 60 * 60));
@@ -65,7 +65,7 @@ function calculateOneMonthOneRent(HouseholdMsg $householdMsg, HouseholdHouseMsg 
     $hasHouse = $householdMsg->has_house;//是否有房
 
     $now_tmp = time();
-//    $now_tmp = strtotime('2016-06-30 23:50:50');
+//    $now_tmp = strtotime('2017-04-15 12:00:00');
     $intervel = $now_tmp - strtotime($householdMsg->time_point);
     if ($intervel >= 0) {
         $days_inc = (int)($intervel / (24 * 60 * 60));
@@ -116,6 +116,7 @@ function calculateLastOneMonthRent(HouseholdMsg $householdMsg, HouseholdHouseMsg
 {
     date_default_timezone_set('PRC');
     $now = time();//当前时间
+//    $now = strtotime('2017-08-23 12:00:00');
     $firsttimeCheckIn = $rent->firsttime_check_in;//第一次入住时间
     $nowY = date('Y', $now);
     $nowM = date('m', $now);

@@ -236,7 +236,6 @@ class ExcelController extends Controller
                 $rentRule = array(
                     'area' => 'required|numeric',
                     'firsttimeCheckIn' => 'required|date',
-                    'roomNumber' => 'numeric',
                 );
 
                 $tmpHouseholdMsg = null;//临时的HouseholdMsg，用于第二间租房的HouseholdMsg信息存储
