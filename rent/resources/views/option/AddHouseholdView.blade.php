@@ -25,7 +25,7 @@
                         <label for="jobNumber">工号：</label>
                     </td>
                     <td>
-                        <input id="jobNumber" name="jobNumber" type="text" placeholder="必填，长度1~12，不可重复">
+                        <input id="jobNumber" name="jobNumber" type="text" placeholder="必填，长度1~12，不可重复" onblur="validateJobNumber()">
                     </td>
                 </tr>
                 <tr>
@@ -173,6 +173,7 @@
 
     @include('layer.successTip')
     @include('layer.errorTip')
+    @include('layer.commonErrorTip')
     @include('layer.sureDeleteDialog')
 
 @endsection

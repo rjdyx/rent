@@ -92,3 +92,14 @@ function fadeOutDialog(dialogId) {
     $('label[class=error]').remove();
     $('#'+dialogId).css('width', '400px');
 }
+
+function showcommonErrorTip(message) {
+    $('#commonErrorTip-content').html(message);
+    $('#commonErrorTip').fadeIn();
+    setTimeout(function () {
+        $('#commonErrorTip').css('padding','0 2px');
+    }, 10);
+    setTimeout(function () {
+        $('#commonErrorTip').fadeOut(200);
+    }, 1500);
+}

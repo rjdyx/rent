@@ -193,6 +193,25 @@ class HouseholdManageController extends Controller
         return response()->json($addresses);
     }
 
+
+    /**
+     * 验证住户的工号是否重复
+     * @param $jobNumber
+     * @return mixed
+     */
+    public function validateJobNumber(){
+        $jobNumber = Input::All();
+        //验证规则
+        $rule = array(
+            'jobNumber' => 'required|between:1,12|unique:household_msg,job_number'
+        );
+        if (!Validator::make($jobNumber, $rule)->fails()) {
+            return response()->json('success');
+        }else{
+            return response()->json('error');
+        }
+    }
+
     /**
      * 新增住户信息
      * @param Request $request

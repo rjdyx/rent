@@ -2887,6 +2887,28 @@ h2 {
     padding: 9%;
 }
 
+/*commonErrorTip*/
+#commonErrorTip {
+    width: auto;
+    height: 50px;
+    white-space:nowrap;/*强制不换行*/
+    /*padding: 0 2px;*/
+    position: fixed;
+    top: 49%;
+    left: 46%;
+    background-color: #FF9800;
+    color: white;
+    text-align: center;
+    box-shadow: 0 0 10px #676767;
+    display: none;
+    z-index: 333;
+}
+
+#commonErrorTip-content {
+    font-size: 1.5em;
+    padding: 12px;
+}
+
 /*item*/
 .item {
     width: 71%;

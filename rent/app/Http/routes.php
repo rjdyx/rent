@@ -80,6 +80,9 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin', 'namespace' => 'Admin
     //新增住户信息
     Route::post('addHousehold', 'HouseholdManageController@addHousehold');
 
+    //验证住户工号是否重复
+    Route::get('validateJobNumber', 'HouseholdManageController@validateJobNumber');
+
     //根据区域获取房址
     Route::get('getAddressByArea/{id}', 'HouseholdManageController@getAddressByArea');
 
