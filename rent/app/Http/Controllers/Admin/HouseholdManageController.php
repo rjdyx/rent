@@ -219,6 +219,13 @@ class HouseholdManageController extends Controller
 
         $householdMsg = new HouseholdMsg();
         if (!Validator::make($baseData, $rule)->fails()) {
+
+            $noInputCountTime = false;//标志手动输入的累计时间是否为空
+            if($baseData['inputCountTime'] == null){
+                $noInputCountTime = true;
+                $baseData['inputCountTime'] = '0.0.0';
+            }
+
             $householdMsg->name = $baseData['name'];
             $householdMsg->job_number = $baseData['jobNumber'];
             $householdMsg->card_number = $baseData['cardNumber'];
@@ -262,6 +269,16 @@ class HouseholdManageController extends Controller
 
         if (Validator::make($rentData, $rule)->fails()) {
             return response()->json('rentMsgError');
+        }
+
+        if($noInputCountTime){
+            //累计住房时间若是为空，则直接用第一次入住时间去计算累计时间
+            $now_tmp = time();
+            $intervel = $now_tmp - strtotime($rentData['firsttimeCheckIn']);
+            if ($intervel >= 0) {
+                $days_inc = (int)($intervel / (24 * 60 * 60));
+                $householdMsg->incre_count_time = $days_inc;
+            }
         }
 
         //比较现在的时间和租房第一次入住时间，大的那个作为“有房时间点”
