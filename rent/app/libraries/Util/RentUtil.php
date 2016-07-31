@@ -269,7 +269,16 @@ function calculateOneHalfRent(HouseholdMsg $householdMsg, HouseholdHouseMsg $ren
     $time = countYears($householdMsg->input_count_time, $householdMsg->incre_count_time);
 
 
-    if ($householdMsg->type == 3) {//博士后
+    if($householdMsg->privilege == 1){//享受标租
+        $config = $rent->addressMsg()->first();//获取租金配置
+        if ($rent->area <= 75) {
+            $totalRent = ($intervel / $days) * ($config->standad_rent_single * $rent->area + $config->standad_rent_decorate);
+        } else {
+            $totalRent = ($intervel / $days) * ($config->standad_rent_single * 75 + $config->standad_rent_decorate) +
+                ($intervel / $days) * $config->market_rent * ($rent->area - 75);
+        }
+        $money = 0;
+    }else if ($householdMsg->type == 3) {//博士后
         $config = $rent->addressMsg()->first();//获取租金配置
         $totalRent = ($intervel / $days) * ($config->standad_rent_single * $rent->area + $config->standad_rent_decorate) + 20; //计算房租,标准租金+20元/月
         $money = $config->standad_rent_single + $config->standad_rent_decorate;
@@ -352,7 +361,16 @@ function calculateOneRent(HouseholdMsg $householdMsg, HouseholdHouseMsg $rent, $
     $time = countYears($householdMsg->input_count_time, $householdMsg->incre_count_time);
 
 
-    if ($householdMsg->type == 3) {//博士后
+    if($householdMsg->privilege == 1){//享受标租
+        $config = $rent->addressMsg()->first();//获取租金配置
+        if ($rent->area <= 75) {
+            $totalRent = ($intervel / $days) * ($config->standad_rent_single * $rent->area + $config->standad_rent_decorate);
+        } else {
+            $totalRent = ($intervel / $days) * ($config->standad_rent_single * 75 + $config->standad_rent_decorate) +
+                ($intervel / $days) * $config->market_rent * ($rent->area - 75);
+        }
+        $money = 0;
+    }else if ($householdMsg->type == 3) {//博士后
         $config = $rent->addressMsg()->first();//获取租金配置
         $totalRent = ($intervel / $days) * ($config->standad_rent_single * $rent->area + $config->standad_rent_decorate) + 20; //计算房租,标准租金+20元/月
         $money = $config->standad_rent_single + $config->standad_rent_decorate;
@@ -421,7 +439,16 @@ function calculateOneRentHasBeginTime(HouseholdMsg $householdMsg, HouseholdHouse
     $time = countYears($householdMsg->input_count_time, $householdMsg->incre_count_time);
 
 
-    if ($householdMsg->type == 3) {//博士后
+    if($householdMsg->privilege == 1){//享受标租
+        $config = $rent->addressMsg()->first();//获取租金配置
+        if ($rent->area <= 75) {
+            $totalRent = ($intervel / $days) * ($config->standad_rent_single * $rent->area + $config->standad_rent_decorate);
+        } else {
+            $totalRent = ($intervel / $days) * ($config->standad_rent_single * 75 + $config->standad_rent_decorate) +
+                ($intervel / $days) * $config->market_rent * ($rent->area - 75);
+        }
+        $money = 0;
+    }else if ($householdMsg->type == 3) {//博士后
         $config = $rent->addressMsg()->first();//获取租金配置
         $totalRent = ($intervel / $days) * ($config->standad_rent_single * $rent->area + $config->standad_rent_decorate) + 20; //计算房租,标准租金+20元/月
         $money = $config->standad_rent_single + $config->standad_rent_decorate;

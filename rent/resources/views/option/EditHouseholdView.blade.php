@@ -108,6 +108,20 @@
                                @if( $householdMsg['is_dimission'] == 1 ) checked="checked" @endif/>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        <label for="privilege">是否享受标租：</label>
+                    </td>
+                    <td>
+                        @if( $householdMsg['privilege'] == 1 )
+                            是
+                        @else
+                            否
+                        @endif
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
             </table>
         </form>
         <div class="opt-rent-btn">

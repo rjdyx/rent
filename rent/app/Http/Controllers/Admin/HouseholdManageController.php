@@ -301,6 +301,13 @@ class HouseholdManageController extends Controller
                 $householdMsg->has_house_or_subsidy = 0;
             }
 
+            //判断是否享受标租
+            if (isset($baseData['privilege'])) {
+                $householdMsg->privilege = 1;
+            } else {
+                $householdMsg->privilege = 0;
+            }
+
         } else {
             return response()->json('baseMsgError');
         }

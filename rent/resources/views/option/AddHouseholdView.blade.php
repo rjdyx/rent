@@ -95,6 +95,16 @@
                         <input id="isDimission" name="isDimission" type="checkbox"/>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        <label for="privilege">是否享受标租：</label>
+                    </td>
+                    <td>
+                        <input id="privilege" name="privilege" type="checkbox"/>
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
             </table>
         </form>
     </div>
