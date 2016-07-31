@@ -156,6 +156,7 @@ class HouseholdManageController extends Controller
         $anoHousehold = null;
         if(sizeof($householdHouseRelationsUnCheck) == 1 && $householdHouseRelationsUnCheck[0]->status == 2){
             $anoHouseholdHouseRelation = HouseholdHouseRelation::where('household_house_id',$householdHouseRelationsUnCheck[0]->household_house_id)
+                ->where('household_id','<>',$householdHouseRelationsUnCheck[0]->household_id)
                 ->where('status',2)
                 ->first();
             $anoHousehold = HouseholdMsg::where('id',$anoHouseholdHouseRelation->household_id)->first();
@@ -425,29 +426,32 @@ class HouseholdManageController extends Controller
             ->where('household_house_id',$anotherHouseholdHouseMsg->id)
             ->orderBy('created_at','desc')
             ->first();
-        //另一位合租人上个月房租减半
-        $rent->rent = $rent->rent/2;
-        $rent->save();
+        if($rent != null){
+            //另一位合租人上个月房租减半
+            $rent->rent = $rent->rent/2;
+            $rent->save();
 
-        //录入新增合租人上个月的房租
-        $newRent = new Rent();
-        $newRent->firsttime_check_in = $rent->firsttime_check_in;
-        $newRent->lasttime_pay_rent = $rent->lasttime_pay_rent;
-        $newRent->time_pay_rent = $rent->time_pay_rent;
-        $newRent->rent = $rent->rent;
-        $newRent->intervel = $rent->intervel;
-        $newRent->isDimission = $rent->isDimission;
-        $newRent->order = $rent->order;
-        $newRent->hasHouse = $rent->hasHouse;
-        $newRent->time = $rent->time;
-        $newRent->region = $rent->region;
-        $newRent->address = $rent->address;
-        $newRent->room_number = $rent->room_number;
-        $newRent->money = $rent->money;
-        $newRent->area = $rent->area;
-        $newRent->household_id = $householdMsg->id;
-        $newRent->household_house_id = $anotherHouseholdHouseMsg->id;
-        $newRent->save();
+            //录入新增合租人上个月的房租
+            $newRent = new Rent();
+            $newRent->firsttime_check_in = $rent->firsttime_check_in;
+            $newRent->lasttime_pay_rent = $rent->lasttime_pay_rent;
+            $newRent->time_pay_rent = $rent->time_pay_rent;
+            $newRent->rent = $rent->rent;
+            $newRent->intervel = $rent->intervel;
+            $newRent->isDimission = $rent->isDimission;
+            $newRent->order = $rent->order;
+            $newRent->hasHouse = $rent->hasHouse;
+            $newRent->time = $rent->time;
+            $newRent->region = $rent->region;
+            $newRent->address = $rent->address;
+            $newRent->room_number = $rent->room_number;
+            $newRent->money = $rent->money;
+            $newRent->area = $rent->area;
+            $newRent->household_id = $householdMsg->id;
+            $newRent->household_house_id = $anotherHouseholdHouseMsg->id;
+            $newRent->save();
+        }
+
 
         //改变另一位合租人对租房的状态
         $anoHouseholdHouseRelation = $anotherHouseholdMsg->householdHouseRelation()
@@ -775,8 +779,10 @@ class HouseholdManageController extends Controller
         $householdHouseRelations = $householdMsg->householdHouseRelation()->get();
         $result1 = 0;
         foreach ($householdHouseRelations as $householdHouseRelation) {
-            $result1 = $householdHouseRelation->householdHouseMsg()->first()->delete();
-            $householdHouseRelation->delete();
+            if($householdHouseRelation->status != 3){
+                $householdHouseRelation->householdHouseMsg()->first()->delete();
+            }
+            $result1 = $householdHouseRelation->delete();
         }
         Rent::where('household_id', '=', $householdMsg->id)
             ->delete();
