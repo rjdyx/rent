@@ -162,7 +162,7 @@ function getAddressByArea(name, count) {
 function checkOutRent() {
     $.ajax({
         type: "get",
-        url: rootUrl + "/admin/checkOutRent/" + $("#input-id").val(),
+        url: rootUrl + "/admin/checkOutRent/" + $("#household-id").val() + "/" + $("#householdHouse-id").val(),
         dataType: "json",
         success: function (ret) {
             if (ret == 'success') {
@@ -217,7 +217,7 @@ function addSingleRent(id, order) {
 function deleteRent() {
     $.ajax({
         type: "get",
-        url: rootUrl + "/admin/deleteRent/" + $("#input-id").val(),
+        url: rootUrl + "/admin/deleteRent/" + $("#household-id").val() + "/" + $("#householdHouse-id").val(),
         dataType: "json",
         success: function (ret) {
             if (ret == 'success') {
@@ -269,10 +269,10 @@ function saveChange(id) {
  * 保存房租修改信息
  * @param id
  */
-function saveRentMsg(id, order) {
+function saveRentMsg(householdId,householdHouseId, order) {
     $.ajax({
         type: "get",
-        url: rootUrl + "/admin/saveRentMsg/"+id+"/"+$("#order-number-"+order).val(),
+        url: rootUrl + "/admin/saveRentMsg/"+householdId+"/"+householdHouseId+"/"+$("#order-number-"+order).val(),
         dataType: "json",
         success: function (ret) {
             if (ret == 'success') {

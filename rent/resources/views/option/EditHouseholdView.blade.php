@@ -73,7 +73,8 @@
                     </td>
                     <td>
                         <input type="text" id="inSchoolTime" name="inSchoolTime"
-                               value="{{ date('Y-m-d',strtotime($householdMsg['in_school_time'])) }}" readonly="readonly"
+                               value="{{ date('Y-m-d',strtotime($householdMsg['in_school_time'])) }}"
+                               readonly="readonly"
                                placeholder="必选">
                     </td>
                     <td>
@@ -110,36 +111,52 @@
             </table>
         </form>
         <div class="opt-rent-btn">
-            <button onclick="addRent()">新增租房</button>
+            @if(sizeof($householdHouseRelations) == 1 && $householdHouseRelations[0]->status != 2)
+                <button onclick="addRent()">新增租房</button>
+            @endif
             <button onclick="saveChange({{ $householdMsg['id'] }})">保存</button>
         </div>
     </div>
 
 
-    @foreach($rents as $rent)
+    @foreach($householdHouseRelations as $householdHouseRelation)
         <div class="addHouseHold-content addHouseHold-content-house rent-item">
             <div class="addHouseHold-title">
-                租房<input class="order-number" id="order-number-{{ $rent['order'] }}" value="{{ $rent['order'] }}">
-                <button  class="rent-save-btn" onclick="saveRentMsg({{ $rent['id'] }},{{ $rent['order'] }})">
-                    保存
-                </button>
+                @if($householdHouseRelation->status != 2)
+                    <input class="order-number"
+                           id="order-number-{{ $householdHouseRelation->householdHouseMsg['order'] }}"
+                           value="{{ $householdHouseRelation->householdHouseMsg['order'] }}">
+
+                    <button class="rent-save-btn"
+                            onclick="saveRentMsg({{ $householdHouseRelation->householdMsg['id'] }},{{ $householdHouseRelation->householdHouseMsg['id'] }},{{ $householdHouseRelation->householdHouseMsg['order'] }})">
+                        保存
+                    </button>
+                @endif
+                @if($householdHouseRelation->status == 2)
+                    合租人：{{ $anoHousehold->name }}/{{ $anoHousehold->job_number }}/{{ $anoHousehold->institution }}
+                @endif
             </div>
-            <form class="form-rent-item" id="form-item{{ $rent['order'] }}">
+            <form class="form-rent-item" id="form-item{{ $householdHouseRelation->householdHouseMsg['order'] }}">
                 <table>
                     <tr>
                         <td>
                             <label for="region">区域：</label>
                         </td>
                         <td class="td-right">
-                            <input class="region" id="region{{ $rent['order'] }}" name="region" type="text"
-                                   value="{{ $rent->regionMsg()->first()->name }}" readonly="readonly"/>
+                            <input class="region" id="region{{ $householdHouseRelation->householdHouseMsg['order'] }}"
+                                   name="region" type="text"
+                                   value="{{ $householdHouseRelation->householdHouseMsg->regionMsg()->first()->name }}"
+                                   readonly="readonly"/>
                         </td>
                         <td>
                             <label for="address">房址：</label>
                         </td>
                         <td>
-                            <input class="address" id="address{{ $rent['order'] }}" name="address" type="text"
-                                   value="{{ $rent->addressMsg()->first()->name }}" readonly="readonly"/>
+                            <input class="address"
+                                   id="address{{ $householdHouseRelation->householdHouseMsg['order'] }}"
+                                   name="address" type="text"
+                                   value="{{ $householdHouseRelation->householdHouseMsg->addressMsg()->first()->name }}"
+                                   readonly="readonly"/>
                         </td>
                     </tr>
                     <tr>
@@ -148,7 +165,7 @@
                         </td>
                         <td>
                             <input type="text" class="first-check-in-time" name="firsttimeCheckIn"
-                                   value="{{ date('Y-m-d',strtotime($rent['firsttime_check_in'])) }}"
+                                   value="{{ date('Y-m-d',strtotime($householdHouseRelation->householdHouseMsg['firsttime_check_in'])) }}"
                                    readonly="readonly">
                         </td>
                         <td>
@@ -156,7 +173,8 @@
                         </td>
                         <td class="td-right">
                             <input class="area" name="area" type="text"
-                                   value="{{ $rent['area'] }}" readonly="readonly"/>
+                                   value="{{ $householdHouseRelation->householdHouseMsg['area'] }}"
+                                   readonly="readonly"/>
                         </td>
                     </tr>
                     <tr>
@@ -164,24 +182,31 @@
                             <label for="roomNumber">房间号：</label>
                         </td>
                         <td class="td-right">
-                            <input id="roomNumber{{ $rent['order'] }}" class="roomNumber" name="roomNumber" type="text" placeholder="" value="{{ $rent['room_number'] }}" readonly="readonly">
+                            <input id="roomNumber{{ $householdHouseRelation->householdHouseMsg['order'] }}"
+                                   class="roomNumber" name="roomNumber" type="text" placeholder=""
+                                   value="{{ $householdHouseRelation->householdHouseMsg['room_number'] }}"
+                                   readonly="readonly">
                         </td>
                         <td>
                             <label for="">备注：</label>
                         </td>
                         <td>
-                            <textarea id="remark{{ $rent['order'] }}" class="remark" name="remark" readonly="readonly">{{ $rent['remark'] }}</textarea>
+                            <textarea id="remark{{ $householdHouseRelation->householdHouseMsg['order'] }}"
+                                      class="remark" name="remark"
+                                      readonly="readonly">{{ $householdHouseRelation->householdHouseMsg['remark'] }}</textarea>
                         </td>
                     </tr>
                 </table>
             </form>
             <div class="opt-rent-btn">
-                <button onclick="showCommonDialog('退房','确认退房？','退房','checkOutRent',[['input-id','{{ $rent['id'] }}']])">
+                <button onclick="showCommonDialog('退房','确认退房？','退房','checkOutRent',[['household-id','{{ $householdHouseRelation->householdMsg['id'] }}'],['householdHouse-id','{{ $householdHouseRelation->householdHouseMsg['id'] }}']])">
                     退房
                 </button>
-                <button onclick="showCommonDialog('作废','确认作废租房记录？','作废','deleteRent',[['input-id','{{ $rent['id'] }}']])">
-                    作废
-                </button>
+                @if($householdHouseRelation->status == 1)
+                    <button onclick="showCommonDialog('作废','确认作废租房记录？','作废','deleteRent',[['household-id','{{ $householdHouseRelation->householdMsg['id'] }}'],['householdHouse-id','{{ $householdHouseRelation->householdHouseMsg['id'] }}']])">
+                        作废
+                    </button>
+                @endif
             </div>
         </div>
     @endforeach
@@ -189,10 +214,10 @@
 
     <div class="new-rent-area"></div>
 
-    @foreach($rentsCheckOut as $rent)
+    @foreach($householdHouseRelationsCheckOut as $householdHouseRelation)
         <div class="addHouseHold-content addHouseHold-content-house rent-item">
             <div class="addHouseHold-title">
-                租房——已退房&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;退房时间：{{ date('Y-m-d',strtotime($rent['lasttime_pay_rent'])) }}</div>
+                租房@if($householdHouseRelation->status == 3)（合租）@endif——已退房&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;退房时间：{{ date('Y-m-d',strtotime($householdHouseRelation->householdHouseMsg['lasttime_pay_rent'])) }}</div>
             <form class="form-rent-item">
                 <table>
                     <tr>
@@ -200,15 +225,20 @@
                             <label for="region">区域：</label>
                         </td>
                         <td class="td-right">
-                            <input class="region" id="region{{ $rent['order'] }}" name="region" type="text"
-                                   value="{{ $rent->regionMsg()->first()->name }}" readonly="readonly"/>
+                            <input class="region" id="region{{ $householdHouseRelation->householdHouseMsg['order'] }}"
+                                   name="region" type="text"
+                                   value="{{ $householdHouseRelation->householdHouseMsg->regionMsg()->first()->name }}"
+                                   readonly="readonly"/>
                         </td>
                         <td>
                             <label for="address">房址：</label>
                         </td>
                         <td>
-                            <input class="address" id="address{{ $rent['order'] }}" name="address" type="text"
-                                   value="{{ $rent->addressMsg()->first()->name }}" readonly="readonly"/>
+                            <input class="address"
+                                   id="address{{ $householdHouseRelation->householdHouseMsg['order'] }}"
+                                   name="address" type="text"
+                                   value="{{ $householdHouseRelation->householdHouseMsg->addressMsg()->first()->name }}"
+                                   readonly="readonly"/>
                         </td>
                     </tr>
                     <tr>
@@ -217,7 +247,7 @@
                         </td>
                         <td>
                             <input type="text" class="first-check-in-time" name="firsttimeCheckIn"
-                                   value="{{ date('Y-m-d',strtotime($rent['firsttime_check_in'])) }}"
+                                   value="{{ date('Y-m-d',strtotime($householdHouseRelation->householdHouseMsg['firsttime_check_in'])) }}"
                                    readonly="readonly">
                         </td>
                         <td>
@@ -225,7 +255,8 @@
                         </td>
                         <td class="td-right">
                             <input class="area" name="area" type="text"
-                                   value="{{ $rent['area'] }}" readonly="readonly"/>
+                                   value="{{ $householdHouseRelation->householdHouseMsg['area'] }}"
+                                   readonly="readonly"/>
                         </td>
                     </tr>
                     <tr>
@@ -233,13 +264,16 @@
                             <label for="roomNumber">房间号：</label>
                         </td>
                         <td class="td-right">
-                            <input id="roomNumber" class="roomNumber" name="roomNumber" type="text" placeholder="" value="{{ $rent['room_number'] }}" readonly="readonly">
+                            <input id="roomNumber" class="roomNumber" name="roomNumber" type="text" placeholder=""
+                                   value="{{ $householdHouseRelation->householdHouseMsg['room_number'] }}"
+                                   readonly="readonly">
                         </td>
                         <td>
                             <label for="">备注：</label>
                         </td>
                         <td>
-                            <textarea id="remark" class="remark" name="remark" readonly="readonly">{{ $rent['remark'] }}</textarea>
+                            <textarea id="remark" class="remark" name="remark"
+                                      readonly="readonly">{{ $householdHouseRelation->householdHouseMsg['remark'] }}</textarea>
                         </td>
                     </tr>
                 </table>
@@ -250,7 +284,7 @@
     <script src="{{url('/js/jquery.cxcalendar.min.js')}}"></script>
     <link rel="stylesheet" href="{{url('/css/jquery.cxcalendar.css')}}">
     <script type="text/javascript">
-        var count = {{ sizeof($rents) }};
+        var count = {{ sizeof($householdHouseRelations) }};
     </script>
 
     @include('layer.successTip')

@@ -36,15 +36,15 @@ class HouseholdMsg extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'job_number', 'card_number', 'institution' ,'has_house', 'has_house_time','has_not_house_time','is_dimission','has_house_or_subsidy','dimission_time','type'
+        'name', 'job_number', 'card_number', 'institution' ,'has_house', 'input_count_time','time_point','is_dimission','has_house_or_subsidy','in_school_time','type'
     ];
 
     /**
-     * 获取住户所有的租房信息
+     * 获取住户所有的租房关联实体
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function householdHouseMsg(){
-        return $this->hasMany('App\HouseholdHouseMsg','household_id');
+    public function householdHouseRelation(){
+        return $this->hasMany('App\HouseholdHouseRelation','household_id','id');
     }
 
     /**

@@ -14,7 +14,7 @@ class CreateRentsTable extends Migration
     {
         Schema::create('rent', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamp('firsttime_check_in');//入住时间
+            $table->timestamp('firsttime_check_in')->nullable();//入住时间
             $table->timestamp('lasttime_pay_rent')->nullable();//房租上次结算时间
             $table->timestamp('time_pay_rent');//房租结算时间
             $table->decimal('rent', 11, 2);//房租

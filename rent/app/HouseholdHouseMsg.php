@@ -36,15 +36,15 @@ class HouseholdHouseMsg extends Model
      * @var array
      */
     protected $fillable = [
-        'region', 'address', 'area', 'firsttime_check_in', 'lasttime_pay_rent', 'is_check_out', 'order','household_id'
+        'region_id', 'address_id', 'area', 'firsttime_check_in', 'lasttime_pay_rent','room_number', 'order','remark'
     ];
 
     /**
-     * 获取租房对应的住户信息
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * 获取租房所有的住户关联实体
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function householdMsg(){
-        return $this->belongsTo('App\HouseholdMsg');
+    public function householdHouseRelation(){
+        return $this->hasMany('App\HouseholdHouseRelation','household_house_id');
     }
 
     /**

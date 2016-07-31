@@ -75,9 +75,9 @@ function showCommonDialog(title, content, leftBtnName, leftBtnFun, args) {
     $("#commonSure").val(leftBtnName);
     $("#commonSure").attr('onclick', leftBtnFun + "()");
     $("#commonTip").fadeIn(200);
+    tmp = '';
     for (i = 0; i < args.length; i++) {
         $("#" + args[i][0]).remove();
-        var tmp = '';
         tmp += '<input type="hidden" id="' + args[i][0] + '" value="' + args[i][1] + '">';
     }
     $("#commonTip").append(tmp);

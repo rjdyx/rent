@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\HouseholdHouseRelation;
 use App\HouseholdMsg;
 use App\HouseholdHouseMsg;
 use App\Http\Controllers\Controller;
@@ -64,6 +65,19 @@ class HouseholdManageController extends Controller
     }
 
     /**
+     * 进入新增合租住户信息页面
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function AddShareHouseholdView()
+    {
+        return view('option.AddShareHouseholdView',
+            [
+                'active' => 'AddShareHouseholdView',
+                'sildedown' => 'household'
+            ]);
+    }
+
+    /**
      * 进入住户信息列表页面
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -121,10 +135,31 @@ class HouseholdManageController extends Controller
 
         $householdmsg = HouseholdMsg::where('id', '=', $id)->first();
 
-        $rents = $householdmsg->householdHouseMsg()
-            ->where('is_check_out', '=', 0)
-            ->orderBy('order', 'asc')
+        $householdHouseRelations = $householdmsg->householdHouseRelation()
             ->get();
+
+        $householdHouseRelationsUnCheck = array();
+        $householdHouseRelationsCheckOut = array();
+
+        $unCheckIndex = 0;
+        $CheckIndex = 0;
+        for($i = 0 ; $i < sizeof($householdHouseRelations); $i++){
+            if($householdHouseRelations[$i]->status == 1 || $householdHouseRelations[$i]->status == 2){
+                $householdHouseRelationsUnCheck[$unCheckIndex++] = $householdHouseRelations[$i];
+            }
+            if($householdHouseRelations[$i]->status == 3 || $householdHouseRelations[$i]->status == 4){
+                $householdHouseRelationsCheckOut[$CheckIndex++] = $householdHouseRelations[$i];
+            }
+        }
+
+        //合租的，则获取另一位合租人信息
+        $anoHousehold = null;
+        if(sizeof($householdHouseRelationsUnCheck) == 1 && $householdHouseRelationsUnCheck[0]->status == 2){
+            $anoHouseholdHouseRelation = HouseholdHouseRelation::where('household_house_id',$householdHouseRelationsUnCheck[0]->household_house_id)
+                ->where('status',2)
+                ->first();
+            $anoHousehold = HouseholdMsg::where('id',$anoHouseholdHouseRelation->household_id)->first();
+        }
 
         //测试用的
 //        date_default_timezone_set('PRC');
@@ -137,17 +172,14 @@ class HouseholdManageController extends Controller
 //            \App\libraries\Util\calculateAllMonthRent($householdmsg,$rent);
 //        }
 
-        $rentsCheckOut = $householdmsg->householdHouseMsg()
-            ->where('is_check_out', '=', 1)
-            ->orderBy('order', 'asc')
-            ->get();
 
         return view('option.EditHouseholdView',
             [
                 'active' => 'HouseholdListView',
                 'householdMsg' => $householdmsg,
-                'rents' => $rents,
-                'rentsCheckOut' => $rentsCheckOut,
+                'householdHouseRelations' => $householdHouseRelationsUnCheck,
+                'householdHouseRelationsCheckOut' => $householdHouseRelationsCheckOut,
+                'anoHousehold' => $anoHousehold,
                 'areas' => $areas,
                 'sildedown' => 'household'
             ]);
@@ -199,7 +231,8 @@ class HouseholdManageController extends Controller
      * @param $jobNumber
      * @return mixed
      */
-    public function validateJobNumber(){
+    public function validateJobNumber()
+    {
         $jobNumber = Input::All();
         //验证规则
         $rule = array(
@@ -207,13 +240,13 @@ class HouseholdManageController extends Controller
         );
         if (!Validator::make($jobNumber, $rule)->fails()) {
             return response()->json('success');
-        }else{
+        } else {
             return response()->json('error');
         }
     }
 
     /**
-     * 新增住户信息
+     * 新增住户信息，且住户单独拥有租房
      * @param Request $request
      */
     public function addHousehold(Request $request)
@@ -240,7 +273,7 @@ class HouseholdManageController extends Controller
         if (!Validator::make($baseData, $rule)->fails()) {
 
             $noInputCountTime = false;//标志手动输入的累计时间是否为空
-            if($baseData['inputCountTime'] == null){
+            if ($baseData['inputCountTime'] == null) {
                 $noInputCountTime = true;
                 $baseData['inputCountTime'] = '0.0.0';
             }
@@ -290,7 +323,7 @@ class HouseholdManageController extends Controller
             return response()->json('rentMsgError');
         }
 
-        if($noInputCountTime){
+        if ($noInputCountTime) {
             //累计住房时间若是为空，则直接用第一次入住时间去计算累计时间
             $now_tmp = time();
             $intervel = $now_tmp - strtotime($rentData['firsttimeCheckIn']);
@@ -305,7 +338,7 @@ class HouseholdManageController extends Controller
         $householdMsg->time_point = ($now >= strtotime($rentData['firsttimeCheckIn']) ? date('Y-m-d H:i:s', $now) : $rentData['firsttimeCheckIn']);
         $householdMsg->save();
 
-        $resultId = $householdMsg->id;
+        $householdMsgId = $householdMsg->id;
         $householdHouseMsg = new HouseholdHouseMsg();
         $householdHouseMsg->region_id = $rentData['region'];
         $householdHouseMsg->address_id = $rentData['address'];
@@ -314,10 +347,114 @@ class HouseholdManageController extends Controller
         $householdHouseMsg->room_number = $rentData['roomNumber'];
         $householdHouseMsg->remark = $rentData['remark'];
         $householdHouseMsg->order = 1;
-        $householdHouseMsg->household_id = $resultId;
         $householdHouseMsg->save();
 
+        $householdHouseMsgId = $householdHouseMsg->id;
+
+        $householdHouseRelation = new HouseholdHouseRelation();
+        $householdHouseRelation->status = 1;
+        $householdHouseRelation->household_id = $householdMsgId;
+        $householdHouseRelation->household_house_id = $householdHouseMsgId;
+        $householdHouseRelation->save();
+
         \App\libraries\Util\calculateLastOneMonthRent($householdMsg, $householdHouseMsg);
+
+        return response()->json('success');
+    }
+
+
+    /**
+     * 新增合租人
+     * @param Request $request
+     * @return mixed
+     */
+    public function addShareHousehold(Request $request)
+    {
+        $data = Input::All();
+        //将二维数组转化成一维数组
+        if (\App\libraries\Util\what_kind_of_array($data['baseData']) == 2) {
+            $baseData = \App\libraries\Util\array_two_to_one($data['baseData']);
+        } else {
+            $baseData = $data['baseData'];
+        }
+        //验证规则
+        $rule = array(
+            'name' => 'required|between:1,10',
+            'jobNumber' => 'required|between:1,12|unique:household_msg,job_number',
+            'cardNumber' => 'between:1,19',
+            'institution' => 'required|between:1,20'
+        );
+
+        $householdMsg = new HouseholdMsg();
+        //获取另一位合租人
+        $anotherHouseholdMsg = HouseholdMsg::where('id',$data['householdId'])->first();
+
+        if (!Validator::make($baseData, $rule)->fails()) {
+            $householdMsg->name = $baseData['name'];
+            $householdMsg->job_number = $baseData['jobNumber'];
+            $householdMsg->card_number = $baseData['cardNumber'];
+            $householdMsg->institution = $baseData['institution'];
+            $householdMsg->has_house = $anotherHouseholdMsg->has_house;
+            $householdMsg->is_dimission = $anotherHouseholdMsg->is_dimission;
+            $householdMsg->type = $anotherHouseholdMsg->type;
+            $householdMsg->input_count_time = $anotherHouseholdMsg->input_count_time;
+            $householdMsg->incre_count_time = $anotherHouseholdMsg->incre_count_time;
+            $householdMsg->in_school_time = $anotherHouseholdMsg->in_school_time;
+            $householdMsg->has_house_or_subsidy = $anotherHouseholdMsg->has_house_or_subsidy;
+            $householdMsg->time_point = $anotherHouseholdMsg->time_point;
+
+        } else {
+            return response()->json('baseMsgError');
+        }
+
+        $householdMsg->save();
+        //获取另一位合租人的租房
+        $anotherHouseholdHouseMsg = $anotherHouseholdMsg->householdHouseRelation()
+            ->where('status',1)
+            ->first()
+            ->householdHouseMsg()->first();
+        //获取另一位合租人上个月的房租
+        $rent = Rent::where('household_id',$anotherHouseholdMsg->id)
+            ->where('household_house_id',$anotherHouseholdHouseMsg->id)
+            ->orderBy('created_at','desc')
+            ->first();
+        //另一位合租人上个月房租减半
+        $rent->rent = $rent->rent/2;
+        $rent->save();
+
+        //录入新增合租人上个月的房租
+        $newRent = new Rent();
+        $newRent->firsttime_check_in = $rent->firsttime_check_in;
+        $newRent->lasttime_pay_rent = $rent->lasttime_pay_rent;
+        $newRent->time_pay_rent = $rent->time_pay_rent;
+        $newRent->rent = $rent->rent;
+        $newRent->intervel = $rent->intervel;
+        $newRent->isDimission = $rent->isDimission;
+        $newRent->order = $rent->order;
+        $newRent->hasHouse = $rent->hasHouse;
+        $newRent->time = $rent->time;
+        $newRent->region = $rent->region;
+        $newRent->address = $rent->address;
+        $newRent->room_number = $rent->room_number;
+        $newRent->money = $rent->money;
+        $newRent->area = $rent->area;
+        $newRent->household_id = $householdMsg->id;
+        $newRent->household_house_id = $anotherHouseholdHouseMsg->id;
+        $newRent->save();
+
+        //改变另一位合租人对租房的状态
+        $anoHouseholdHouseRelation = $anotherHouseholdMsg->householdHouseRelation()
+            ->where('status',1)
+            ->first();
+        $anoHouseholdHouseRelation->status = 2;
+        $anoHouseholdHouseRelation->save();
+
+        //为新增合租人添加住户租房关联信息
+        $newHouseholdHouseRelation = new HouseholdHouseRelation();
+        $newHouseholdHouseRelation->status = 2;
+        $newHouseholdHouseRelation->household_id = $householdMsg->id;
+        $newHouseholdHouseRelation->household_house_id = $anotherHouseholdHouseMsg->id;
+        $newHouseholdHouseRelation->save();
 
         return response()->json('success');
     }
@@ -327,45 +464,94 @@ class HouseholdManageController extends Controller
      * @param $id
      * @return mixed
      */
-    public function checkOutRent($id)
+    public function checkOutRent($householdId, $householdHouseId)
     {
         date_default_timezone_set('PRC');
         $time = time();
 //        $time = strtotime('2017-04-15 12:00:00');
         $days = date('t', $time);
 
-        $rent = HouseholdHouseMsg::where('id', '=', $id)
+        $householdHouseMsg = HouseholdHouseMsg::where('id', '=', $householdHouseId)
             ->first();
-        $householdmsg = HouseholdMsg::where('id', '=', $rent->household_id)
+        $householdHouseRelation = $householdHouseMsg->householdHouseRelation()
+            ->where('household_id', '=', $householdId)
+            ->where('household_house_id', '=', $householdHouseId)
             ->first();
-        \App\libraries\Util\calculateOneMonthOneRent($householdmsg, $rent, $time, $days);
+        $householdmsg = HouseholdMsg::where('id', '=', $householdId)->first();
 
-        $result = HouseholdHouseMsg::where('id', '=', $id)
-            ->update(['is_check_out' => 1]);
-        if ($result == 1) {
+        if ($householdHouseRelation->status == 1) {//单租的情况
+            \App\libraries\Util\calculateOneMonthOneRent($householdmsg, $householdHouseMsg, $time, $days);
+            $householdHouseRelation->status = 4;
+            $result = $householdHouseRelation->save();
+            if ($result == 1) {
 
-            if ($rent->order == 1) {//退的是第一间房的情况下
-                $rents = HouseholdHouseMsg::where('household_id', '=', $rent->household_id)
-                    ->where('is_check_out', '=', 0)
-                    ->orderBy('order', 'asc')
-                    ->get();
+                if ($householdHouseMsg->order == 1) {//退的是第一间房的情况下
+                    $householdHouseRelations = $householdmsg->householdHouseRelation()
+                        ->where('status', '=', 1)
+                        ->get();
+                    $rents = array();
+                    for($i = 0 ; $i < sizeof($householdHouseRelations) ; $i++){
+                        $rents[$i] = $householdHouseRelations[$i]->householdHouseMsg()->first();
+                    }
 
-                //若有两间租房，退掉第一间后，第二间自动变成第一间
-                if (sizeof($rents) == 1) {
-                    $rents[0]->order = 1;
-                    $rents[0]->save();
-                    //比较现在的时间和第二间租房第一次入住时间，大的那个作为“有房时间点”
-                    $now = time();
-                    $householdmsg->time_point = ($now >= strtotime($rents[0]->firsttime_check_in) ? date('Y-m-d H:i:s', $now) : $rents[0]->firsttime_check_in);
-                    $householdmsg->save();
+                    //若有两间租房，退掉第一间后，第二间自动变成第一间
+                    if (sizeof($rents) == 1) {
+                        $rents[0]->order = 1;
+                        $rents[0]->save();
+                        //比较现在的时间和第二间租房第一次入住时间，大的那个作为“有房时间点”
+                        $now = time();
+                        $householdmsg->time_point = ($now >= strtotime($rents[0]->firsttime_check_in) ? date('Y-m-d H:i:s', $now) : $rents[0]->firsttime_check_in);
+                        $householdmsg->save();
+                    }
                 }
+
+
+                return response()->json('success');
+            } else {
+                return response()->json('failed');
             }
+        } else if ($householdHouseRelation->status == 2) {//合租的情况
 
-
-            return response()->json('success');
-        } else {
-            return response()->json('failed');
+            //先算退房的人的房租
+            \App\libraries\Util\calculateOneMonthOneHalfRent($householdmsg, $householdHouseMsg, $time, $days);
+            //改变退房人对租房的状态
+            $householdHouseRelation->status = 3;
+            $householdHouseRelation->save();
+            //为另一位合租人的新增房租
+            $rent = Rent::where('household_id', $householdId)
+                ->where('household_house_id', $householdHouseId)
+                ->orderBy('created_at', 'desc')
+                ->first();
+            $anoHouseholdHouseRelation = HouseholdHouseRelation::where('household_house_id',$householdHouseMsg->id)
+                ->where('household_id','<>',$householdId)
+                ->where('status',2)
+                ->first();
+            $anoHouseholdMsg = $anoHouseholdHouseRelation->householdMsg()->first();
+            $newRent = new Rent();
+            $newRent->firsttime_check_in = $rent->firsttime_check_in;
+            $newRent->lasttime_pay_rent = $rent->lasttime_pay_rent;
+            $newRent->time_pay_rent = $rent->time_pay_rent;
+            $newRent->rent = $rent->rent;
+            $newRent->intervel = $rent->intervel;
+            $newRent->isDimission = $rent->isDimission;
+            $newRent->order = $rent->order;
+            $newRent->hasHouse = $rent->hasHouse;
+            $newRent->time = $rent->time;
+            $newRent->region = $rent->region;
+            $newRent->address = $rent->address;
+            $newRent->room_number = $rent->room_number;
+            $newRent->money = $rent->money;
+            $newRent->area = $rent->area;
+            $newRent->household_id = $anoHouseholdMsg->id;
+            $newRent->household_house_id = $rent->household_house_id;
+            $newRent->save();
+            //改变另一位合租人对租房的状态
+            $anoHouseholdHouseRelation->status = 1;
+            $anoHouseholdHouseRelation->save();
         }
+
+        return response()->json('success');
+
     }
 
     /**
@@ -393,7 +579,7 @@ class HouseholdManageController extends Controller
         if (!Validator::make($input, $rule)->fails()) {
 
             //比较现在的时间和租房第一次入住时间，大的那个作为“有房时间点”
-            $householdMsg = HouseholdMsg::where('id',$householdId)->first();
+            $householdMsg = HouseholdMsg::where('id', $householdId)->first();
             $now = time();
 //            $now = strtotime('2017-08-23 12:00:00');
             $householdMsg->time_point = ($now >= strtotime($input['firsttimeCheckIn']) ? date('Y-m-d H:i:s', $now) : $input['firsttimeCheckIn']);
@@ -407,8 +593,13 @@ class HouseholdManageController extends Controller
             $householdHouseMsg->room_number = $input['roomNumber'];
             $householdHouseMsg->remark = $input['remark'];
             $householdHouseMsg->order = $order;
-            $householdHouseMsg->household_id = $householdId;
             $householdHouseMsg->save();
+
+            $householdHouseRelation = new HouseholdHouseRelation();
+            $householdHouseRelation->status = 1;
+            $householdHouseRelation->household_id = $householdId;
+            $householdHouseRelation->household_house_id = $householdHouseMsg->id;
+            $householdHouseRelation->save();
 
             //计算房租
             $householdmsg = HouseholdMsg::where('id', '=', $householdId)
@@ -427,15 +618,17 @@ class HouseholdManageController extends Controller
      * @param $id
      * @return mixed
      */
-    public function deleteRent($id)
+    public function deleteRent($householdId, $householdHouseId)
     {
-        //获取租房id
-        $houseHoldHouse = HouseholdHouseMsg::where('id',$id)->first();
-        $houseHoldHouseId = $houseHoldHouse->id;
         //删除租房
-        $deleteHouse = HouseholdHouseMsg::destroy($id);
+        $deleteHouse = HouseholdHouseMsg::destroy($householdHouseId);
+        //删除关联表数据
+        HouseholdHouseRelation::where('household_id', $householdId)
+            ->where('household_house_id', $householdHouseId)
+            ->delete();
         //根据
-        Rent::where('household_house_id',$houseHoldHouseId)
+        Rent::where('household_id', $householdId)
+            ->where('household_house_id', $householdHouseId)
             ->delete();
         if ($deleteHouse == 1) {
             return response()->json('success');
@@ -484,15 +677,15 @@ class HouseholdManageController extends Controller
             $householdMsg->card_number = $input['cardNumber'];
             $householdMsg->institution = $input['institution'];
 
-            if($householdMsg->type == 3 && $input['type'] != 3){
+            if ($householdMsg->type == 3 && $input['type'] != 3) {
                 //重新统计房租
                 $flag = true;
                 $householdMsg->type = $input['type'];
-            }else if($householdMsg->type != 3 && $input['type'] == 3){
+            } else if ($householdMsg->type != 3 && $input['type'] == 3) {
                 //重新统计房租
                 $flag = true;
                 $householdMsg->type = $input['type'];
-            }else if($householdMsg->type >= 0 && $householdMsg->type <= 2 && $input['type'] >= 0 && $input['type'] <= 2){
+            } else if ($householdMsg->type >= 0 && $householdMsg->type <= 2 && $input['type'] >= 0 && $input['type'] <= 2) {
                 $householdMsg->type = $input['type'];
             }
 
@@ -522,7 +715,7 @@ class HouseholdManageController extends Controller
             //判断是否无房改+补贴
             if (isset($input['hasHouseOrSubsidy'])) {
                 if ($householdMsg->has_house_or_subsidy == 0) {
-                    if (strtotime($householdMsg->in_school_time) <= strtotime('1999-12-31')){
+                    if (strtotime($householdMsg->in_school_time) <= strtotime('1999-12-31')) {
                         //重新统计房租
                         $flag = true;
                     }
@@ -531,7 +724,7 @@ class HouseholdManageController extends Controller
 
             } else {
                 if ($householdMsg->has_house_or_subsidy == 1) {
-                    if (strtotime($householdMsg->in_school_time) <= strtotime('1999-12-31')){
+                    if (strtotime($householdMsg->in_school_time) <= strtotime('1999-12-31')) {
                         //重新统计房租
                         $flag = true;
                     }
@@ -572,8 +765,12 @@ class HouseholdManageController extends Controller
     public function deleteHouseholdMsg($id)
     {
         $householdMsg = HouseholdMsg::find($id);
-        $result1 = HouseholdHouseMsg::where('household_id', '=', $householdMsg->id)
-            ->delete();
+        $householdHouseRelations = $householdMsg->householdHouseRelation()->get();
+        $result1 = 0;
+        foreach ($householdHouseRelations as $householdHouseRelation) {
+            $result1 = $householdHouseRelation->householdHouseMsg()->first()->delete();
+            $householdHouseRelation->delete();
+        }
         Rent::where('household_id', '=', $householdMsg->id)
             ->delete();
         if ($result1 > 0) {
@@ -595,59 +792,109 @@ class HouseholdManageController extends Controller
      * @param $order
      * @return mixed
      */
-    public function saveRentMsg($id, $order)
+    public function saveRentMsg($householdId,$householdHouseId, $order)
     {
-        $rentTmp = HouseholdHouseMsg::where('id', $id)->first();
-        $householdId = $rentTmp->household_id;
-        $FirstRent = HouseholdHouseMsg::where('household_id', $householdId)
-            ->where('order',1)
-            ->where('is_check_out', '=', 0)
+        $rentTmp = HouseholdHouseMsg::where('id', $householdHouseId)->first();
+        $household = HouseholdMsg::where('id', $householdId)
             ->first();
-
+        $rentsTmp = $household->householdHouseRelation()->where('status',1)->get();
+        $FirstRent = null;
+        foreach ($rentsTmp as $item){
+            if($item->householdHouseMsg->order == 1){
+                $FirstRent = $item->householdHouseMsg;
+            }
+        }
         //已经存在第一间房则不允许将其他房间设置成第一间房
-        if($order == 1 && $FirstRent != null){
+        if ($order == 1 && $FirstRent != null) {
             return response()->json('failed');
         }
 
-        $rents = HouseholdHouseMsg::where('household_id', $householdId)
-            ->where('is_check_out', '=', 0)
+        $householdHouseRelations = $household->householdHouseRelation()
+            ->where('status', '=', 1)
             ->get();
+        $rents = array();
+        for($i = 0 ; $i < sizeof($householdHouseRelations) ; $i++){
+            $rents[$i] = $householdHouseRelations[$i]->householdHouseMsg()->first();
+        }
 
 
-        if($order == 1 && $FirstRent == null){
-            $householdmsg = HouseholdMsg::where('id',$householdId)->first();
+        if ($order == 1 && $FirstRent == null) {
+            $householdmsg = HouseholdMsg::where('id', $householdId)->first();
             $now = time();
-            if(strtotime($rents[0]->firsttime_check_in)>=strtotime($rents[1]->firsttime_check_in)){
+            if (strtotime($rents[0]->firsttime_check_in) >= strtotime($rents[1]->firsttime_check_in)) {
                 $max = strtotime($rents[0]->firsttime_check_in);
                 $min = strtotime($rents[1]->firsttime_check_in);
-            }else{
+            } else {
                 $max = strtotime($rents[1]->firsttime_check_in);
                 $min = strtotime($rents[0]->firsttime_check_in);
             }
 
             //若现在的时间大于两间房的第一次入住时间，则“有房时间点”选现在的时间
-            if($now >= $max){
+            if ($now >= $max) {
                 $householdmsg->time_point = date('Y-m-d H:i:s', $now);
             }
 
             //若现在的时间小于两间房的第一次入住时间，则“有房时间点”选两间房中第一次入住时间小的那个时间
-            if($now <= $min){
+            if ($now <= $min) {
                 $householdmsg->time_point = date('Y-m-d 00:00:00', $min);
             }
 
             //若现在的时间位于两间房第一次入住时间之间，则“有房时间点”选现在的时间
-            if($now >= $min && $now <= $max){
+            if ($now >= $min && $now <= $max) {
                 $householdmsg->time_point = date('Y-m-d H:i:s', $now);
             }
             $householdmsg->save();
         }
 
 
-
         $rentTmp->order = $order;
         $rentTmp->save();
 
         return response()->json('success');
+
+    }
+
+
+    /**
+     * 查找合租住户
+     *
+     * @param Request $request
+     * @return mixed
+     */
+    public function searchShareHousehold(Request $request){
+        $name = $request->input('name');
+        $jobNumber = $request->input('jobNumber');
+        //根据姓名、工号寻找合租租户
+        $household = HouseholdMsg::where('name',$name)
+            ->where('job_number',$jobNumber)
+            ->first();
+        if($household == null){
+            return response()->json('none');
+        }
+
+        $householdHouseRelation = $household->householdHouseRelation()->where('status',2)->get();
+        //合租人已经和别人合租则不合格
+        if(sizeof($householdHouseRelation) > 0){
+            return response()->json('rented');
+        }
+
+        $householdHouseRelation = $household->householdHouseRelation()->where('status',1)->get();
+        //合租人拥有的单间多于1或少于1都不合格
+        if(sizeof($householdHouseRelation) != 1){
+            return response()->json('illegal');
+        }
+
+        $rent = $householdHouseRelation[0]->householdHouseMsg;
+
+        $rentMsg['householdId'] = $household->id;
+        $rentMsg['region'] = $rent->regionMsg->name;
+        $rentMsg['address'] = $rent->addressMsg->name;
+        $rentMsg['firsttime_check_in'] = date('Y-m-d',strtotime($rent->firsttime_check_in));
+        $rentMsg['area'] = $rent->area;
+        $rentMsg['room_number'] = $rent->room_number;
+        $rentMsg['remark'] = $rent->remark;
+
+        return response()->json($rentMsg);
 
     }
 }

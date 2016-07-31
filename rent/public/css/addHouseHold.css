@@ -1,4 +1,4 @@
-.addHouseHold-content {
+.addHouseHold-content{
     width: 60%;
     /* margin-left: 24%; */
     /* margin-top: 4%; */
@@ -151,4 +151,55 @@
     cursor: pointer;
     width: 100px;
     display: inline;
+}
+
+
+/*  AddShareHouseholdView */
+
+.choose-shareHousehold-content{
+    width: 60%;
+    /* margin-left: 24%; */
+    /* margin-top: 4%; */
+    margin: 1% auto;
+    border: solid 1px #a7b5bc;
+    padding: 3% 0% 3% 5%;
+}
+
+#index-name,#index-jobNumber,.result-input{
+    width: 165px;
+    height: 32px;
+    line-height: 32px;
+    border-top: solid 1px #a7b5bc;
+    border-left: solid 1px #a7b5bc;
+    border-right: solid 1px #ced9df;
+    border-bottom: solid 1px #ced9df;
+    text-indent: 10px;
+    margin-right: 45px;
+}
+
+#index-submit{
+    line-height: 33px;
+    height: 35px;
+    width: 100px;
+    border: solid 1px #d3dbde;
+    /* padding-right: 10px; */
+    /* margin-right: 5px; */
+    border-radius: 3px;
+    cursor: pointer;
+    background-color: white;
+    margin-left: 30px;
+}
+
+.rent-result{
+    width: 60%;
+/* margin-left: 24%; */
+/* margin-top: 4%; */
+    margin: 1% auto;
+    border: solid 1px #a7b5bc;
+    padding: 0% 0% 3% 5%;
+}
+
+.result-title {
+    width: 92%;
+    margin: 3% 0;
 }

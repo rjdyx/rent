@@ -25,12 +25,12 @@
                                                                                 value="{{ $input['institution'] }}">
             </div>
             <div class="search-item"><label for="firsttimeCheckIn">是否有房:</label>
-            <select id="hasHouse" name="hasHouse" class="search-input">
-                <option value="-1" @if( $input['hasHouse'] == -1 ) selected="selected" @endif></option>
-                <option value="0" @if( $input['hasHouse'] == 0 ) selected="selected" @endif>无房</option>
-                <option value="1" @if( $input['hasHouse'] == 1 ) selected="selected" @endif>八区内有房</option>
-                <option value="2" @if( $input['hasHouse'] == 2 ) selected="selected" @endif>有房改房</option>
-            </select>
+                <select id="hasHouse" name="hasHouse" class="search-input">
+                    <option value="-1" @if( $input['hasHouse'] == -1 ) selected="selected" @endif></option>
+                    <option value="0" @if( $input['hasHouse'] == 0 ) selected="selected" @endif>无房</option>
+                    <option value="1" @if( $input['hasHouse'] == 1 ) selected="selected" @endif>八区内有房</option>
+                    <option value="2" @if( $input['hasHouse'] == 2 ) selected="selected" @endif>有房改房</option>
+                </select>
             </div>
             <div class="search-item">
                 <label for="isDimission-search">是否离职:</label>
@@ -41,7 +41,7 @@
                 </select>
             </div>
             <div class="search-btn">
-                <input type="submit" value="查询" />
+                <input type="submit" value="查询"/>
             </div>
         </form>
 
@@ -58,7 +58,7 @@
                 <th>入校时间</th>
                 <th>是否有房</th>
                 <th>是否离职</th>
-                <th>租房数</th>
+                {{--<th>租房数</th>--}}
                 <th>操作</th>
             </tr>
             </thead>
@@ -87,11 +87,16 @@
                             是
                         @endif
                     </td>
-                    <td>{{ sizeof($householdMsg->householdHouseMsg()->where('is_check_out', 0)->get()) }}</td>
+                    {{--                    <td>{{ sizeof($householdMsg->householdHouseRelation()->where('status', 1)->orWhere('status',2)->get()) }}</td>--}}
                     <td>
                         <a href="{{ url('/admin/viewRent') }}/{{ $householdMsg['id'] }}" class="tablelink">查看</a>
-                        <a href="{{ url('/admin/editHouseholdMsg') }}/{{ $householdMsg['id'] }}" class="tablelink">修改</a>
-                        <a href="#" class="tablelink" onclick="showCommonDialog('提示','确定删除？','删除','deleteHouseholdMsg',[['input-id','{{ $householdMsg['id'] }}']])"> 删除</a></td>
+                        <a href="{{ url('/admin/editHouseholdMsg') }}/{{ $householdMsg['id'] }}"
+                           class="tablelink">修改</a>
+                        @if($householdMsg->householdHouseRelation()->get()[0]->status != 2)
+                            <a href="#" class="tablelink"
+                               onclick="showCommonDialog('提示','确定删除？','删除','deleteHouseholdMsg',[['input-id','{{ $householdMsg['id'] }}']])">
+                                删除</a></td>
+                    @endif
                 </tr>
             @endforeach
             </tbody>

@@ -107,10 +107,12 @@ function isDimission() {
  * 新增住户信息
  */
 function addHousehold() {
-    var baseData = $("#form-household-base-msg").serializeArray();
-    var rentData = $(".form-rent-item").serializeArray();
-    userMsgValidate(baseData, rentData);
-    return;
+    baseData = $("#form-household-base-msg").serializeArray();
+    rentData = $(".form-rent-item").serializeArray();
+    result = userMsgValidate(baseData, rentData);
+    if(!result){
+        return false;
+    }
     $.ajax({
         type: "post",
         url: rootUrl + "/admin/addHousehold",
@@ -241,8 +243,14 @@ function userMsgValidate(baseData, rentData) {
         return false;
     }
 
+    return true;
 }
 
+/**
+ * 验证工号是否重复
+ * @param jobNumber
+ * @returns {boolean}
+ */
 function validateJobNumber(jobNumber) {
     jobNumber = $("#jobNumber").val();
     if(jobNumber == ""){

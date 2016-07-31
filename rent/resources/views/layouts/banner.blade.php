@@ -47,6 +47,7 @@
         </div>
         <ul class="menuson household">
             <li @if($active == 'AddHouseholdView') class="active" @endif><cite></cite><a href="{{url('admin/AddHouseholdView')}}">新增住户</a><i></i></li>
+            <li @if($active == 'AddShareHouseholdView') class="active" @endif><cite></cite><a href="{{url('admin/AddShareHouseholdView')}}">合租住户</a><i></i></li>
             <li @if($active == 'HouseholdListView') class="active" @endif><cite></cite><a href="{{url('admin/HouseholdListView')}}">住户列表</a><i></i></li>
         </ul>
     </dd>

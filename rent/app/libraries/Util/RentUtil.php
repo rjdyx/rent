@@ -9,6 +9,7 @@
 namespace App\libraries\Util;
 
 
+use App\HouseholdHouseRelation;
 use App\HouseholdHouseMsg;
 use App\HouseholdMsg;
 use App\Rent;
@@ -40,12 +41,77 @@ function calculateOneMonthRent(HouseholdMsg $householdMsg, $now, $days)
         }
     }
 
-    $rents = $householdMsg->householdHouseMsg()
-        ->where('is_check_out', '=', 0)
-        ->orderBy('order', 'asc')
+    $householdHouseRelationAll = $householdMsg->householdHouseRelation()
         ->get();
+
+    //获取status为1的所有关联
+    $householdHouseRelations = array();
+    $index = 0;
+    for($i = 0 ; $i < sizeof($householdHouseRelationAll) ; $i++){
+        if($householdHouseRelationAll[$i]->status == 1)
+            $householdHouseRelations[$index++] = $householdHouseRelationAll[$i];
+    }
+
+    $rents = array();
+    for($i = 0 ; $i < sizeof($householdHouseRelations) ; $i++){
+        $rents[$i] = $householdHouseRelations[$i]->householdHouseMsg()->first();
+    }
+
     foreach ($rents as $rent) {
         calculateOneRent($householdMsg, $rent, $now, $days);
+    }
+
+    //若是不存在单租的，则进入合租的情况
+    if(sizeof($rents) == 0){
+        $householdHouseRelations = array();
+        $index = 0;
+        for($i = 0 ; $i < sizeof($householdHouseRelationAll) ; $i++){
+            if($householdHouseRelationAll[$i]->status == 2)
+                $householdHouseRelations[$index++] = $householdHouseRelationAll[$i];
+        }
+        //存在合租
+        if(sizeof($householdHouseRelations) == 1){
+            $rent = $householdHouseRelations[0]->householdHouseMsg()->first();
+            $now_tmp = date('Y-m-d', time());
+            $lasttimePayRent = date('Y-m-d', strtotime($rent->lasttime_pay_rent));
+            //计算完第一位合租人后租房的lasttimePayRent为最新，此时第二位合租人不再计算一遍房租
+            if($now_tmp != $lasttimePayRent){
+                calculateOneHalfRent($householdMsg, $rent, $now, $days);
+            }else{
+                //获取另一位合租人的关联
+                $anoHouseholdHouseRelation = HouseholdHouseRelation::where('household_house_id',$householdHouseRelations[0]->household_house_id)
+                    ->where('status',2)
+                    ->first();
+                $anoHousehold = $anoHouseholdHouseRelation->householdMsg()->first();
+                $anoHouseholdHouse = $anoHouseholdHouseRelation->householdHouseMsg()->first();
+
+                //获取另一位合租人刚刚计算的房租
+                $rent = Rent::where('household_id',$anoHousehold->id)
+                    ->where('household_house_id',$anoHouseholdHouse->id)
+                    ->orderBy('created_at','desc')
+                    ->first();
+
+                //录入新增合租人上个月的房租
+                $newRent = new Rent();
+                $newRent->firsttime_check_in = $rent->firsttime_check_in;
+                $newRent->lasttime_pay_rent = $rent->lasttime_pay_rent;
+                $newRent->time_pay_rent = $rent->time_pay_rent;
+                $newRent->rent = $rent->rent;
+                $newRent->intervel = $rent->intervel;
+                $newRent->isDimission = $rent->isDimission;
+                $newRent->order = $rent->order;
+                $newRent->hasHouse = $rent->hasHouse;
+                $newRent->time = $rent->time;
+                $newRent->region = $rent->region;
+                $newRent->address = $rent->address;
+                $newRent->room_number = $rent->room_number;
+                $newRent->money = $rent->money;
+                $newRent->area = $rent->area;
+                $newRent->household_id = $householdMsg->id;
+                $newRent->household_house_id = $rent->household_house_id;
+                $newRent->save();
+            }
+        }
     }
 }
 
@@ -76,6 +142,36 @@ function calculateOneMonthOneRent(HouseholdMsg $householdMsg, HouseholdHouseMsg 
 
     calculateOneRent($householdMsg, $rent, $now, $days);
 }
+
+/**
+ * 统计一位住户一间租房的一个月的房租的一半
+ * 1、月初入住，月底结算
+ * 2、月中入住，月底结算
+ * 3、月底入住，月底结算
+ * 4、月初入住，月中结算
+ * 5、月中入住，月中结算
+ */
+function calculateOneMonthOneHalfRent(HouseholdMsg $householdMsg, HouseholdHouseMsg $rent, $now, $days)
+{
+    $jobNumber = $householdMsg->job_number;//工号
+    $name = $householdMsg->name;//姓名
+    $isDimission = $householdMsg->is_dimission;//是否离职
+    $hasHouse = $householdMsg->has_house;//是否有房
+
+    $now_tmp = time();
+//    $now_tmp = strtotime('2017-04-15 12:00:00');
+    $intervel = $now_tmp - strtotime($householdMsg->time_point);
+    if ($intervel >= 0) {
+        $days_inc = (int)($intervel / (24 * 60 * 60));
+        $householdMsg->incre_count_time += $days_inc;
+        $householdMsg->time_point = null;
+        $householdMsg->save();
+    }
+
+    calculateOneHalfRent($householdMsg, $rent, $now, $days);
+}
+
+
 
 /**
  * 统计一间租房所有月份的房租
@@ -123,6 +219,7 @@ function calculateLastOneMonthRent(HouseholdMsg $householdMsg, HouseholdHouseMsg
     $firstTimeY = date('Y', strtotime($firsttimeCheckIn));
     $firstTimeM = date('m', strtotime($firsttimeCheckIn));
 
+    //判断第一次入住时间是否是当月，是当月则不计算上个月房租，否则计算上个月房租
     if ($nowY == $firstTimeY && $nowM - $firstTimeM >= 1 || $nowY != $firstTimeY) {
 
         if ($nowY == $firstTimeY && $nowM - $firstTimeM > 1 || $nowY != $firstTimeY) {
@@ -138,6 +235,89 @@ function calculateLastOneMonthRent(HouseholdMsg $householdMsg, HouseholdHouseMsg
     }
 
 }
+
+/**
+ * 统计一间租房一个月的房租的一半
+ * @param HouseholdMsg $householdMsg
+ * @param HouseholdHouseMsg $rent
+ * @param $now
+ * @param $days
+ */
+function calculateOneHalfRent(HouseholdMsg $householdMsg, HouseholdHouseMsg $rent, $now, $days)
+{
+    $jobNumber = $householdMsg->job_number;//工号
+    $name = $householdMsg->name;//姓名
+    $isDimission = $householdMsg->is_dimission;//是否离职
+    $hasHouse = $householdMsg->has_house;//是否有房
+    $hasHouseOrSubsidy = $householdMsg->has_house_or_subsidy;//是否有房改和补贴
+
+
+    if ($rent->lasttime_pay_rent == null) {//当月才入住，且还没有结算记录
+        $begin = date('d', strtotime($rent->firsttime_check_in));
+    } else {
+        $oldMonth = date('m', strtotime($rent->lasttime_pay_rent));
+        $newMonth = date('m', strtotime($rent->lasttime_pay_rent) + (24 * 60 * 60));
+        if ($newMonth == $oldMonth) {//判断结算时间是否是月底
+            $begin = date('d', strtotime($rent->lasttime_pay_rent));
+        } else {
+            $begin = 1;
+        }
+    }
+
+    $end = date('d', $now);
+    $intervel = abs($end - $begin) + 1;
+    $time = countYears($householdMsg->input_count_time, $householdMsg->incre_count_time);
+
+
+    if ($householdMsg->type == 3) {//博士后
+        $config = $rent->addressMsg()->first();//获取租金配置
+        $totalRent = ($intervel / $days) * ($config->standad_rent_single * $rent->area + $config->standad_rent_decorate) + 20; //计算房租,标准租金+20元/月
+        $money = $config->standad_rent_single + $config->standad_rent_decorate;
+    } else {
+        $money = whichRent($rent, $isDimission, $hasHouse, $time, $householdMsg->in_school_time, $hasHouseOrSubsidy);//获取租金*比例
+        if ($money == -1) {
+            //1999年12月31日之前进校
+            //未享受福利分房且没申请政府住房货币补贴
+            //租房面积少于等于75平方用标准租金，超过75的部分用市场租金
+            if (strtotime($householdMsg->in_school_time) <= strtotime('1999-12-31')) {
+                $config = $rent->addressMsg()->first();//获取租金配置
+                if ($rent->area <= 75) {
+                    $totalRent = ($intervel / $days) * ($config->standad_rent_single * $rent->area + $config->standad_rent_decorate);
+                } else {
+                    $totalRent = ($intervel / $days) * ($config->standad_rent_single * 75 + $config->standad_rent_decorate) +
+                        ($intervel / $days) * $config->market_rent * ($rent->area - 75);
+                }
+                $money = 0;
+            }
+        } else {
+            $totalRent = ($intervel / $days) * $money * $rent->area; //计算房租
+        }
+    }
+
+    $rentMsg = new Rent;
+    $lasttime_pay_rent = date('Y-m-d H:i:s', $now);
+    $rentMsg->firsttime_check_in = $rent->firsttime_check_in;
+    $rentMsg->lasttime_pay_rent = ($rent->lasttime_pay_rent == null ? null : $rent->lasttime_pay_rent);
+    $rentMsg->time_pay_rent = $lasttime_pay_rent;
+    $rentMsg->rent = $totalRent/2;
+    $rentMsg->intervel = $intervel;
+    $rentMsg->isDimission = $isDimission;
+    $rentMsg->order = $rent->order;
+    $rentMsg->hasHouse = $hasHouse;
+    $rentMsg->time = $time;
+    $rentMsg->region = $rent->regionMsg()->first()->name;
+    $rentMsg->address = $rent->addressMsg()->first()->name;
+    $rentMsg->room_number = $rent->room_number;
+    $rentMsg->money = $money;
+    $rentMsg->area = $rent->area;
+    $rentMsg->household_id = $householdMsg->id;
+    $rentMsg->household_house_id = $rent->id;
+    $rentMsg->save();
+
+    $rent->lasttime_pay_rent = $lasttime_pay_rent;
+    $rent->save();
+}
+
 
 /**
  * 统计一间租房一个月的房租

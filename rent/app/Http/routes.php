@@ -71,6 +71,9 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin', 'namespace' => 'Admin
     //进入新增住户信息页面
     Route::get('AddHouseholdView', 'HouseholdManageController@AddHouseholdView');
 
+    //进入新增合租住户信息页面
+    Route::get('AddShareHouseholdView', 'HouseholdManageController@AddShareHouseholdView');
+
     //进入住户信息列表
     Route::get('HouseholdListView', 'HouseholdManageController@HouseholdListView');
 
@@ -79,6 +82,9 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin', 'namespace' => 'Admin
 
     //新增住户信息
     Route::post('addHousehold', 'HouseholdManageController@addHousehold');
+
+    //新增合租住户信息
+    Route::post('addShareHousehold', 'HouseholdManageController@addShareHousehold');
 
     //验证住户工号是否重复
     Route::get('validateJobNumber', 'HouseholdManageController@validateJobNumber');
@@ -90,13 +96,13 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin', 'namespace' => 'Admin
     Route::get('getAreaAndAddress', 'HouseholdManageController@getAreaAndAddress');
 
     //退房
-    Route::get('checkOutRent/{id}', 'HouseholdManageController@checkOutRent');
+    Route::get('checkOutRent/{householdId}/{householdHouseId}', 'HouseholdManageController@checkOutRent');
 
     //新增租房
     Route::post('addSingleRent', 'HouseholdManageController@addSingleRent');
 
     //租房作废，不记录房租信息
-    Route::get('deleteRent/{id}', 'HouseholdManageController@deleteRent');
+    Route::get('deleteRent/{householdId}/{householdHouseId}', 'HouseholdManageController@deleteRent');
 
     //保存住户基本信息的修改
     Route::post('saveChange', 'HouseholdManageController@saveChange');
@@ -105,8 +111,10 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin', 'namespace' => 'Admin
     Route::get('deleteHouseholdMsg/{id}', 'HouseholdManageController@deleteHouseholdMsg');
 
     //保存房租修改信息
-    Route::get('saveRentMsg/{id}/{order}','HouseholdManageController@saveRentMsg');
-    
+    Route::get('saveRentMsg/{householdId}/{householdHouseId}/{order}','HouseholdManageController@saveRentMsg');
+
+    //查找合租住户
+    Route::get('searchShareHousehold','HouseholdManageController@searchShareHousehold');
 });
 
 /*
