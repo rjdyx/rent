@@ -16,7 +16,7 @@ class CreateHouseholdMsgsTable extends Migration
             $table->increments('id');
             $table->string('name',10);//姓名
             $table->string('job_number',12);//工号
-            $table->string('card_number',19);//银行卡号
+            $table->string('card_number',19)->nullable();//银行卡号
             $table->string('institution',20);//单位
             $table->integer('has_house')->default(0);//是否有房：0：无房，1：八区内有房，2：有房改房
             $table->integer('is_dimission')->default(0);//是否离职：0：否，1：是

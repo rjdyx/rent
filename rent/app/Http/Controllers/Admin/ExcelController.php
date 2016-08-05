@@ -263,7 +263,7 @@ class ExcelController extends Controller
                         continue;
                     }
 
-                    if ($msg[0] == null || $msg[1] == null || $msg[2] == null || $msg[3] == null) {
+                    if ($msg[0] == null && $msg[1] == null && $msg[2] == null && $msg[3] == null) {
 
                         //第一条出错：所有信息回收
                         if ($flag) {
@@ -475,7 +475,7 @@ class ExcelController extends Controller
                         $arrRent['roomNumber'] = $msg[13];
                         $arrRent['area'] = $msg[14];
                         $arrRent['firsttimeCheckIn'] = $msg[15];
-                        $tmpOrder = $arrRent['order'] = $msg[16];
+                        $tmpOrder = $arrRent['order'] = ($msg[16] == null ? 1 : $msg[16]);
                         $arrRent['remark'] = $msg[17];
 
                         if (Validator::make($arrRent, $rentRule)->fails()) {
