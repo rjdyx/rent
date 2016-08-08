@@ -21,7 +21,7 @@
                     </td>
                     <td class="td-right">
                         <input id="name" name="name" type="text" value="{{ $householdMsg['name'] }}"
-                               placeholder="必填，长度1~10">
+                               placeholder="必填，长度1~50">
                     </td>
                     <td>
                         <label for="jobNumber">工号：</label>
@@ -106,6 +106,20 @@
                         <input id="isDimission" name="isDimission" type="checkbox"
                                @if( $householdMsg['is_dimission'] == 1 ) checked="checked" @endif/>
                     </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="privilege">是否享受标租：</label>
+                    </td>
+                    <td>
+                        @if( $householdMsg['privilege'] == 1 )
+                            是
+                        @else
+                            否
+                        @endif
+                    </td>
+                    <td></td>
+                    <td></td>
                 </tr>
             </table>
         </form>

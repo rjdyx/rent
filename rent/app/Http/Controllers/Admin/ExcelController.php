@@ -38,11 +38,11 @@ class ExcelController extends Controller
     {
         $input = Input::all();
 
-        $all = array(['姓名', '工号', '月租金额']);//全部
-        $school = array(['姓名', '工号', '月租金额']);//校发
-        $province = array(['姓名', '账号', '月租金额']);//省发
-        $lease = array(['姓名', '工号', '月租金额']);//租赁人员
-        $postdoctor = array(['姓名', '工号', '月租金额']);//博士后
+        $all = array(['姓名', '工号', '银行卡号','月租金额']);//全部
+        $school = array(['姓名', '工号', '银行卡号', '月租金额']);//校发
+        $province = array(['姓名', '工号', '银行卡号', '月租金额']);//省发
+        $lease = array(['姓名', '工号', '银行卡号', '月租金额']);//租赁人员
+        $postdoctor = array(['姓名', '工号', '银行卡号', '月租金额']);//博士后
 
 
         $rentArr['allInput'] = 0;
@@ -71,7 +71,8 @@ class ExcelController extends Controller
                 $tmp = array();
                 $tmp[0] = $householdMsg->name;
                 $tmp[1] = $householdMsg->job_number;
-                $tmp[2] = $totalRent;
+                $tmp[2] = $householdMsg->card_number;
+                $tmp[3] = $totalRent;
                 array_push($all, $tmp);
             }
         }
@@ -90,7 +91,8 @@ class ExcelController extends Controller
                 $tmp = array();
                 $tmp[0] = $householdMsg->name;
                 $tmp[1] = $householdMsg->job_number;
-                $tmp[2] = $totalRent;
+                $tmp[2] = $householdMsg->card_number;
+                $tmp[3] = $totalRent;
                 array_push($school, $tmp);
             }
         }
@@ -109,7 +111,8 @@ class ExcelController extends Controller
                 $tmp = array();
                 $tmp[0] = $householdMsg->name;
                 $tmp[1] = $householdMsg->job_number;
-                $tmp[2] = $totalRent;
+                $tmp[2] = $householdMsg->card_number;
+                $tmp[3] = $totalRent;
                 array_push($province, $tmp);
             }
         }
@@ -129,7 +132,8 @@ class ExcelController extends Controller
                 $tmp = array();
                 $tmp[0] = $householdMsg->name;
                 $tmp[1] = $householdMsg->job_number;
-                $tmp[2] = $totalRent;
+                $tmp[2] = $householdMsg->card_number;
+                $tmp[3] = $totalRent;
                 array_push($lease, $tmp);
             }
         }
@@ -149,7 +153,8 @@ class ExcelController extends Controller
                 $tmp = array();
                 $tmp[0] = $householdMsg->name;
                 $tmp[1] = $householdMsg->job_number;
-                $tmp[2] = $totalRent;
+                $tmp[2] = $householdMsg->card_number;
+                $tmp[3] = $totalRent;
                 array_push($postdoctor, $tmp);
             }
         }
@@ -223,7 +228,7 @@ class ExcelController extends Controller
 
                 //基本信息验证规则
                 $baseRule = array(
-                    'name' => 'required|between:1,10',
+                    'name' => 'required|between:1,50',
                     'jobNumber' => 'required|between:1,12|unique:household_msg,job_number',
                     'cardNumber' => 'between:1,19',
                     'institution' => 'required|between:1,20',
@@ -241,7 +246,7 @@ class ExcelController extends Controller
                 $tmpHouseholdMsg = null;//临时的HouseholdMsg，用于第二间租房的HouseholdMsg信息存储
                 $tmpOrder = 0;//用于判断同一用户两个租房的order是否重复，而order是否是规定的1和2则由valid来验证
                 $flag = false;//基本信息存储出错，则第二间租房也不能存储，用此来做标志
-                $errorArr = array(['姓名', '工号', '银行卡号', '发放方式', '单位', '是否有房', '是否离职', '累计住房时间', '入校时间', '无房改+补贴', '区域', '房址', '房间号', '面积', '入住时间', '第几间房', '备注']);
+                $errorArr = array(['姓名', '工号', '银行卡号', '发放方式', '单位', '是否有房', '是否离职', '累计住房时间', '入校时间', '无房改+补贴', '是否享受标租' ,'区域', '房址', '房间号', '面积', '入住时间', '第几间房', '备注']);
 
                 for ($i = 1; $i < sizeof($results); $i++) {
 
@@ -262,7 +267,7 @@ class ExcelController extends Controller
                         continue;
                     }
 
-                    if ($msg[0] == null || $msg[1] == null || $msg[2] == null || $msg[3] == null) {
+                    if ($msg[0] == null && $msg[1] == null && $msg[2] == null && $msg[3] == null) {
 
                         //第一条出错：所有信息回收
                         if ($flag) {
@@ -273,15 +278,15 @@ class ExcelController extends Controller
                         }
 
                         //第一次入住时间为空，则直接使用入校时间
-                        if($msg[14]){
-                            $msg[14] = $tmpHouseholdMsg->in_school_time;
+                        if($msg[15] == null){
+                            $msg[15] = $tmpHouseholdMsg->in_school_time;
                         }
 
-                        $arrRent['roomNumber'] = $msg[12];
-                        $arrRent['area'] = $msg[13];
-                        $arrRent['firsttimeCheckIn'] = $msg[14];
-                        $arrRent['order'] = $msg[15];
-                        $arrRent['remark'] = $msg[16];
+                        $arrRent['roomNumber'] = $msg[13];
+                        $arrRent['area'] = $msg[14];
+                        $arrRent['firsttimeCheckIn'] = $msg[15];
+                        $arrRent['order'] = $msg[16];
+                        $arrRent['remark'] = $msg[17];
 
                         //第一条正确，第二条验证出错，第三条到不了这里
                         if (Validator::make($arrRent, $rentRule)->fails()) {
@@ -293,12 +298,12 @@ class ExcelController extends Controller
                             array_push($errorArr, $msg);
                             continue;
                         }
-                        $region = Config::where('name', $msg[10])->first();
+                        $region = Config::where('name', $msg[11])->first();
 
                         if (isset($region)) {
                             $arrRent['region'] = $region->id;
                             $address = Config::where('parent_id', $region->id)
-                                ->where('name', $msg[11])
+                                ->where('name', $msg[12])
                                 ->first();
                             if (isset($address)) {
                                 $arrRent['address'] = $address->id;
@@ -341,6 +346,7 @@ class ExcelController extends Controller
                         $hasRoomNum = 0;//是否有房
                         $isDimissionNum = 0;//是否离职
                         $hasHouseOrSubsidy = 0;//是否无房改+补贴
+                        $privilege = 0;//是否享受标租
 
                         switch ($msg[3]) {
                             case "省发":
@@ -399,6 +405,18 @@ class ExcelController extends Controller
                                 break;
                         }
 
+                        switch ($msg[10]) {
+                            case "否":
+                                $privilege = 0;
+                                break;
+                            case "是":
+                                $privilege = 1;
+                                break;
+                            default:
+                                $privilege = 0;
+                                break;
+                        }
+
                         $noInputCountTime = false;//标志手动输入的累计时间是否为空
                         if($msg[7] == null){
                             $msg[7] = '0.0.0';
@@ -415,7 +433,8 @@ class ExcelController extends Controller
                         $arrBase['inputCountTime'] = $msg[7];//累计住房时间
                         $arrBase['inSchoolTime'] = $msg[8];//入校时间
                         $arrBase['hasHouseOrSubsidy'] = $hasHouseOrSubsidy;//入校时间
-
+                        $arrBase['privilege'] = $privilege;//是否享受标租
+                        
 
                         if (!Validator::make($arrBase, $baseRule)->fails()) {
                             $householdMsg->name = $arrBase['name'];
@@ -428,6 +447,7 @@ class ExcelController extends Controller
                             $householdMsg->in_school_time = $arrBase['inSchoolTime'];
                             $householdMsg->has_house_or_subsidy = $arrBase['hasHouseOrSubsidy'];
                             $householdMsg->is_dimission = $arrBase['isDimission'];
+                            $householdMsg->privilege = $arrBase['privilege'];
                             if($noInputCountTime){
                                 //累计住房时间若是为空，则直接用入校时间去计算累计时间
                                 $now_tmp = time();
@@ -447,15 +467,15 @@ class ExcelController extends Controller
                         }
 
                         //第一次入住时间为空，则直接使用入校时间
-                        if($msg[14] == null){
-                            $msg[14] = $msg[8];
+                        if($msg[15] == null){
+                            $msg[15] = $msg[8];
                         }
 
-                        $arrRent['roomNumber'] = $msg[12];
-                        $arrRent['area'] = $msg[13];
-                        $arrRent['firsttimeCheckIn'] = $msg[14];
-                        $tmpOrder = $arrRent['order'] = $msg[15];
-                        $arrRent['remark'] = $msg[16];
+                        $arrRent['roomNumber'] = $msg[13];
+                        $arrRent['area'] = $msg[14];
+                        $arrRent['firsttimeCheckIn'] = $msg[15];
+                        $tmpOrder = $arrRent['order'] = ($msg[16] == null ? 1 : $msg[16]);
+                        $arrRent['remark'] = $msg[17];
 
                         if (Validator::make($arrRent, $rentRule)->fails()) {
                             //记录错误数据
@@ -463,12 +483,12 @@ class ExcelController extends Controller
                             $flag = true;
                             continue;
                         }
-                        $region = Config::where('name', $msg[10])->first();
+                        $region = Config::where('name', $msg[11])->first();
 
                         if (isset($region)) {
                             $arrRent['region'] = $region->id;
                             $address = Config::where('parent_id', $region->id)
-                                ->where('name', $msg[11])
+                                ->where('name', $msg[12])
                                 ->first();
                             if (isset($address)) {
                                 $arrRent['address'] = $address->id;

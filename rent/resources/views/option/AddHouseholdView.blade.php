@@ -19,7 +19,7 @@
                         <label for="name">姓名：</label>
                     </td>
                     <td class="td-right">
-                        <input id="name" name="name" type="text" placeholder="必填，长度1~10">
+                        <input id="name" name="name" type="text" placeholder="必填，长度1~50">
                     </td>
                     <td>
                         <label for="jobNumber">工号：</label>
@@ -94,6 +94,16 @@
                     <td>
                         <input id="isDimission" name="isDimission" type="checkbox"/>
                     </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="privilege">是否享受标租：</label>
+                    </td>
+                    <td>
+                        <input id="privilege" name="privilege" type="checkbox"/>
+                    </td>
+                    <td></td>
+                    <td></td>
                 </tr>
             </table>
         </form>

@@ -23,24 +23,6 @@ class HouseholdManageController extends Controller
     public function AddHouseholdView()
     {
 
-        //测试用的
-//        date_default_timezone_set('PRC');
-//        $now = time();
-//        $time = strtotime('2014-06-25');
-//        $intervel = $now - $time;
-//        $year = date('Y', $intervel);
-//        $month = date('m', $intervel);
-//        $day = date('d', $intervel);
-//        $days = date('t', $time);
-//        $days = (int)($intervel / (24 * 60 * 60));
-//        $year = (int)($days / 365);
-//        $yushu = $days % 365;
-//        $household = HouseholdMsg::where('id', 23)->first();
-//        $time = $household->in_school_time;
-//        $time = strtotime('2016-06-26 23:50:50');
-//        $days = date('t', $time);
-//        \App\libraries\Util\calculateOneMonthRent($household, $time, $days);
-
         //获取所有区域
         $areas = Config::select('id', 'name')
             ->where('parent_id', '=', '0')
@@ -77,6 +59,7 @@ class HouseholdManageController extends Controller
                 'name' => '',
                 'institution' => '',
                 'hasHouse' => '-1',
+                'privilege' => '-1',
                 'isDimission' => '-1'
             ];
             $householdmsgs = HouseholdMsg::orderBy('created_at', 'asc')->paginate(15);
@@ -84,6 +67,9 @@ class HouseholdManageController extends Controller
             $where = array();
             if ($input['hasHouse'] != -1) {
                 $where['has_house'] = $input['hasHouse'];
+            }
+            if ($input['privilege'] != -1) {
+                $where['privilege'] = $input['privilege'];
             }
             if ($input['isDimission'] != -1) {
                 $where['is_dimission'] = $input['isDimission'];
@@ -125,17 +111,6 @@ class HouseholdManageController extends Controller
             ->where('is_check_out', '=', 0)
             ->orderBy('order', 'asc')
             ->get();
-
-        //测试用的
-//        date_default_timezone_set('PRC');
-//        $time = time();
-////        $time = strtotime('2016-01-31');
-//        $days = date('t', $time);
-//        \App\libraries\Util\calculateOneMonthRent($householdmsg, $time, $days);
-
-//        foreach ($rents as $rent){
-//            \App\libraries\Util\calculateAllMonthRent($householdmsg,$rent);
-//        }
 
         $rentsCheckOut = $householdmsg->householdHouseMsg()
             ->where('is_check_out', '=', 1)
@@ -227,7 +202,7 @@ class HouseholdManageController extends Controller
         }
         //验证规则
         $rule = array(
-            'name' => 'required|between:1,10',
+            'name' => 'required|between:1,50',
             'jobNumber' => 'required|between:1,12|unique:household_msg,job_number',
             'cardNumber' => 'between:1,19',
             'institution' => 'required|between:1,20',
@@ -266,6 +241,13 @@ class HouseholdManageController extends Controller
                 $householdMsg->has_house_or_subsidy = 1;
             } else {
                 $householdMsg->has_house_or_subsidy = 0;
+            }
+
+            //判断是否享受标租
+            if (isset($baseData['privilege'])) {
+                $householdMsg->privilege = 1;
+            } else {
+                $householdMsg->privilege = 0;
             }
 
         } else {
@@ -458,7 +440,7 @@ class HouseholdManageController extends Controller
         $input = \App\libraries\Util\array_two_to_one($input);
         //验证规则
         $rule = array(
-            'name' => 'required|between:1,10',
+            'name' => 'required|between:1,50',
             'cardNumber' => 'between:1,19',
             'institution' => 'required|between:1,20',
             'hasHouse' => 'required|numeric|between:0,2',
