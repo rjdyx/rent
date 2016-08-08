@@ -14,7 +14,7 @@ class CreateHouseholdMsgsTable extends Migration
     {
         Schema::create('household_msg', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name',10);//姓名
+            $table->string('name',50);//姓名
             $table->string('job_number',12);//工号
             $table->string('card_number',19)->nullable();//银行卡号
             $table->string('institution',20);//单位

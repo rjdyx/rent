@@ -224,7 +224,7 @@ class ExcelController extends Controller
 
                 //基本信息验证规则
                 $baseRule = array(
-                    'name' => 'required|between:1,10',
+                    'name' => 'required|between:1,50',
                     'jobNumber' => 'required|between:1,12|unique:household_msg,job_number',
                     'cardNumber' => 'between:1,19',
                     'institution' => 'required|between:1,20',

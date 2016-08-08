@@ -21,7 +21,7 @@
                     </td>
                     <td class="td-right">
                         <input id="name" name="name" type="text" value="{{ $householdMsg['name'] }}"
-                               placeholder="必填，长度1~10">
+                               placeholder="必填，长度1~50">
                     </td>
                     <td>
                         <label for="jobNumber">工号：</label>

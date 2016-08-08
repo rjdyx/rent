@@ -24,6 +24,14 @@
                                                                                 name="institution" class="search-input"
                                                                                 value="{{ $input['institution'] }}">
             </div>
+            <div class="search-item">
+                <label for="privilege-search">享受标租:</label>
+                <select id="privilege-search" name="privilege" class="search-input">
+                    <option value="-1" @if( $input['privilege'] == -1 ) selected="selected" @endif></option>
+                    <option value="1" @if( $input['privilege'] == 1 ) selected="selected" @endif>是</option>
+                    <option value="0" @if( $input['privilege'] == 0 ) selected="selected" @endif>否</option>
+                </select>
+            </div>
             <div class="search-item"><label for="firsttimeCheckIn">是否有房:</label>
                 <select id="hasHouse" name="hasHouse" class="search-input">
                     <option value="-1" @if( $input['hasHouse'] == -1 ) selected="selected" @endif></option>
@@ -56,6 +64,7 @@
                 <th>银行卡号</th>
                 <th>单位</th>
                 <th>入校时间</th>
+                <th>享受标租</th>
                 <th>是否有房</th>
                 <th>是否离职</th>
                 {{--<th>租房数</th>--}}
@@ -71,6 +80,13 @@
                     <td>{{ $householdMsg['card_number'] }}</td>
                     <td>{{ $householdMsg['institution'] }}</td>
                     <td>{{ date('Y-m-d',strtotime($householdMsg['in_school_time'])) }}</td>
+                    <td>
+                        @if($householdMsg['privilege'] == 0)
+                            否
+                        @else
+                            是
+                        @endif
+                    </td>
                     <td>
                         @if($householdMsg['has_house'] == 0)
                             无房
@@ -107,6 +123,7 @@
         'jobNumber' => $input['jobNumber'],
         'name' => $input['name'],
         'institution' => $input['institution'],
+        'privilege' => $input['privilege'],
         'hasHouse' => $input['hasHouse'],
         'isDimission' => $input['isDimission']
     ])->links() !!}</div>

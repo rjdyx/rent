@@ -91,6 +91,7 @@ class HouseholdManageController extends Controller
                 'name' => '',
                 'institution' => '',
                 'hasHouse' => '-1',
+                'privilege' => '-1',
                 'isDimission' => '-1'
             ];
             $householdmsgs = HouseholdMsg::orderBy('created_at', 'asc')->paginate(15);
@@ -98,6 +99,9 @@ class HouseholdManageController extends Controller
             $where = array();
             if ($input['hasHouse'] != -1) {
                 $where['has_house'] = $input['hasHouse'];
+            }
+            if ($input['privilege'] != -1) {
+                $where['privilege'] = $input['privilege'];
             }
             if ($input['isDimission'] != -1) {
                 $where['is_dimission'] = $input['isDimission'];
@@ -261,7 +265,7 @@ class HouseholdManageController extends Controller
         }
         //验证规则
         $rule = array(
-            'name' => 'required|between:1,10',
+            'name' => 'required|between:1,50',
             'jobNumber' => 'required|between:1,12|unique:household_msg,job_number',
             'cardNumber' => 'between:1,19',
             'institution' => 'required|between:1,20',
@@ -387,7 +391,7 @@ class HouseholdManageController extends Controller
         }
         //验证规则
         $rule = array(
-            'name' => 'required|between:1,10',
+            'name' => 'required|between:1,50',
             'jobNumber' => 'required|between:1,12|unique:household_msg,job_number',
             'cardNumber' => 'between:1,19',
             'institution' => 'required|between:1,20'
@@ -662,7 +666,7 @@ class HouseholdManageController extends Controller
         $input = \App\libraries\Util\array_two_to_one($input);
         //验证规则
         $rule = array(
-            'name' => 'required|between:1,10',
+            'name' => 'required|between:1,50',
             'cardNumber' => 'between:1,19',
             'institution' => 'required|between:1,20',
             'hasHouse' => 'required|numeric|between:0,2',
