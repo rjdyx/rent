@@ -238,10 +238,6 @@ function userMsgValidate(baseData, rentData) {
         showcommonErrorTip('房租面积必填');
         return false;
     }
-    if(rentData[3]['value'].match(rex) ==null){
-        showcommonErrorTip('房租面积必选是数字');
-        return false;
-    }
 
     return true;
 

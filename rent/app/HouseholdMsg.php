@@ -36,7 +36,7 @@ class HouseholdMsg extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'job_number', 'card_number', 'institution' ,'has_house', 'has_house_time','has_not_house_time','is_dimission','has_house_or_subsidy','dimission_time','type'
+        'name', 'job_number', 'card_number', 'institution' ,'has_house', 'has_house_time','has_not_house_time','is_dimission','has_house_or_subsidy','dimission_time','type','privilege'
     ];
 
     /**

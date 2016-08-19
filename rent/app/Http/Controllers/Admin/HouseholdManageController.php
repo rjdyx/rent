@@ -51,7 +51,6 @@ class HouseholdManageController extends Controller
      */
     public function HouseholdListView()
     {
-
         $input = Input::all();
         if (sizeof($input) == 0) {
             $input = [
@@ -174,7 +173,8 @@ class HouseholdManageController extends Controller
      * @param $jobNumber
      * @return mixed
      */
-    public function validateJobNumber(){
+    public function validateJobNumber()
+    {
         $jobNumber = Input::All();
         //验证规则
         $rule = array(
@@ -182,7 +182,7 @@ class HouseholdManageController extends Controller
         );
         if (!Validator::make($jobNumber, $rule)->fails()) {
             return response()->json('success');
-        }else{
+        } else {
             return response()->json('error');
         }
     }
@@ -215,7 +215,7 @@ class HouseholdManageController extends Controller
         if (!Validator::make($baseData, $rule)->fails()) {
 
             $noInputCountTime = false;//标志手动输入的累计时间是否为空
-            if($baseData['inputCountTime'] == null){
+            if ($baseData['inputCountTime'] == null) {
                 $noInputCountTime = true;
                 $baseData['inputCountTime'] = '0.0.0';
             }
@@ -272,7 +272,7 @@ class HouseholdManageController extends Controller
             return response()->json('rentMsgError');
         }
 
-        if($noInputCountTime){
+        if ($noInputCountTime) {
             //累计住房时间若是为空，则直接用第一次入住时间去计算累计时间
             $now_tmp = time();
             $intervel = $now_tmp - strtotime($rentData['firsttimeCheckIn']);
@@ -375,7 +375,7 @@ class HouseholdManageController extends Controller
         if (!Validator::make($input, $rule)->fails()) {
 
             //比较现在的时间和租房第一次入住时间，大的那个作为“有房时间点”
-            $householdMsg = HouseholdMsg::where('id',$householdId)->first();
+            $householdMsg = HouseholdMsg::where('id', $householdId)->first();
             $now = time();
 //            $now = strtotime('2017-08-23 12:00:00');
             $householdMsg->time_point = ($now >= strtotime($input['firsttimeCheckIn']) ? date('Y-m-d H:i:s', $now) : $input['firsttimeCheckIn']);
@@ -412,12 +412,12 @@ class HouseholdManageController extends Controller
     public function deleteRent($id)
     {
         //获取租房id
-        $houseHoldHouse = HouseholdHouseMsg::where('id',$id)->first();
+        $houseHoldHouse = HouseholdHouseMsg::where('id', $id)->first();
         $houseHoldHouseId = $houseHoldHouse->id;
         //删除租房
         $deleteHouse = HouseholdHouseMsg::destroy($id);
         //根据
-        Rent::where('household_house_id',$houseHoldHouseId)
+        Rent::where('household_house_id', $houseHoldHouseId)
             ->delete();
         if ($deleteHouse == 1) {
             return response()->json('success');
@@ -466,15 +466,15 @@ class HouseholdManageController extends Controller
             $householdMsg->card_number = $input['cardNumber'];
             $householdMsg->institution = $input['institution'];
 
-            if($householdMsg->type == 3 && $input['type'] != 3){
+            if ($householdMsg->type == 3 && $input['type'] != 3) {
                 //重新统计房租
                 $flag = true;
                 $householdMsg->type = $input['type'];
-            }else if($householdMsg->type != 3 && $input['type'] == 3){
+            } else if ($householdMsg->type != 3 && $input['type'] == 3) {
                 //重新统计房租
                 $flag = true;
                 $householdMsg->type = $input['type'];
-            }else if($householdMsg->type >= 0 && $householdMsg->type <= 2 && $input['type'] >= 0 && $input['type'] <= 2){
+            } else if ($householdMsg->type >= 0 && $householdMsg->type <= 2 && $input['type'] >= 0 && $input['type'] <= 2) {
                 $householdMsg->type = $input['type'];
             }
 
@@ -504,7 +504,7 @@ class HouseholdManageController extends Controller
             //判断是否无房改+补贴
             if (isset($input['hasHouseOrSubsidy'])) {
                 if ($householdMsg->has_house_or_subsidy == 0) {
-                    if (strtotime($householdMsg->in_school_time) <= strtotime('1999-12-31')){
+                    if (strtotime($householdMsg->in_school_time) <= strtotime('1999-12-31')) {
                         //重新统计房租
                         $flag = true;
                     }
@@ -513,7 +513,7 @@ class HouseholdManageController extends Controller
 
             } else {
                 if ($householdMsg->has_house_or_subsidy == 1) {
-                    if (strtotime($householdMsg->in_school_time) <= strtotime('1999-12-31')){
+                    if (strtotime($householdMsg->in_school_time) <= strtotime('1999-12-31')) {
                         //重新统计房租
                         $flag = true;
                     }
@@ -558,13 +558,9 @@ class HouseholdManageController extends Controller
             ->delete();
         Rent::where('household_id', '=', $householdMsg->id)
             ->delete();
-        if ($result1 > 0) {
-            $result2 = $householdMsg->delete();
-            if ($result2 == 1) {
-                return response()->json('success');
-            } else {
-                return response()->json('failed');
-            }
+        $result2 = $householdMsg->delete();
+        if ($result2 == 1) {
+            return response()->json('success');
         } else {
             return response()->json('failed');
         }
@@ -582,12 +578,12 @@ class HouseholdManageController extends Controller
         $rentTmp = HouseholdHouseMsg::where('id', $id)->first();
         $householdId = $rentTmp->household_id;
         $FirstRent = HouseholdHouseMsg::where('household_id', $householdId)
-            ->where('order',1)
+            ->where('order', 1)
             ->where('is_check_out', '=', 0)
             ->first();
 
         //已经存在第一间房则不允许将其他房间设置成第一间房
-        if($order == 1 && $FirstRent != null){
+        if ($order == 1 && $FirstRent != null) {
             return response()->json('failed');
         }
 
@@ -596,34 +592,33 @@ class HouseholdManageController extends Controller
             ->get();
 
 
-        if($order == 1 && $FirstRent == null){
-            $householdmsg = HouseholdMsg::where('id',$householdId)->first();
+        if ($order == 1 && $FirstRent == null) {
+            $householdmsg = HouseholdMsg::where('id', $householdId)->first();
             $now = time();
-            if(strtotime($rents[0]->firsttime_check_in)>=strtotime($rents[1]->firsttime_check_in)){
+            if (strtotime($rents[0]->firsttime_check_in) >= strtotime($rents[1]->firsttime_check_in)) {
                 $max = strtotime($rents[0]->firsttime_check_in);
                 $min = strtotime($rents[1]->firsttime_check_in);
-            }else{
+            } else {
                 $max = strtotime($rents[1]->firsttime_check_in);
                 $min = strtotime($rents[0]->firsttime_check_in);
             }
 
             //若现在的时间大于两间房的第一次入住时间，则“有房时间点”选现在的时间
-            if($now >= $max){
+            if ($now >= $max) {
                 $householdmsg->time_point = date('Y-m-d H:i:s', $now);
             }
 
             //若现在的时间小于两间房的第一次入住时间，则“有房时间点”选两间房中第一次入住时间小的那个时间
-            if($now <= $min){
+            if ($now <= $min) {
                 $householdmsg->time_point = date('Y-m-d 00:00:00', $min);
             }
 
             //若现在的时间位于两间房第一次入住时间之间，则“有房时间点”选现在的时间
-            if($now >= $min && $now <= $max){
+            if ($now >= $min && $now <= $max) {
                 $householdmsg->time_point = date('Y-m-d H:i:s', $now);
             }
             $householdmsg->save();
         }
-
 
 
         $rentTmp->order = $order;
