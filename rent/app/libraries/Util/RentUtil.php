@@ -423,7 +423,7 @@ function calculateOneRentHasBeginTime(HouseholdMsg $householdMsg, HouseholdHouse
                 $totalRent = ($differentDays / $days) * $oldMoney * $rent->area + (($intervel - $differentDays) / $days) * $money * $rent->area; //计算房租
             } else if ($isDifferent == 4) {
                 $time = $time - 1;
-                $oldMoney = whichRent($rent, $isDimission, $hasHouse, $time - 1, $householdMsg->in_school_time, $hasHouseOrSubsidy);//获取租金*比例
+                $oldMoney = whichRent($rent, $isDimission, $hasHouse, $time, $householdMsg->in_school_time, $hasHouseOrSubsidy);//获取租金*比例
                 $totalRent = ($intervel / $days) * $oldMoney * $rent->area; //计算房租
             } else {
                 $totalRent = ($intervel / $days) * $money * $rent->area; //计算房租
