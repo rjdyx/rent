@@ -32,14 +32,12 @@
         <thead>
         <tr>
             <th>序号</th>
-            <th>入住时间</th>
             <th>上次结算时间</th>
             <th>本次结算时间</th>
             <th>房租</th>
             <th>第几间租房</th>
             <th>是否离职</th>
             <th>是否有房</th>
-            <th>年限</th>
             <th>区域</th>
             <th>房址</th>
             <th>租金x比例</th>

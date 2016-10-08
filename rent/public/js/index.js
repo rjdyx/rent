@@ -20,16 +20,14 @@ function searchRentByOne() {
             for(i = 0;i<ret.length;i++){
                 tmp += '<tr>'+
                             '<td>'+(i+1)+'</td>'+
-                            '<td>'+FormatDate(ret[i]['firsttime_check_in'])+'</td>'+
                             '<td>'+(ret[i]['lasttime_pay_rent'] == null?'':FormatDate(ret[i]['lasttime_pay_rent']))+'</td>'+
                             '<td>'+FormatDate(ret[i]['time_pay_rent'])+'</td>'+
                             '<td>'+ret[i]['rent']+'</td>'+
                             '<td>'+ret[i]['order']+'</td>'+
                             '<td>'+(ret[i]['isDimission']==0?'否':'是')+'</td>'+
                             '<td>'+(ret[i]['hasHouse']==0?'否':(ret[i]['hasHouse']==1?'八区内有房':'有房改房'))+'</td>'+
-                            '<td>'+ret[i]['time']+'</td>'+
                             '<td>'+ret[i]['region']+'</td>'+
-                            '<td>'+ret[i]['address']+'</td>'+
+                            '<td>'+ret[i]['address']+'-'+ret[i]['room_number']+'</td>'+
                             '<td>'+ret[i]['money']+'</td>'+
                             '<td>'+ret[i]['area']+'</td>'+
                         '</tr>';

@@ -297,11 +297,10 @@ function calculateOneRent(HouseholdMsg $householdMsg, HouseholdHouseMsg $rent, $
 
     if ($householdMsg->privilege == 1) {//享受标租
         $config = $rent->addressMsg()->first();//获取租金配置
-        if ($rent->area <= 75) {
+        if ($rent->area <= 68.115) {
             $totalRent = ($intervel / $days) * ($config->standad_rent_single * $rent->area + $config->standad_rent_decorate);
         } else {
-            $totalRent = ($intervel / $days) * ($config->standad_rent_single * 75 + $config->standad_rent_decorate) +
-                ($intervel / $days) * $config->market_rent * ($rent->area - 75);
+            $totalRent = ($intervel / $days) * ($config->standad_rent_single * 68.115 + $config->standad_rent_decorate + $config->market_rent * 22.705);
         }
         $money = 0;
     } else if ($householdMsg->type == 3) {//博士后
@@ -385,11 +384,10 @@ function calculateOneRentHasBeginTime(HouseholdMsg $householdMsg, HouseholdHouse
 
     if ($householdMsg->privilege == 1) {//享受标租
         $config = $rent->addressMsg()->first();//获取租金配置
-        if ($rent->area <= 75) {
+        if ($rent->area <= 68.115) {
             $totalRent = ($intervel / $days) * ($config->standad_rent_single * $rent->area + $config->standad_rent_decorate);
         } else {
-            $totalRent = ($intervel / $days) * ($config->standad_rent_single * 75 + $config->standad_rent_decorate) +
-                ($intervel / $days) * $config->market_rent * ($rent->area - 75);
+            $totalRent = ($intervel / $days) * ($config->standad_rent_single * 68.115 + $config->standad_rent_decorate + $config->market_rent * 22.705);
         }
         $money = 0;
     } else if ($householdMsg->type == 3) {//博士后

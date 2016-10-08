@@ -38,7 +38,7 @@ class ExcelController extends Controller
     {
         $input = Input::all();
 
-        $all = array(['姓名', '工号', '银行卡号','月租金额']);//全部
+        $all = array(['姓名', '工号', '银行卡号', '月租金额']);//全部
         $school = array(['姓名', '工号', '银行卡号', '月租金额']);//校发
         $province = array(['姓名', '工号', '银行卡号', '月租金额']);//省发
         $lease = array(['姓名', '工号', '银行卡号', '月租金额']);//租赁人员
@@ -71,7 +71,7 @@ class ExcelController extends Controller
                 $tmp = array();
                 $tmp[0] = $householdMsg->name;
                 $tmp[1] = $householdMsg->job_number;
-                $tmp[2] = $householdMsg->card_number;
+                $tmp[2] = ' ' . $householdMsg->card_number;
                 $tmp[3] = $totalRent;
                 array_push($all, $tmp);
             }
@@ -91,7 +91,7 @@ class ExcelController extends Controller
                 $tmp = array();
                 $tmp[0] = $householdMsg->name;
                 $tmp[1] = $householdMsg->job_number;
-                $tmp[2] = $householdMsg->card_number;
+                $tmp[2] = ' ' . $householdMsg->card_number;
                 $tmp[3] = $totalRent;
                 array_push($school, $tmp);
             }
@@ -111,7 +111,7 @@ class ExcelController extends Controller
                 $tmp = array();
                 $tmp[0] = $householdMsg->name;
                 $tmp[1] = $householdMsg->job_number;
-                $tmp[2] = $householdMsg->card_number;
+                $tmp[2] = ' ' . $householdMsg->card_number;
                 $tmp[3] = $totalRent;
                 array_push($province, $tmp);
             }
@@ -132,7 +132,7 @@ class ExcelController extends Controller
                 $tmp = array();
                 $tmp[0] = $householdMsg->name;
                 $tmp[1] = $householdMsg->job_number;
-                $tmp[2] = $householdMsg->card_number;
+                $tmp[2] = ' ' . $householdMsg->card_number;
                 $tmp[3] = $totalRent;
                 array_push($lease, $tmp);
             }
@@ -153,7 +153,7 @@ class ExcelController extends Controller
                 $tmp = array();
                 $tmp[0] = $householdMsg->name;
                 $tmp[1] = $householdMsg->job_number;
-                $tmp[2] = $householdMsg->card_number;
+                $tmp[2] = ' ' . $householdMsg->card_number;
                 $tmp[3] = $totalRent;
                 array_push($postdoctor, $tmp);
             }
@@ -179,30 +179,51 @@ class ExcelController extends Controller
 
             if ($allInput == 1) {
                 $excel->sheet('全部', function ($sheet) use ($all) {
+                    $sheet->setSize(array('C1' => array('width' => 30, 'height' => 15)));
+                    $sheet->setColumnFormat(array(
+                        'C' => '@'
+                    ));
                     $sheet->rows($all);
                 });
             }
 
             if ($schoolInput == 1) {
                 $excel->sheet('校发', function ($sheet) use ($school) {
+                    $sheet->setSize(array('C1' => array('width' => 30, 'height' => 15)));
+                    $sheet->setColumnFormat(array(
+                        'C' => '@'
+                    ));
                     $sheet->rows($school);
                 });
             }
             if ($provinceInput == 1) {
                 $excel->sheet('统发', function ($sheet) use ($province) {
+                    $sheet->setSize(array('C1' => array('width' => 30, 'height' => 15)));
+                    $sheet->setColumnFormat(array(
+                        'C' => '@'
+                    ));
                     $sheet->rows($province);
                 });
             }
             if ($leaseInput == 1) {
                 $excel->sheet('租赁人员', function ($sheet) use ($lease) {
+                    $sheet->setSize(array('C1' => array('width' => 30, 'height' => 15)));
+                    $sheet->setColumnFormat(array(
+                        'C' => '@'
+                    ));
                     $sheet->rows($lease);
                 });
             }
             if ($postdoctorInput == 1) {
                 $excel->sheet('博士后', function ($sheet) use ($postdoctor) {
+                    $sheet->setSize(array('C1' => array('width' => 30, 'height' => 15)));
+                    $sheet->setColumnFormat(array(
+                        'C' => '@'
+                    ));
                     $sheet->rows($postdoctor);
                 });
             }
+
         })->export('xls');
     }
 
@@ -220,7 +241,7 @@ class ExcelController extends Controller
             $file->move($path, $filename);
             $filePath = 'upload/tmp.' . $Extension;
 
-            Excel::load($filePath, function($reader) {
+            Excel::load($filePath, function ($reader) {
                 //获取excel的第1张表
                 $reader = $reader->getSheet(0);
                 //获取表中的数据
@@ -246,7 +267,17 @@ class ExcelController extends Controller
                 $tmpHouseholdMsg = null;//临时的HouseholdMsg，用于第二间租房的HouseholdMsg信息存储
                 $tmpOrder = 0;//用于判断同一用户两个租房的order是否重复，而order是否是规定的1和2则由valid来验证
                 $flag = false;//基本信息存储出错，则第二间租房也不能存储，用此来做标志
-                $errorArr = array(['姓名', '工号', '银行卡号', '发放方式', '单位', '是否有房', '是否离职', '累计住房时间', '入校时间', '无房改+补贴', '是否享受标租' ,'区域', '房址', '房间号', '面积', '入住时间', '第几间房', '备注']);
+                $errorArr = array(['姓名', '工号', '银行卡号', '发放方式', '单位', '是否有房', '是否离职', '累计住房时间', '入校时间', '无房改+补贴', '是否享受标租', '区域', '房址', '房间号', '面积', '入住时间', '第几间房', '备注']);
+                $errorMap = array(
+                    'name' => 0,
+                    'jobNumber' => 1,
+                    'cardNumber' => 2,
+                    'type' => 3,
+                    'institution' => 4,
+                    'hasHouse' => 5,
+                    'inSchoolTime' => 8,
+                    'area' => 14,
+                    'firsttimeCheckIn' => 15,);
 
                 for ($i = 1; $i < sizeof($results); $i++) {
 
@@ -278,7 +309,7 @@ class ExcelController extends Controller
                         }
 
                         //第一次入住时间为空，则直接使用入校时间
-                        if($msg[15] == null){
+                        if ($msg[15] == null) {
                             $msg[15] = $tmpHouseholdMsg->in_school_time;
                         }
 
@@ -289,7 +320,13 @@ class ExcelController extends Controller
                         $arrRent['remark'] = $msg[17];
 
                         //第一条正确，第二条验证出错，第三条到不了这里
-                        if (Validator::make($arrRent, $rentRule)->fails()) {
+                        $result = Validator::make($arrRent, $rentRule);
+
+                        if ($result->fails()) {
+                            //记录错误数据
+                            $message = $result->errors()->messages();
+                            $keysName = array_keys($message)[0];
+                            $msg[18] = $errorMap[$keysName];
                             //记录错误数据
                             $msg[0] = $tmpHouseholdMsg->name;
                             $msg[1] = $tmpHouseholdMsg->job_number;
@@ -313,6 +350,7 @@ class ExcelController extends Controller
                                 $msg[1] = $tmpHouseholdMsg->job_number;
                                 $msg[2] = $tmpHouseholdMsg->card_number;
                                 $msg[3] = $tmpHouseholdMsg->institution;
+                                $msg[18] = 12;
                                 array_push($errorArr, $msg);
                                 continue;
                             }
@@ -322,6 +360,7 @@ class ExcelController extends Controller
                             $msg[1] = $tmpHouseholdMsg->job_number;
                             $msg[2] = $tmpHouseholdMsg->card_number;
                             $msg[3] = $tmpHouseholdMsg->institution;
+                            $msg[18] = 11;
                             array_push($errorArr, $msg);
                             continue;
                         }
@@ -418,7 +457,7 @@ class ExcelController extends Controller
                         }
 
                         $noInputCountTime = false;//标志手动输入的累计时间是否为空
-                        if($msg[7] == null){
+                        if ($msg[7] == null) {
                             $msg[7] = '0.0.0';
                             $noInputCountTime = true;
                         }
@@ -434,9 +473,10 @@ class ExcelController extends Controller
                         $arrBase['inSchoolTime'] = $msg[8];//入校时间
                         $arrBase['hasHouseOrSubsidy'] = $hasHouseOrSubsidy;//入校时间
                         $arrBase['privilege'] = $privilege;//是否享受标租
-                        
 
-                        if (!Validator::make($arrBase, $baseRule)->fails()) {
+                        $result = Validator::make($arrBase, $baseRule);
+
+                        if (!$result->fails()) {
                             $householdMsg->name = $arrBase['name'];
                             $householdMsg->job_number = $arrBase['jobNumber'];
                             $householdMsg->card_number = $arrBase['cardNumber'];
@@ -448,7 +488,7 @@ class ExcelController extends Controller
                             $householdMsg->has_house_or_subsidy = $arrBase['hasHouseOrSubsidy'];
                             $householdMsg->is_dimission = $arrBase['isDimission'];
                             $householdMsg->privilege = $arrBase['privilege'];
-                            if($noInputCountTime){
+                            if ($noInputCountTime) {
                                 //累计住房时间若是为空，则直接用入校时间去计算累计时间
                                 $now_tmp = time();
                                 $intervel = $now_tmp - strtotime($householdMsg->in_school_time);
@@ -461,13 +501,16 @@ class ExcelController extends Controller
                             }
                         } else {
                             //记录错误信息
+                            $message = $result->errors()->messages();
+                            $keysName = array_keys($message)[0];
+                            $msg[18] = $errorMap[$keysName];
                             array_push($errorArr, $msg);
                             $flag = true;
                             continue;
                         }
 
                         //第一次入住时间为空，则直接使用入校时间
-                        if($msg[15] == null){
+                        if ($msg[15] == null) {
                             $msg[15] = $msg[8];
                         }
 
@@ -477,8 +520,13 @@ class ExcelController extends Controller
                         $tmpOrder = $arrRent['order'] = ($msg[16] == null ? 1 : $msg[16]);
                         $arrRent['remark'] = $msg[17];
 
-                        if (Validator::make($arrRent, $rentRule)->fails()) {
+                        $result = Validator::make($arrRent, $rentRule);
+
+                        if ($result->fails()) {
                             //记录错误数据
+                            $message = $result->errors()->messages();
+                            $keysName = array_keys($message)[0];
+                            $msg[18] = $errorMap[$keysName];
                             array_push($errorArr, $msg);
                             $flag = true;
                             continue;
@@ -494,12 +542,14 @@ class ExcelController extends Controller
                                 $arrRent['address'] = $address->id;
                             } else {
                                 //记录错误数据
+                                $msg[18] = 12;
                                 array_push($errorArr, $msg);
                                 $flag = true;
                                 continue;
                             }
                         } else {
                             //记录错误信息
+                            $msg[18] = 11;
                             array_push($errorArr, $msg);
                             $flag = true;
                             continue;
