@@ -315,11 +315,10 @@ function calculateOneRent(HouseholdMsg $householdMsg, HouseholdHouseMsg $rent, $
             //租房面积少于等于75平方用标准租金，超过75的部分用市场租金
             if (strtotime($householdMsg->in_school_time) <= strtotime('1999-12-31')) {
                 $config = $rent->addressMsg()->first();//获取租金配置
-                if ($rent->area <= 75) {
+                if ($rent->area <= 68.115) {
                     $totalRent = ($intervel / $days) * ($config->standad_rent_single * $rent->area + $config->standad_rent_decorate);
                 } else {
-                    $totalRent = ($intervel / $days) * ($config->standad_rent_single * 75 + $config->standad_rent_decorate) +
-                        ($intervel / $days) * $config->market_rent * ($rent->area - 75);
+                    $totalRent = ($intervel / $days) * ($config->standad_rent_single * 68.115 + $config->standad_rent_decorate + $config->market_rent * 22.705);
                 }
                 $money = 0;
             }
@@ -402,11 +401,10 @@ function calculateOneRentHasBeginTime(HouseholdMsg $householdMsg, HouseholdHouse
             //租房面积少于等于75平方用标准租金，超过75的部分用市场租金
             if (strtotime($householdMsg->in_school_time) <= strtotime('1999-12-31')) {
                 $config = $rent->addressMsg()->first();//获取租金配置
-                if ($rent->area <= 75) {
+                if ($rent->area <= 68.115) {
                     $totalRent = ($intervel / $days) * ($config->standad_rent_single * $rent->area + $config->standad_rent_decorate);
                 } else {
-                    $totalRent = ($intervel / $days) * ($config->standad_rent_single * 75 + $config->standad_rent_decorate) +
-                        ($intervel / $days) * $config->market_rent * ($rent->area - 75);
+                    $totalRent = ($intervel / $days) * ($config->standad_rent_single * 68.115 + $config->standad_rent_decorate + $config->market_rent * 22.705);
                 }
                 $money = 0;
             }
@@ -464,14 +462,16 @@ function whichRent(HouseholdHouseMsg $householdHouseMsg, $isDimission, $hasHouse
         if ($householdHouseMsg->order == 1) {//第一房
             switch ($hasHouse) {
                 case 0: {//无房
-                    if (strtotime($inSchoolTime) <= strtotime('1999-12-31')) {
-                        if ($hasHouseOrSubsidy) {//是否无房改+补贴
-                            return $config->market_rent * 1.2;//有房改+补贴
-                        } else {
-                            return -1;//无房改+补贴
-                        }
-                    }
-                    if (strtotime($inSchoolTime) < strtotime('2008-06-20')) {
+//                    if (strtotime($inSchoolTime) <= strtotime('1999-12-31')) {
+//                        if ($hasHouseOrSubsidy) {//是否无房改+补贴
+//                            return $config->market_rent * 1.2;//有房改+补贴
+//                        } else {
+//                            return -1;//无房改+补贴
+//                        }
+//                    }
+                    if (!$hasHouseOrSubsidy) {//是否无房改+补贴
+                        return -1;//无房改+补贴
+                    } else if (strtotime($inSchoolTime) < strtotime('2008-06-20')) {
                         if ($time <= 5) {//住房时间<=5年，用周转租金
                             return $config->turnover_rent;
                         } else if ($time == 6) {//住房时间==6年，优惠租金*1.0

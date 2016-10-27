@@ -433,10 +433,10 @@ class ExcelController extends Controller
                         }
 
                         switch ($msg[9]) {
-                            case "无":
+                            case "否":
                                 $hasHouseOrSubsidy = 0;
                                 break;
-                            case "有":
+                            case "是":
                                 $hasHouseOrSubsidy = 1;
                                 break;
                             default:
